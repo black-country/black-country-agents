@@ -17,7 +17,6 @@
         />
       </svg>
       <h2 class="text-2xl font-medium text-[#1D2739]">Create an account</h2>
-      {{ route.query.email }}
     </div>
 
     <!-- Registration Form -->

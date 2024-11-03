@@ -1,8 +1,7 @@
-
+<!-- 
 <template>
   <MessagingView title="Messages">
     <div class="h-screen flex">
-      <!-- Chat User List with custom scroll -->
       <div class="w-full lg:w-1/4 h-full sticky top-0 border-r-[0.5px] border-gray-50 overflow-y-auto custom-scrollbar">
         <ChatUserList
           :loading="loadingActiveChats"
@@ -88,38 +87,19 @@
            </defs>
          </svg>
          <h2 class="text-[#1D2739]">No conversations found</h2>
-         <!-- <p class="text-[#667185] text-sm">You have not contacted anyone</p> -->
           </section>
 
-        <!-- Chat Window and Message Input -->
         <div class="flex flex-col h-full">
-          <!-- Chat Window with custom scroll -->
+
           <div  class="flex-1 z-10 overflow-y-auto px-4 custom-scrollbar border-[0.5px] border-gray-25">
             <ChatWindow
               class="z-1-0"
               :roomChats="roomChatsList"
               :messages="messages"
             />
-            <!-- <p v-if="loadingRoomChats" class="flex justify-end items-end">Sending...</p> -->
-            <!-- <section v-else>
-              <div class="rounded-md p-4 w-full mx-auto mt-10">
-                <div class="animate-pulse flex space-x-4">
-                  <div class="flex-1 space-y-6 py-1">
-                    <div class="h-32 bg-slate-200 rounded"></div>
-                    <div class="space-y-3">
-                      <div class="grid grid-cols-3 gap-4">
-                        <div class="h-32 w-full bg-slate-200 rounded col-span-2"></div>
-                        <div class="h-32 w-full bg-slate-200 rounded col-span-1"></div>
-                      </div>
-                      <div class="h-32 w-full bg-slate-200 rounded"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </section> -->
+        
           </div>
 
-          <!-- Chat Message Input (Fixed at the bottom) -->
           <div class="border-t-[0.5px] border-gray-50 sticky bottom-0 z-10">
             <ChatMessageInput
               v-model="newMessage"
@@ -174,8 +154,8 @@ const selectUser = (user: any) => {
 const sendMessageToUser = (message: string) => {
   const socketPayload = {
     content: message,
-    recipientId: '81c0810f-d63a-44d4-bb96-eded6aca4cb4',
-    recipientType: 'TENANT',
+    recipientId: selectedUser?.value?.participant?.id,
+    recipientType: selectedUser?.value?.participant?.role,
     messageType: 'private',
   };
   sendMessage(socketPayload);
@@ -209,6 +189,207 @@ const sendMessageToUser = (message: string) => {
 }
 
 /* Sticky elements for header and footer */
+.sticky {
+  position: sticky;
+}
+</style> -->
+
+
+<template>
+  <MessagingView title="Messages">
+    <!-- <h1>Hello {{ messages }}</h1> -->
+    <div class="h-screen flex">
+      <!-- Chat Users List Section -->
+      <div class="w-full lg:w-1/4 h-full sticky top-0 border-r-[0.5px] border-gray-50 overflow-y-auto custom-scrollbar">
+        <ChatUserList
+          :loading="loadingActiveChats"
+          :users="activeChatsList"
+          @selectUser="selectUser"
+        />
+      </div>
+
+      <!-- Main Chat Section -->
+      <div class="lg:flex-1 flex flex-col hidden lg:block sticky top-0">
+        <!-- Chat Header -->
+        <div class="sticky top-0 bg-white z-20">
+          <ChatHeader 
+            :selectedUser="selectedUser || roomChatsList"
+            :isConnected="isConnected" 
+          />
+        </div>
+
+        <!-- Empty State -->
+        <section
+          v-if="!roomChatsList.length && !loadingActiveChats"
+          class="flex flex-col justify-between mt-32 items-center space-y-2"
+        >
+          <!-- Your existing SVG and empty state content -->
+          <svg><!-- Your existing SVG content --></svg>
+          <h2 class="text-[#1D2739]">No conversations found</h2>
+        </section>
+
+        <!-- Chat Content -->
+        <div class="flex flex-col h-full">
+          <!-- Messages Window -->
+          <div class="flex-1 z-10 overflow-y-auto px-4 custom-scrollbar border-[0.5px] border-gray-25">
+            <ChatWindow
+              class="z-10"
+              :roomChats="roomChatsList"
+              :messages="messages"
+              :selectedUser="selectedUser"
+            />
+          </div>
+
+          <!-- Message Input -->
+          <div class="border-t-[0.5px] border-gray-50 sticky bottom-0 z-10 bg-white">
+            <ChatMessageInput
+              v-model="newMessage"
+              :isConnected="isConnected"
+              :isSending="messageStatus === 'sending'"
+              @sendMessage="sendMessageToUser"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </MessagingView>
+</template>
+
+<script setup lang="ts">
+import { ref, watch, onMounted, onUnmounted } from 'vue';
+import { useRouter, useRoute } from 'vue-router';
+import MessagingView from "@/layouts/MessagingView.vue";
+import { useGetActiveChats } from "@/composables/modules/messages/fetchActiveChats";
+import { useGetRoomChats } from "@/composables/modules/messages/fetchRoomMessages";
+import { useWebSocket } from "@/composables/modules/messages/sockets";
+
+// Composables
+const { loadingActiveChats, activeChatsList } = useGetActiveChats();
+const { getRoomChats, loadingRoomChats, roomChatsList } = useGetRoomChats();
+const { 
+  messages, 
+  newMessage, 
+  isConnected, 
+  sendMessage 
+} = useWebSocket();
+
+const router = useRouter();
+const route = useRoute();
+const selectedUser = ref(null);
+const messageStatus = ref('idle');
+
+// Watch for selected user changes
+watch(selectedUser, async (newVal: any) => {
+  if (newVal?.id) {
+    try {
+      await getRoomChats(newVal.id);
+    } catch (error) {
+      console.error('Failed to fetch room chats:', error);
+    }
+  }
+});
+
+// Watch for new messages to scroll to bottom
+watch(messages, (newMessages) => {
+  if (newMessages.length > 0) {
+    scrollToBottom();
+  }
+}, { deep: true });
+
+// Message handling
+const sendMessageToUser = async (content: string) => {
+  if (!selectedUser.value?.participant?.id || !isConnected.value) {
+    console.error('Cannot send message: No recipient selected or not connected');
+    return;
+  }
+
+  messageStatus.value = 'sending';
+
+  try {
+    const socketPayload = {
+      content,
+      recipientId: selectedUser.value.participant.id,
+      recipientType: selectedUser.value.participant.role,
+      messageType: 'private',
+      room: selectedUser.value.id // Include room ID if needed
+    };
+
+    await sendMessage(socketPayload);
+    messageStatus.value = 'sent';
+    newMessage.value = ''; // Clear input after successful send
+  } catch (error) {
+    console.error('Failed to send message:', error);
+    messageStatus.value = 'error';
+    // Optionally show error notification to user
+  }
+};
+
+// User selection
+const selectUser = (user: any) => {
+  selectedUser.value = user;
+  // Optionally update URL
+  router.push({ query: { userId: user.id }});
+};
+
+// Scroll handling
+const scrollToBottom = () => {
+  const chatWindow = document.querySelector('.custom-scrollbar');
+  if (chatWindow) {
+    chatWindow.scrollTop = chatWindow.scrollHeight;
+  }
+};
+
+// Event handling
+const { $emitter } = useNuxtApp();
+
+onMounted(() => {
+  // Handle URL parameters
+  const userId = route.query.userId;
+  if (userId && activeChatsList.value) {
+    const user = activeChatsList.value.find(u => u.id === userId);
+    if (user) {
+      selectUser(user);
+    }
+  }
+
+  // Set up event listeners
+  $emitter.on('customEvent', async (payload: any) => {
+    if (payload.data) {
+      await getRoomChats(payload.data);
+      scrollToBottom();
+    }
+  });
+});
+
+onUnmounted(() => {
+  // Clean up event listeners
+  $emitter.off('customEvent');
+});
+</script>
+
+<style scoped>
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #6b7280;
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
+}
+
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #6b7280 #f1f1f1;
+}
+
+.custom-scrollbar:hover::-webkit-scrollbar-thumb {
+  background-color: #4b5563;
+}
+
 .sticky {
   position: sticky;
 }

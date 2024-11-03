@@ -49,7 +49,7 @@
         <button @click="router.push('/dashboard/profile')" class="flex cursor-pointer items-center block space-x-2">
           <img src="@/assets/icons/user-icon.svg" alt="" />
 
-          <span class="text-">Rufus Ugochukwu</span>
+          <span class="text-">{{ `${user?.firstName} ${user?.lastName}` ?? 'Nil' }}</span>
           <img src="@/assets/icons/more-caret.svg" alt="" />
 
         </button>
@@ -205,6 +205,8 @@
   </template>
 
   <script setup lang="ts">
+  import { useUser } from '@/composables/auth/user'
+const { user } = useUser()
 const router = useRouter()
 const isOpen = ref(false)
 const showLogoutModal = ref(false);
