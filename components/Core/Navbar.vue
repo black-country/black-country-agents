@@ -1,8 +1,8 @@
 
 <template>
 <main>
-  <section class="bg-[#292929] sticky top-0 z-50">
-    <nav class="flex items-center justify-between container mx-auto p-4 py-3 text-white">
+  <section class="bg-[#292929] sticky top-0 z-50 mb-20">
+    <nav class="flex items-center justify-between fixed top-0 w-full bg-[#292929]  mx-auto p-4 py-3 text-white">
       <div class="flex items-center space-x-4">
         <img src="@/assets/icons/white-logo-with-text.svg" alt="" />
 

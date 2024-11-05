@@ -2,7 +2,7 @@
     <main>
       <div class="flex h-screen">
         <aside
-          class="w-16 hidden lg:block bg-[#292929] shadow-md flex flex-col items-center"
+          class="w-16 hidden bg-[#292929] shadow-md flex flex-col items-center"
         >
           <nav class="space-y-6 mt-10">
             <div class="pl-2 flex justify-center items-center mx-3">
