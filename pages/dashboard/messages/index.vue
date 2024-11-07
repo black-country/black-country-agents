@@ -93,105 +93,44 @@
                       </div> -->
 
             <!-- Contacts -->
-            <div class="bg-grey-lighter flex-1 overflow-auto">
+            <div v-if="!loadingActiveChats && activeChatsList.length" class="bg-grey-lighter flex-1 overflow-auto">
               <ChatUserList class="px-3 flex items-center bg-grey-light cursor-pointer" :loading="loadingActiveChats"
                 :users="activeChatsList" @selectUser="selectUser" />
-              <!-- <div v-for="itm in 60" class="px-3 flex items-center bg-grey-light cursor-pointer">
-                              <div>
-                                  <img class="h-12 w-12 rounded-full"
-                                       src="https://darrenjameseeley.files.wordpress.com/2014/09/expendables3.jpeg"/>
-                              </div>
-                              <div class="ml-4 flex-1 border-b border-grey-lighter py-4">
-                                  <div class="flex items-bottom justify-between">
-                                      <p class="text-grey-darkest">
-                                          New Movie! Expendables 4
-                                      </p>
-                                      <p class="text-xs text-grey-darkest">
-                                          12:45 pm
-                                      </p>
-                                  </div>
-                                  <p class="text-grey-dark mt-1 text-sm">
-                                      Get Andrés on this movie ASAP!
-                                  </p>
-                              </div>
-                          </div> -->
-              <!-- <div class="bg-white px-3 flex items-center hover:bg-grey-lighter cursor-pointer">
-                              <div>
-                                  <img class="h-12 w-12 rounded-full"
-                                       src="https://www.biography.com/.image/t_share/MTE5NDg0MDU1MTIyMTE4MTU5/arnold-schwarzenegger-9476355-1-402.jpg"/>
-                              </div>
-                              <div class="ml-4 flex-1 border-b border-grey-lighter py-4">
-                                  <div class="flex items-bottom justify-between">
-                                      <p class="text-grey-darkest">
-                                          Arnold Schwarzenegger
-                                      </p>
-                                      <p class="text-xs text-grey-darkest">
-                                          12:45 pm
-                                      </p>
-                                  </div>
-                                  <p class="text-grey-dark mt-1 text-sm">
-                                      I'll be back
-                                  </p>
-                              </div>
-                          </div>
-                          <div class="bg-white px-3 flex items-center hover:bg-grey-lighter cursor-pointer">
-                              <div>
-                                  <img class="h-12 w-12 rounded-full"
-                                       src="https://www.famousbirthdays.com/headshots/russell-crowe-6.jpg"/>
-                              </div>
-                              <div class="ml-4 flex-1 border-b border-grey-lighter py-4">
-                                  <div class="flex items-bottom justify-between">
-                                      <p class="text-grey-darkest">
-                                          Russell Crowe
-                                      </p>
-                                      <p class="text-xs text-grey-darkest">
-                                          12:45 pm
-                                      </p>
-                                  </div>
-                                  <p class="text-grey-dark mt-1 text-sm">
-                                      Hold the line!
-                                  </p>
-                              </div>
-                          </div>
-                          <div class="bg-white px-3 flex items-center hover:bg-grey-lighter cursor-pointer">
-                              <div>
-                                  <img class="h-12 w-12 rounded-full"
-                                       src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGpYTzuO0zLW7yadaq4jpOz2SbsX90okb24Z9GtEvK6Z9x2zS5"/>
-                              </div>
-                              <div class="ml-4 flex-1 border-b border-grey-lighter py-4">
-                                  <div class="flex items-bottom justify-between">
-                                      <p class="text-grey-darkest">
-                                          Tom Cruise
-                                      </p>
-                                      <p class="text-xs text-grey-darkest">
-                                          12:45 pm
-                                      </p>
-                                  </div>
-                                  <p class="text-grey-dark mt-1 text-sm">
-                                      Show me the money!
-                                  </p>
-                              </div>
-                          </div>
-                          <div class="bg-white px-3 flex items-center hover:bg-grey-lighter cursor-pointer">
-                              <div>
-                                  <img class="h-12 w-12 rounded-full"
-                                       src="https://www.biography.com/.image/t_share/MTE5NTU2MzE2MjE4MTY0NzQ3/harrison-ford-9298701-1-sized.jpg"/>
-                              </div>
-                              <div class="ml-4 flex-1 border-b border-grey-lighter py-4">
-                                  <div class="flex items-bottom justify-between">
-                                      <p class="text-grey-darkest">
-                                          Harrison Ford
-                                      </p>
-                                      <p class="text-xs text-grey-darkest">
-                                          12:45 pm
-                                      </p>
-                                  </div>
-                                  <p class="text-grey-dark mt-1 text-sm">
-                                      Tell Java I have the money
-                                  </p>
-                              </div>
-                          </div> -->
             </div>
+            <section v-else-if="loadingActiveChats && !activeChatsList?.length">
+        <div class="rounded-md p-4 w-full mx-auto">
+          <div class="animate-pulse flex space-x-4">
+            <div class="flex-1 space-y-6 py-1">
+              <div class="h-44 bg-slate-200 rounded"></div>
+            </div>
+          </div>
+        </div>
+       </section>
+      <section v-else class="flex flex-col justify-between items-center space-y-2 mt-10">
+             <svg width="152" height="124" viewBox="0 0 152 124" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="76" cy="58" r="52" fill="#EAEAEA"/>
+            <circle cx="21" cy="25" r="5" fill="#BDBDBD"/>
+            <circle cx="18" cy="109" r="7" fill="#BDBDBD"/>
+            <circle cx="145" cy="41" r="7" fill="#BDBDBD"/>
+            <circle cx="134" cy="14" r="4" fill="#BDBDBD"/>
+            <g filter="url(#filter0_b_6853_118795)">
+            <rect x="52" y="34" width="48" height="48" rx="24" fill="#9D9D9D"/>
+            <path d="M85.9598 56.9707C86.0134 57.8009 86.0134 58.6607 85.9598 59.4909C85.6856 63.7332 82.3536 67.1125 78.1706 67.3905C76.7435 67.4854 75.2536 67.4852 73.8294 67.3905C73.339 67.3579 72.8044 67.2409 72.344 67.0513C71.8318 66.8403 71.5756 66.7348 71.4454 66.7508C71.3153 66.7668 71.1264 66.9061 70.7487 67.1846C70.0827 67.6757 69.2437 68.0285 67.9994 67.9982C67.3703 67.9829 67.0557 67.9752 66.9148 67.7351C66.774 67.495 66.9494 67.1626 67.3002 66.4978C67.7867 65.5758 68.095 64.5203 67.6279 63.6746C66.8234 62.4666 66.1401 61.036 66.0402 59.4909C65.9866 58.6607 65.9866 57.8009 66.0402 56.9707C66.3144 52.7284 69.6464 49.3491 73.8294 49.0711C75.0318 48.9911 75.2812 48.9786 76.5 49.0337" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M72.5 61H79.5M72.5 56H76" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M86 51.5C86 53.433 84.433 55 82.5 55C80.567 55 79 53.433 79 51.5C79 49.567 80.567 48 82.5 48C84.433 48 86 49.567 86 51.5Z" stroke="white" stroke-width="1.5"/>
+            </g>
+            <defs>
+            <filter id="filter0_b_6853_118795" x="44" y="26" width="64" height="64" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+            <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+            <feGaussianBlur in="BackgroundImageFix" stdDeviation="4"/>
+            <feComposite in2="SourceAlpha" operator="in" result="effect1_backgroundBlur_6853_118795"/>
+            <feBlend mode="normal" in="SourceGraphic" in2="effect1_backgroundBlur_6853_118795" result="shape"/>
+            </filter>
+            </defs>
+            </svg>
+            <h2 class="text-[#1D2739]">No conversations found</h2>
+            <p class="text-[#667185]">You have not contacted anyone</p>
+      </section>
 
           </div>
 
@@ -230,16 +169,16 @@
                       </div> -->
 
             <!-- Messages -->
-            <div class="flex-1 overflow-auto" style="background-color: white">
+            <div v-if="!loadingRoomChats" class="flex-1 overflow-auto" style="background-color: white">
               <div class="py-2 px-3">
 
-                <div class="flex justify-center mb-2">
+                <!-- <div class="flex justify-center mb-2">
                   <div class="rounded py-2 px-4" style="background-color: white">
                     <p class="text-sm uppercase">
                       February 20, 2018
                     </p>
                   </div>
-                </div>
+                </div> -->
 
                 <div class="flex justify-center mb-4">
                   <div class="rounded py-2 px-4" style="background-color: #FCF4CB">
@@ -357,6 +296,41 @@
                 <ChatWindow class="z-10" :roomChats="roomChatsList" :messages="messages" :selectedUser="selectedUser" />
               </div>
             </div>
+
+            <section class="flex-1 overflow-auto" v-if="loadingRoomChats">
+              <div class="rounded-md p-4 w-full mx-auto">
+                <div class="animate-pulse flex space-x-4">
+                  <div class="flex-1 space-y-6 py-1">
+                    <div class="h-96 bg-slate-200 rounded"></div>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <!-- <section v-else class="flex flex-col justify-between items-center space-y-2 mt-10">
+                  <svg width="152" height="124" viewBox="0 0 152 124" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="76" cy="58" r="52" fill="#EAEAEA"/>
+                  <circle cx="21" cy="25" r="5" fill="#BDBDBD"/>
+                  <circle cx="18" cy="109" r="7" fill="#BDBDBD"/>
+                  <circle cx="145" cy="41" r="7" fill="#BDBDBD"/>
+                  <circle cx="134" cy="14" r="4" fill="#BDBDBD"/>
+                  <g filter="url(#filter0_b_6853_118795)">
+                  <rect x="52" y="34" width="48" height="48" rx="24" fill="#9D9D9D"/>
+                  <path d="M85.9598 56.9707C86.0134 57.8009 86.0134 58.6607 85.9598 59.4909C85.6856 63.7332 82.3536 67.1125 78.1706 67.3905C76.7435 67.4854 75.2536 67.4852 73.8294 67.3905C73.339 67.3579 72.8044 67.2409 72.344 67.0513C71.8318 66.8403 71.5756 66.7348 71.4454 66.7508C71.3153 66.7668 71.1264 66.9061 70.7487 67.1846C70.0827 67.6757 69.2437 68.0285 67.9994 67.9982C67.3703 67.9829 67.0557 67.9752 66.9148 67.7351C66.774 67.495 66.9494 67.1626 67.3002 66.4978C67.7867 65.5758 68.095 64.5203 67.6279 63.6746C66.8234 62.4666 66.1401 61.036 66.0402 59.4909C65.9866 58.6607 65.9866 57.8009 66.0402 56.9707C66.3144 52.7284 69.6464 49.3491 73.8294 49.0711C75.0318 48.9911 75.2812 48.9786 76.5 49.0337" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M72.5 61H79.5M72.5 56H76" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M86 51.5C86 53.433 84.433 55 82.5 55C80.567 55 79 53.433 79 51.5C79 49.567 80.567 48 82.5 48C84.433 48 86 49.567 86 51.5Z" stroke="white" stroke-width="1.5"/>
+                  </g>
+                  <defs>
+                  <filter id="filter0_b_6853_118795" x="44" y="26" width="64" height="64" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                  <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                  <feGaussianBlur in="BackgroundImageFix" stdDeviation="4"/>
+                  <feComposite in2="SourceAlpha" operator="in" result="effect1_backgroundBlur_6853_118795"/>
+                  <feBlend mode="normal" in="SourceGraphic" in2="effect1_backgroundBlur_6853_118795" result="shape"/>
+                  </filter>
+                  </defs>
+                  </svg>
+                  <h2 class="text-[#1D2739]">No conversations found</h2>
+                  <p class="text-[#667185]">You have not contacted anyone</p>
+            </section> -->
 
             <!-- Input -->
             <ChatMessageInput v-model="newMessage" :isConnected="isConnected" :isSending="messageStatus === 'sending'"

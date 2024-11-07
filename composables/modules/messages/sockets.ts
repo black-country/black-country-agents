@@ -2,6 +2,8 @@ import { ref, onMounted, onUnmounted } from "vue";
 import { io, Socket } from "socket.io-client";
 import { useUser } from "@/composables/auth/user";
 import { useGetRoomChats } from '@/composables/modules/messages/fetchRoomMessages';
+import { useCustomToast } from '@/composables/core/useCustomToast'
+const { showToast } = useCustomToast();
 
 export const useWebSocket = () => {
   const { token } = useUser();
@@ -25,18 +27,35 @@ export const useWebSocket = () => {
 
     // Connection events
     socket.value.on("connect", () => {
-      console.log("Connected to WebSocket server");
+      // console.log("Connected to WebSocket server");
+      showToast({
+        title: "Success",
+        message: "Connection was successful",
+        toastType: "success",
+        duration: 3000
+      });
       isConnected.value = true;
       fetchInitialMessages();
     });
 
     socket.value.on("disconnect", () => {
       console.log("Disconnected from server");
+      showToast({
+        title: "Error",
+        message: "Disconnected from websocket.",
+        toastType: "error",
+        duration: 3000
+      });
       isConnected.value = false;
     });
 
     socket.value.on("error", (error) => {
-      console.error("Connection error:", error);
+      showToast({
+        title: "Error",
+        message: "Connection error:",
+        toastType: "error",
+        duration: 3000
+      });
       isConnected.value = false;
     });
 
@@ -51,7 +70,7 @@ export const useWebSocket = () => {
     //   }
     // });
     socket.value.on("message.new", (message: any) => {
-      console.log("New message receivedssssssss:", message.message);
+      // console.log("New message receivedssssssss:", message.message);
       if (message && !messages.value.some(msg => msg.id === message?.message?.id)) {
         const newMessage = {
           ...message.message, // Use only the message object
