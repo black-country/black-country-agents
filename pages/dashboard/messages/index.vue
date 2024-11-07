@@ -1,220 +1,7 @@
-<!-- <template>
-  <main>
-    <CoreNavbar />
-    <div class="h-screen flex">
-      <div class="w-full lg:w-1/4 h-full border-r-[0.5px] border-gray-50 overflow-y-auto custom-scrollbar sticky top-0">
-        <ChatUserList
-          :loading="loadingActiveChats"
-          :users="activeChatsList"
-          @selectUser="selectUser"
-        />
-      </div>
-  
-      <div class="lg:flex-1 flex flex-col hidden lg:block">
-        <div class="sticky top-0 bg-white z-20">
-          <ChatHeader 
-            :selectedUser="selectedUser || roomChatsList"
-            :isConnected="isConnected" 
-          />
-        </div>
-  
-        <section
-          v-if="!roomChatsList.length && !loadingActiveChats"
-          class="flex flex-col justify-center items-center mt-32 space-y-2"
-        >
-          <h2 class="text-[#1D2739]">No conversations found</h2>
-        </section>
-  
-        <div class="flex flex-col h-full">
-          <div class="flex-1 overflow-y-auto px-4 custom-scrollbar border-[0.5px] border-gray-25">
-            <ChatWindow
-              class="z-10"
-              :roomChats="roomChatsList"
-              :messages="messages"
-              :selectedUser="selectedUser"
-            />
-          </div>
-  
-          <div class="border-t-[0.5px] border-gray-50 sticky bottom-0 z-10 bg-white">
-            <ChatMessageInput
-              v-model="newMessage"
-              :isConnected="isConnected"
-              :isSending="messageStatus === 'sending'"
-              @sendMessage="sendMessageToUser"
-            />
-          </div>
-        </div>
-      </div>
-    </div>
-  </main>
-  </template>
-  
-  <style scoped>
-  /* Ensure the user list section stays sticky and has its own internal scrollbar */
-  .custom-scrollbar {
-    /* Customize scrollbar styling as needed */
-    scrollbar-width: thin;
-  }
-  
-  .custom-scrollbar::-webkit-scrollbar {
-    width: 8px;
-  }
-  
-  .custom-scrollbar::-webkit-scrollbar-thumb {
-    background-color: #c0c0c0;
-    border-radius: 4px;
-  }
-  
-  .custom-scrollbar::-webkit-scrollbar-track {
-    background-color: #f1f1f1;
-  }
-  </style>
-  
-
-<script setup lang="ts">
-import { ref, watch, onMounted, onUnmounted } from 'vue';
-import { useRouter, useRoute } from 'vue-router';
-import MessagingView from "@/layouts/MessagingView.vue";
-import { useGetActiveChats } from "@/composables/modules/messages/fetchActiveChats";
-import { useGetRoomChats } from "@/composables/modules/messages/fetchRoomMessages";
-import { useWebSocket } from "@/composables/modules/messages/sockets";
-
-// Composables
-const { loadingActiveChats, activeChatsList } = useGetActiveChats();
-const { getRoomChats, loadingRoomChats, roomChatsList } = useGetRoomChats();
-const { 
-  messages, 
-  newMessage, 
-  isConnected, 
-  sendMessage 
-} = useWebSocket();
-
-const router = useRouter();
-const route = useRoute();
-const selectedUser = ref(null);
-const messageStatus = ref('idle');
-
-// Watch for selected user changes
-watch(selectedUser, async (newVal: any) => {
-  if (newVal?.id) {
-    try {
-      await getRoomChats(newVal.id);
-    } catch (error) {
-      console.error('Failed to fetch room chats:', error);
-    }
-  }
-});
-
-// Watch for new messages to scroll to bottom
-watch(messages, (newMessages) => {
-  if (newMessages.length > 0) {
-    scrollToBottom();
-  }
-}, { deep: true });
-
-// Message handling
-const sendMessageToUser = async (content: string) => {
-  if (!selectedUser.value?.participant?.id || !isConnected.value) {
-    console.error('Cannot send message: No recipient selected or not connected');
-    return;
-  }
-
-  messageStatus.value = 'sending';
-
-  try {
-    const socketPayload = {
-      content,
-      recipientId: selectedUser.value.participant.id,
-      recipientType: selectedUser.value.participant.role,
-      messageType: 'private',
-      room: selectedUser.value.id // Include room ID if needed
-    };
-
-    await sendMessage(socketPayload);
-    messageStatus.value = 'sent';
-    newMessage.value = ''; // Clear input after successful send
-  } catch (error) {
-    console.error('Failed to send message:', error);
-    messageStatus.value = 'error';
-    // Optionally show error notification to user
-  }
-};
-
-// User selection
-const selectUser = (user: any) => {
-  selectedUser.value = user;
-  // Optionally update URL
-  router.push({ query: { userId: user.id }});
-};
-
-// Scroll handling
-const scrollToBottom = () => {
-  const chatWindow = document.querySelector('.custom-scrollbar');
-  if (chatWindow) {
-    chatWindow.scrollTop = chatWindow.scrollHeight;
-  }
-};
-
-// Event handling
-const { $emitter } = useNuxtApp();
-
-onMounted(() => {
-  // Handle URL parameters
-  const userId = route.query.userId;
-  if (userId && activeChatsList.value) {
-    const user = activeChatsList.value.find(u => u.id === userId);
-    if (user) {
-      selectUser(user);
-    }
-  }
-
-  // Set up event listeners
-  $emitter.on('customEvent', async (payload: any) => {
-    if (payload.data) {
-      await getRoomChats(payload.data);
-      scrollToBottom();
-    }
-  });
-});
-
-onUnmounted(() => {
-  // Clean up event listeners
-  $emitter.off('customEvent');
-});
-</script>
-
-<style scoped>
-.custom-scrollbar::-webkit-scrollbar {
-  width: 8px;
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  background-color: #6b7280;
-  border-radius: 10px;
-}
-
-.custom-scrollbar::-webkit-scrollbar-track {
-  background-color: #f1f1f1;
-}
-
-.custom-scrollbar {
-  scrollbar-width: thin;
-  scrollbar-color: #6b7280 #f1f1f1;
-}
-
-.custom-scrollbar:hover::-webkit-scrollbar-thumb {
-  background-color: #4b5563;
-}
-
-.sticky {
-  position: sticky;
-}
-</style> -->
-
 <template>
   <!-- component -->
+   <MessagingView>
   <div>
-    <!-- <CoreNavbar /> -->
     <div class="w-full h-32" style="background-color: white"></div>
     <div class="" style="margin-top: -128px;">
       <div class="h-screen">
@@ -590,6 +377,7 @@ onUnmounted(() => {
       </div>
     </div>
   </div>
+</MessagingView>
 </template>
 
 <script setup lang="ts">
@@ -609,6 +397,10 @@ const {
   isConnected,
   sendMessage
 } = useWebSocket();
+
+definePageMeta({
+  middleware: 'auth'
+})
 
 const router = useRouter();
 const route = useRoute();

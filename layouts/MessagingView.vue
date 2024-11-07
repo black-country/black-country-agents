@@ -2,7 +2,7 @@
     <main>
       <div class="flex h-screen">
         <aside
-          class="w-16 hidden bg-[#292929] shadow-md flex flex-col items-center"
+          class="w-16 bg-[#292929] shadow-md flex flex-col items-center"
         >
           <nav class="space-y-6 mt-10">
             <div class="pl-2 flex justify-center items-center mx-3">
@@ -270,59 +270,7 @@
           </div>
         </aside>
         <div class="flex-1 lg:flex flex-col sticky top-0 z-50">
-          <header
-            class="bg-white bg-white border-[0.5px] sticky top-0 z-50 border-gray-100 flex justify-between items-center py-3 px-4"
-          >
-            <div class="text-lg font-semibold text-gray-800 flex items-cemnter gap-x-2">
-              <svg class="lg:hidden" width="36" height="37" viewBox="0 0 36 37" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M11.332 12.4805H24.6654" stroke="#1D2739" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M11.332 18.3125H24.6654" stroke="#1D2739" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M11.332 24.1445H24.6654" stroke="#1D2739" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
 
-                <span class="pt-1 lg:pt-0">{{ title }}</span>
-            </div>
-            <div class="flex items-center space-x-2">
-              <div class="relative">
-                <svg
-                  width="40"
-                  height="40"
-                  viewBox="0 0 40 40"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M12.107 22.3093C11.9298 23.471 12.722 24.2773 13.6921 24.6791C17.411 26.2198 22.5864 26.2198 26.3053 24.6791C27.2754 24.2773 28.0676 23.471 27.8905 22.3093C27.7815 21.5954 27.243 21.0009 26.844 20.4204C26.3214 19.6507 26.2695 18.8111 26.2695 17.918C26.2695 14.4662 23.4619 11.668 19.9987 11.668C16.5355 11.668 13.728 14.4662 13.728 17.918C13.7279 18.8111 13.676 19.6507 13.1534 20.4204C12.7544 21.0009 12.2159 21.5954 12.107 22.3093Z"
-                    stroke="#1D2739"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                  <path
-                    d="M16.668 25.832C17.05 27.2697 18.3976 28.332 20.0013 28.332C21.6051 28.332 22.9526 27.2697 23.3346 25.832"
-                    stroke="#1D2739"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-              </div>
-              <div
-                @click="router.push('/dashboard/profile')"
-                class="flex cursor-pointer items-center space-x-2"
-              >
-                <p class="bg-gray-900 text-white p-2 font-semibold rounded-lg">
-                  {{ initials }}
-                </p>
-                <div class="hidden lg:block">
-                  <p class="text-sm font-medium">
-                    {{ user?.firstName }} {{ user?.lastName }}
-                  </p>
-                  <p class="text-xs text-gray-500">{{ user?.role }}</p>
-                </div>
-              </div>
-            </div>
-          </header>
            <slot></slot>
         </div>
       </div>

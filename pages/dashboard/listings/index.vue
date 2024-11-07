@@ -44,6 +44,7 @@
 const tabs = ref(['All', 'Mainland', 'Ireland']);
 const selectedTab = ref(tabs.value[0]);
 definePageMeta({
-  layout: "dashboard"
+  layout: "dashboard",
+  middleware: 'auth'
 })
 </script>

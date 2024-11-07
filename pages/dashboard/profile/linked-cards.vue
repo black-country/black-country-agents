@@ -129,7 +129,8 @@ const router = useRouter()
 const cards = ref(['credit', 'debit'])
 
 definePageMeta({
-  layout: "dashboard"
+  layout: "dashboard",
+  middleware: 'auth'
 })
 
 </script>

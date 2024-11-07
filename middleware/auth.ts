@@ -1,8 +1,7 @@
-// import { useLogin } from "@/composables/auth/login";
-// const { isLoggedIn } = useLogin();
-const isLoggedIn = ref(false)
+import { useUser } from "@/composables/auth/user";
+const { isLoggedIn } =  useUser();
 export default defineNuxtRouteMiddleware((to, from) => {
   if (!isLoggedIn.value && to.path !== "/login") {
-    return navigateTo("/");
+    return navigateTo("/login");
   }
 });

@@ -1,6 +1,5 @@
 <template>
   <main>
-    
     <div class="min-h-screen bg-gray-25 pb-10">
       <div class="max-w-xl mx-auto space-y-4 pt-10">
           <h3 class="text-[#1D2739] text-lg font-semibold pl-10 lg:pl-0">Profile</h3>
@@ -217,7 +216,7 @@
         <div
         class="border-[0.5px] border-gray-25 rounded-md bg-white text-sm font- text-[#BA110B] p-4 flex justify-between items-center"
       >
-  <div @click="showBLogoutModal = true" class="flex  cursor-pointer items-center gap-x-3">
+  <div @click="showLogoutModal = true" class="flex  cursor-pointer items-center gap-x-3">
       <img :src="dynamicIcons('logout-icon')" alt="" />
       <p>Log out</p>
   </div>
@@ -244,9 +243,10 @@
       </div>
     </div>
 
-    <!-- <CoreModal
-    :isOpen="showBLogoutModal"
-    @close="showBLogoutModal = false"
+    <CoreModal
+     v-if="showLogoutModal"
+    :isOpen="showLogoutModal"
+    @close="showLogoutModal = false"
     >
     <div
     class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
@@ -287,7 +287,7 @@
       </div>
     </div>
   </div>
-    </CoreModal> -->
+    </CoreModal>
   </main>
 </template>
 
@@ -295,26 +295,27 @@
 import { useUser } from '@/composables/auth/user'
 import { dynamicIcons } from "@/utils/assets";
 const { user } = useUser()
-const showBLogoutModal = ref(false);
+const showLogoutModal = ref(false);
 const router = useRouter()
 const loading = ref(false)
 const onConfirm = () => {
   // Logic for logout
   loading.value = true
   localStorage.clear()
-  showBLogoutModal.value = false
+  showLogoutModal.value = false
   router.push('/login')
   window.location.href="/login"
   console.log("Logging out...");
 };
 
 definePageMeta({
-  layout: "dashboard"
+  layout: "dashboard",
+  middleware: 'auth'
 })
 
 
 const onCancel = () => {
-  showBLogoutModal.value = false
+  showLogoutModal.value = false
   // Logic to close the modal
   console.log("Cancelled");
 };

@@ -35,7 +35,7 @@ export const useWebSocket = () => {
       isConnected.value = false;
     });
 
-    socket.value.on("connect_error", (error) => {
+    socket.value.on("error", (error) => {
       console.error("Connection error:", error);
       isConnected.value = false;
     });

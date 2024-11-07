@@ -137,7 +137,8 @@ watch(profileObj, (newProfile) => {
     };
     
     definePageMeta({
-  layout: "dashboard"
+  layout: "dashboard",
+  middleware: 'auth'
 })
     </script>
     

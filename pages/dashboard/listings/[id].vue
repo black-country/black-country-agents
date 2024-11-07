@@ -505,8 +505,9 @@
   };
   
   definePageMeta({
-    middleware: "auth",
-  });
+  layout: "dashboard",
+  middleware: 'auth'
+})
   
   const toggleLike = () => {
     bookmarkProperty(propertyObj.value.id);

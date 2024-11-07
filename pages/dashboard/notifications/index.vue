@@ -729,9 +729,9 @@
   const initials = ref("") as any;
 
   definePageMeta({
-  layout: "dashboard"
+  layout: "dashboard",
+  middleware: 'auth'
 })
-
   
   const { groupedNotifications, formatNotifications } = useFormatNotifications();
   

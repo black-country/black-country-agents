@@ -8,7 +8,8 @@
 
 <script setup lang="ts">
 definePageMeta({
-  layout: "dashboard"
+  layout: "dashboard",
+  middleware: 'auth'
 })
 
 const activeTab = ref('grid')
