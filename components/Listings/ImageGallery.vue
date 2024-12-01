@@ -10,11 +10,6 @@
       <div v-else-if="images && !loading" class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6 p-6 lg:p-0">
         <!-- Main Image -->
         <div>
-          <!-- <CoreImageZoom
-          :class="'cursor-pointer border-4 w-full object-cover'"
-          :src="images[0]"
-          :style="{ height: '700px' }"
-        /> -->
         <CoreImageZoom
         :class="'cursor-pointer w-full object-cover'"
         :src="images[0]"

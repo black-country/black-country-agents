@@ -13,4 +13,12 @@ export const visitation_api = {
         const url = `/houses/${id}/visitations`;
         return GATEWAY_ENDPOINT.post(url, payload);
       },
+      $_set_visitation_availability: (id: string | number, payload: any) => {
+        const url = `/houses/${id}/visitations/availability-days`;
+        return GATEWAY_ENDPOINT.post(url, payload);
+      },
+      $_fetch_scheduled_visitations: (agentId: string | number) => {
+        const url = `/agents/${agentId}/visitations`;
+        return GATEWAY_ENDPOINT.get(url);
+      },
 };

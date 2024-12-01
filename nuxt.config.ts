@@ -19,7 +19,7 @@ export default {
   loading: false,
   loadingIndicator: false, // Completely removes the default Nuxt loading screen
 
-  modules: ["@nuxtjs/tailwindcss"],
+  modules: ['nuxt-icon',"@nuxtjs/tailwindcss"],
   css: ["/assets/css/main.css"],
 
   tailwindcss: {

@@ -13,10 +13,10 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(visit, index) in visits" :key="index" class="border-b border-gray-50">
-              <td class="px-4 py-6 text-[#667185] font-light text-sm"> {{ visit.name }}</td>
-              <td class="px-4 py-6 text-[#667185] font-light text-sm">{{ visit.property }}</td>
-              <td class="px-4 py-6 text-[#667185] font-light text-sm">{{ visit.date }}</td>
+            <tr v-for="(visit, index) in visitations" :key="index" class="border-b border-gray-50">
+              <td class="px-4 py-6 text-[#667185] font-light text-sm"> {{ `${ visit.tenant.firstName} ${ visit.tenant.lastName}` ?? 'Nil' }}</td>
+              <td class="px-4 py-6 text-[#667185] font-light text-sm">{{ visit?.house?.name ?? 'Nil' }}</td>
+              <td class="px-4 py-6 text-[#667185] font-light text-sm"> {{ moment(visit.date).format("MMMM Do YYYY") }}</td>
               <td class="px-4 py-6 text-[#667185] font-light text-sm">{{ visit.time }}</td>
               <td class="px-4 py-6 text-[#667185] font-light text-sm relative">
                 {{ visit.status }}
@@ -164,7 +164,9 @@
 </template>
 
 <script setup lang="ts">
+  import moment from 'moment';
 import { ref } from "vue";
+
 
 interface Visit {
   name: string;
@@ -175,10 +177,10 @@ interface Visit {
 }
 
 const props = defineProps({
-  visits: {
+  visitations: {
     type: Array as PropType<Visit[]>,
     required: true,
-  },
+  }
 });
 
 const activeDropdown = ref<number | null>(null);
@@ -220,18 +222,3 @@ const toggleInfoDropdown = (index: number) => {
   }
 };
 </script>
-<!-- 
-<style scoped>
-/* Custom styles for the arrow on top of the modal */
-.relative div::before {
-  content: "";
-  position: absolute;
-  top: -0.5rem;
-  left: 2.5rem;
-  width: 1rem;
-  height: 1rem;
-  background-color: white;
-  transform: rotate(45deg);
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-}
-</style> -->

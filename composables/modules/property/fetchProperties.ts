@@ -1,5 +1,6 @@
 import { ref, onMounted, watch } from 'vue'
 import { property_api } from '@/api_factory/modules/property'
+import { useUser } from '@/composables/auth/user'
 import { debounce } from 'lodash'
 
 export const useGetProperties = () => {
@@ -12,36 +13,19 @@ export const useGetProperties = () => {
     const perPage = ref(20)
     const totalPages = ref(1) // To store total pages
     const sortBy = ref('all') // To store the sort type
+    const { user } = useUser()
 
     const { $_fetch_properties } = property_api
-
-    // Sorting logic based on the "sortBy" ref
-    const sortProperties = (properties) => {
-        if (sortBy.value === 'newest') {
-            return properties.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
-        } else if (sortBy.value === 'oldest') {
-            return properties.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
-        } else if (sortBy.value === 'lowToHigh') {
-            return properties.sort((a, b) => a.price - b.price);
-        } else if (sortBy.value === 'highToLow') {
-            return properties.sort((a, b) => b.price - a.price);
-        } else {
-            // 'all' or any other default sorting
-            return properties; // Return as is for 'all'
-        }
-    };
 
     const getProperties = async () => {
         loadingProperties.value = true
 
         // Pass page, perPage, and searchQuery to the API factory
-        const res = await $_fetch_properties(currentPage.value, perPage.value, searchQuery.value) as any
+        const res = await $_fetch_properties(currentPage.value, perPage.value, searchQuery.value, user.value.id) as any
 
         if (res.type !== 'ERROR') {
-            let properties = res?.data?.result ?? [];
-            propertiesList.value = sortProperties(properties); // Sort the properties before setting them
-            totalPages.value = Math.ceil(res?.data?.metadata?.total / perPage.value) || 1; // Set total pages
-            // Ensure currentPage and perPage are set correctly
+            propertiesList.value = res?.data?.result ?? [];
+            totalPages.value = Math.ceil(res?.data?.metadata?.total / perPage.value) || 1;
         }
         loadingProperties.value = false
     }

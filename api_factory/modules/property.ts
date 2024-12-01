@@ -1,10 +1,9 @@
-import { GATEWAY_ENDPOINT, GATEWAY_ENDPOINT_V2 } from "../axios.config";
+import { GATEWAY_ENDPOINT } from "../axios.config";
 
 export const property_api = {
-$_fetch_properties: (page = 1, perPage = 20, searchQuery = '') => {
-  let url = `/houses?page=${page}&perPage=${perPage}&status=published`
+$_fetch_properties: (page = 1, perPage = 20, searchQuery = '', agentId: string) => {
+  let url = `/houses?page=${page}&perPage=${perPage}&status=published&agentId=${agentId}`
   
-  // Add search query to the URL if provided
   if (searchQuery) {
       url += `&search=${searchQuery}`
   }
