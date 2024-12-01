@@ -14,10 +14,10 @@
                 </thead>
                 <tbody>
                     <tr v-for="(visit, index) in visits" :key="index" class="rounded-md">
-                        <td class="px-4 py-3.5 text-[#667185] font-light text-sm">{{ visit.name }}</td>
-                        <td class="px-4 py-3.5 text-[#667185] font-light text-sm">{{ visit.property }}</td>
-                        <td class="px-4 py-3.5 text-[#667185] font-light text-sm">{{ visit.date }}</td>
-                        <td class="px-4 py-3.5 text-[#667185] font-light text-sm">{{ visit.time }}</td>
+                        <td class="px-4 py-6 text-[#667185] font-light text-sm"> {{ `${ visit.tenant.firstName} ${ visit.tenant.lastName}` ?? 'Nil' }}</td>
+                        <td class="px-4 py-6 text-[#667185] font-light text-sm">{{ visit?.house?.name ?? 'Nil' }}</td>
+                        <td class="px-4 py-6 text-[#667185] font-light text-sm"> {{ moment(visit.date).format("MMMM Do YYYY") }}</td>
+                        <td class="px-4 py-6 text-[#667185] font-light text-sm">{{ visit.time }}</td>
                         <td class="px-4 py-3.5 text-[#1D2739] font-medium gap-x-2 text-sm flex items-center space-x-2">
                             {{ visit.status }}
                             <button class="text-gray-400 hover:text-gray-600">
@@ -37,6 +37,7 @@
 </template>
 
 <script setup lang="ts">
+  import moment from 'moment';
 import { PropType } from "vue";
 
 interface Visit {

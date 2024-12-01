@@ -8,7 +8,7 @@
       
         <div class="grid grid-cols-1 sm:grid-cols-4 gap-2 mb-6">
           <DashboardStatCard title="Total Earnings" count="0" />
-          <DashboardStatCard title="Total Visitations" count="0" />
+          <DashboardStatCard v-if="!loading" title="Total Visitations" :count="visitations.length" />
           <DashboardStatCard title="Completed" count="0" />
           <DashboardStatCard title="No Show" count="0" />
         </div>
@@ -17,14 +17,14 @@
         <h2 class="text- font-medium mb-2 border-[0.5px] text-[#1D2739] border-gray-50 px-6 bg-white rounded-lg py-4">
             Upcoming Visits
         </h2>
-        <div v-if="!visits?.length" class="flex justify-center items-center py-10 bg-white w-full">
+        <div v-if="!visitations?.length" class="flex justify-center items-center py-10 bg-white w-full">
             <DashboardEmptyState icon="icon-calendar" message="No Upcoming event found">
                 <template #icon>
                     <img src="@/assets/icons/upcoming-visit-illustration.svg" alt="No upcoming visit" />
                 </template>
             </DashboardEmptyState>
         </div>
-        <DashboardUpcomingVisits v-else :visits="visits" />
+        <DashboardUpcomingVisits v-else :visits="visitations" />
     </div>
 
         <!-- <div class="rounded-lg mb-4 space-y-3">
@@ -61,48 +61,12 @@
 </template>
 
 <script setup lang="ts">
+import {  useFetchScheduledVisitations } from '@/composables/modules/visitation/useFetchScheduledVisitations'
+const { loading, visitations } = useFetchScheduledVisitations()
   import { useUser } from '@/composables/auth/user'
   const { user } = useUser()
 definePageMeta({
   layout: "dashboard"
 })
 
-interface Visit {
-    name: string;
-    property: string;
-    date: string;
-    time: string;
-    status: string;
-}
-
-const visits = ref<Visit[]>([
-    // {
-    //     name: "Jackie Goodwin",
-    //     property: "Ortiz - Kunde",
-    //     date: "30/05/2024",
-    //     time: "12:00 PM",
-    //     status: "Scheduled",
-    // },
-    // {
-    //     name: "Henry Veum",
-    //     property: "Hodkiewicz - Cummings",
-    //     date: "30/05/2024",
-    //     time: "12:00 PM",
-    //     status: "Scheduled",
-    // },
-    // {
-    //     name: "Shari Lang",
-    //     property: "Gislason - Crona",
-    //     date: "30/05/2024",
-    //     time: "12:00 PM",
-    //     status: "Completed",
-    // },
-    // {
-    //     name: "Kristina Schinner",
-    //     property: "Cassin - Simonis",
-    //     date: "30/05/2024",
-    //     time: "12:00 PM",
-    //     status: "Completed",
-    // },
-]);
 </script>
