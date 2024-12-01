@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-white rounded-md border-4 overflow-x-auto">
+    <div class="bg-white rounded-md overflow-x-auto">
         <div>
             <table class="min-w-full text-left border-separate border-spacing-y-2">
                 <thead>
