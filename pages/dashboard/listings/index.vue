@@ -35,7 +35,7 @@
       <p class="text-[#1D2739]">No property has been assigned to you yet</p>
     </div>
 
-    <section v-if="!loadingProperties && propertiesList.length" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+    <section v-if="!loadingProperties && propertiesList.length" class="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-4 gap-6">
       <ListingsHouseCard
         v-for="(property, index) in propertiesList"
         :key="index"

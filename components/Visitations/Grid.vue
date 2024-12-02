@@ -19,12 +19,12 @@
               <td class="px-4 py-6 text-[#667185] font-light text-sm"> {{ moment(visit.date).format("MMMM Do YYYY") }}</td>
               <td class="px-4 py-6 text-[#667185] font-light text-sm">{{ visit.time }}</td>
               <td class="px-4 py-6 text-[#667185] font-light text-sm relative">
-                {{ visit.status }}
+                {{ visit.status === 'no_show' ? 'No Show' : visit.status }}
                 <button
                 @click="toggleInfoDropdown(index)"
                 class="text-gray-400 hover:text-gray-600"
               >
-                <img src="@/assets/icons/info-icon.svg" alt="" />
+                <img src="@/assets/icons/info-icon.svg" class="pt-3 pm-3" alt="" />
               </button>
               <div
                 v-if="infoDropdown === index"
@@ -117,7 +117,7 @@
                 <ul class="py-1 text-sm text-gray-700 divide divide-y-[0.5px]">
                   <li>
                     <a
-                      @click.prevent="handleDropdownClick('view', tenant)"
+                      @click.prevent="handleDropdownClick('scheduled', visit)"
                       href="#"
                       class="block flex items-center gap-x-2 px-4 py-3 hover:bg-gray-100 text-start"
                     >
@@ -126,7 +126,7 @@
                   </li>
                   <li>
                     <a
-                      @click.prevent="handleDropdownClick('message', tenant)"
+                      @click.prevent="handleDropdownClick('completed', visit)"
                       href="#"
                       class="block flex items-center gap-x-2 px-4 py-3 text-sm hover:bg-gray-100 text-start"
                     >
@@ -135,7 +135,7 @@
                   </li>
                   <li>
                     <a
-                      @click.prevent="handleDropdownClick('message', tenant)"
+                      @click.prevent="handleDropdownClick('no_show', visit)"
                       href="#"
                       class="block flex items-center gap-x-2 px-4 py-3 text-sm hover:bg-gray-100 text-start"
                     >
@@ -164,6 +164,8 @@
 </template>
 
 <script setup lang="ts">
+import {  useUpdateScheduledVisitationStatus } from '@/composables/modules/visitation/useUpdateScheduledVisitationStatus'
+const { updateVisitationStatus, updating } = useUpdateScheduledVisitationStatus()
   import moment from 'moment';
 import { ref } from "vue";
 
@@ -195,14 +197,20 @@ const closeInfoDropdown = () => {
 };
 
 // Function to handle dropdown option click
-const handleDropdownClick = (action: any, item: any) => {
-  if (action === "view") {
-    return router.push(`/dashboard/tenant-mgt/${item.id}`);
+const handleDropdownClick = async (action: any, item: any) => {
+
+  const payload = {
+    status: action
   }
 
-  if (action === "message") {
-    return router.push(`/dashboard/tenant-mgt/${item.id}`);
-  }
+  await updateVisitationStatus(item.id, payload)
+  // if (action === "view") {
+  //   return router.push(`/dashboard/tenant-mgt/${item.id}`);
+  // }
+
+  // if (action === "message") {
+  //   return router.push(`/dashboard/tenant-mgt/${item.id}`);
+  // }
   closeDropdown();
 };
 

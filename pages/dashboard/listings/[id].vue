@@ -3,7 +3,7 @@
   <main class="max-w-7xl mx-auto">
     <section>
         <div
-          class="flex justify-between max-w-7xl mx-auto items-center pt-3"
+          class="flex justify-between max-w-7xl mx-auto items-center px-6 lg:px-0 pt-3"
         >
           <!-- Breadcrumb -->
           <div class="flex items-center space-x-4">
@@ -64,10 +64,11 @@
           </div>
         </div>
       </section>
+      <!-- {{ availability }} -->
 <ListingsImageGallery v-if="propertyObj?.images" :loading="loading" :propertyObj="propertyObj" :images="allImages" class="mt-6" />
  <section v-if="!loading">
   <div class="pt-4 pb-8">
-    <ListingsDetails :propertyObj="propertyObj" :loading="loading" />
+    <ListingsDetails :propertyObj="propertyObj" :loading="loading" :availability="availability" />
   </div>
  </section>
  <CoreFullScreenLoader v-else :visible="loading" text="Fetching property details" logo="" />
@@ -338,6 +339,7 @@
 </template>
 
 <script setup lang="ts">
+import { useFetchAvailabilityByHouseId } from '@/composables/modules/visitation/useFetchAvailabilityByHouseId'
 import { useUserInitials } from '@/composables/core/useUserInitials'
 import Layout from '@/layouts/dashboard.vue';
 import { useUser } from '@/composables/auth/user'
@@ -345,6 +347,7 @@ import { useFetchProperty } from "@/composables/modules/property/fetchProperty";
 const { user } = useUser()
 const { propertyObj, loading } = useFetchProperty();
 import { useImageExtractor } from '@/composables/core/useExtractImages'; 
+const { loading: fetching, availability } = useFetchAvailabilityByHouseId()
 const { extractImages } = useImageExtractor();
 const allImages = computed(() => extractImages(propertyObj.value));
 const router = useRouter()

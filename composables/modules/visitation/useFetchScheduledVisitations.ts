@@ -1,39 +1,3 @@
-// import { visitation_api } from "@/api_factory/modules/visitation";
-// import { useCustomToast } from "@/composables/core/useCustomToast";
-// import { useUser } from "@/composables/auth/user";
-// import { ref } from "vue";
-
-
-// export const useFetchScheduledVisitations = () => {
-//   const { showToast } = useCustomToast();
-// const visitations = ref([]);
-// const { user }  = useUser()
-//   const loading = ref(false);
-
-
-//   const getScheduledVisitations = async () => {
-//     loading.value = true;
-//     const res = (await visitation_api.$_fetch_scheduled_visitations(user.value.id)) as any;
-//     if (res.type !== "ERROR") {
-//       visitations.value = res.data.result;
-//     } else {
-//       showToast({
-//         title: "Error",
-//         message: res.data.error,
-//         toastType: "error",
-//         duration: 3000,
-//       });
-//     }
-//     loading.value = false
-//   };
-
-//   onMounted(() => {
-//     getScheduledVisitations()
-//   })
-
-//   return { getScheduledVisitations, loading, visitations };
-// };
-
 import { visitation_api } from "@/api_factory/modules/visitation";
 import { useCustomToast } from "@/composables/core/useCustomToast";
 import { useUser } from "@/composables/auth/user";
