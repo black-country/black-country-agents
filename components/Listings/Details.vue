@@ -199,7 +199,7 @@
         </div> -->
       </div>
 
-      <ListingsAvailabilityTable :availability="availability" />
+      <ListingsAvailabilityTable v-if="availability?.length" :availability="availability" />
 
       <h3
         class="text-sm text-[#1D2739] font-medium bg-white border-[0.5px] px-3 py-3 rounded-sm border-gray-100"
