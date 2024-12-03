@@ -4,13 +4,7 @@ const { showToast } = useCustomToast();
 const route = useRoute() as any
 
 const payload = ref({
-    list: [
-        {
-            dayOfWeek: '',
-            times: [],
-            duration: "" // e.g 2 weeks, 2 months
-        }
-    ]
+    list: []
 })
 const loading = ref(false);
 
@@ -40,6 +34,7 @@ export const useCreateVisitationSchedule = () => {
   };
 
   const setPayload = (data: any) => {
+    console.log(data.list, 'payload here')
     payload.value.list = data.list
   }
 
