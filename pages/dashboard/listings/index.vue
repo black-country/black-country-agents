@@ -48,7 +48,7 @@
        :isOpen="showBookingCalender"
       @close="showBookingCalender = false"
     >
-      <ListingsBookingCalender />
+      <ListingsBookingCalender @close="showBookingCalender = false" />
     </CoreModalWithoutCloseBtn>
 </template>
 

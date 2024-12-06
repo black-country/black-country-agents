@@ -10,6 +10,8 @@ interface TimeSlot {
   endTime: string;
 }
 
+const route = useRoute()
+
 interface DaySchedule {
   isEnabled: boolean;
   timeSlots: TimeSlot[];
@@ -31,6 +33,14 @@ const daysMap: Record<string, number> = {
   'Friday': 5,
   'Saturday': 6
 }
+
+const emit = defineEmits(['close'])
+
+const computedProperty = computed(() => {
+  if(route.params.id){
+    return propertiesList.value.find((itm: any) => itm.id === route.params.id)
+  }
+})
 
 const state = reactive<ScheduleState>({
   selectedProperty: '',
@@ -141,21 +151,6 @@ const formatTime = (time12: string): string => {
   return `${hours}:${minutes} ${period.toUpperCase()}`;
 }
 
-// const formatPayload = () => {
-//   const list = Object.entries(state.schedule)
-//     .filter(([_, daySchedule]) => daySchedule.isEnabled && daySchedule.timeSlots.length > 0)
-//     .map(([day, daySchedule]) => ({
-//       dayOfWeek: daysMap[day],
-//       intervals: daySchedule.timeSlots.map(slot => ({
-//         start: slot.startTime.toLowerCase(),
-//         end: slot.endTime.toLowerCase()
-//       })),
-//       duration: state.duration
-//     }));
-
-//   return { list };
-// }
-
 const formatPayload = () => {
   const list = Object.entries(state.schedule)
     .filter(([_, daySchedule]) => daySchedule.isEnabled && daySchedule.timeSlots.length > 0)
@@ -177,7 +172,11 @@ const formatPayload = () => {
 const saveSchedule = async () => {
     const payload = formatPayload();
     setPayload(payload)
-    await createVisitationSchedule(state.selectedProperty)
+    if(route.params.id){
+      await createVisitationSchedule(computedProperty.value.id)
+    } else {
+      await createVisitationSchedule(state.selectedProperty)
+    }
 }
 </script>
 
@@ -189,7 +188,9 @@ const saveSchedule = async () => {
       <!-- Property Selection -->
       <div class="space-y-2">
         <label class="text-gray-700 text-sm font-medium">Property</label>
+        <input v-if="route?.params?.id" :value="computedProperty?.name" readonly class="w-full p-2 border rounded-lg py-4 text-sm outline-none border-[0.5px] border-[#F0F2F5] bg-[#F0F2F5]"  />
         <select
+          v-else
           v-model="state.selectedProperty"
           class="w-full p-2 border rounded-lg py-4 text-sm outline-none border-[0.5px] border-[#F0F2F5] bg-[#F0F2F5]"
         >
@@ -328,7 +329,7 @@ const saveSchedule = async () => {
 
     <!-- Action Buttons -->
     <div class="flex justify-end space-x-4 w-full mt-10">
-      <button class="px-4 text-sm py-4 text-gray-700 bg-gray-100 w-full rounded-lg">
+      <button @click="emit('close')" class="px-4 text-sm py-4 text-gray-700 bg-gray-100 w-full rounded-lg">
         Cancel
       </button>
       <button

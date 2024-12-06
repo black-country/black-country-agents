@@ -333,7 +333,7 @@
        :isOpen="showBookingCalender"
       @close="showBookingCalender = false"
     >
-      <ListingsBookingCalender />
+      <ListingsBookingCalender @close="showBookingCalender = false" />
     </CoreModalWithoutCloseBtn>
   </main>
 </Layout>

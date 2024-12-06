@@ -49,7 +49,7 @@
 </div>
 
 <CoreModalWithoutCloseBtn :isOpen="showEditBookingCalendar" @close="showEditBookingCalendar = false">
-  <ListingsBookingCalender :existingAvailability="selectedItem" />
+  <ListingsBookingCalender @close="showEditBookingCalendar = false" :existingAvailability="selectedItem" />
 </CoreModalWithoutCloseBtn>
 </template>
 
