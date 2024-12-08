@@ -13,6 +13,7 @@
       </div>
     </section>
   </div>
+  <CoreFullScreenLoader :visible="loading" text="Updating preference..." />
 </template>
 
 <script setup lang="ts">
