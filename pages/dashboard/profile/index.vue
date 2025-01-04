@@ -370,6 +370,11 @@ const legalSettings = ref([
 ]);
 
 const helpSettings = ref([
+{
+    label: "Emergency contacts",
+    icon: "contact-book",
+    path: "/dashboard/profile/emergency-contact",
+  },
   {
     label: "Contact Us",
     icon: "contact-us",
@@ -380,11 +385,11 @@ const helpSettings = ref([
     icon: "faq",
     path: "/dashboard/profile/faq",
   },
-  {
-    label: "Rate this Application",
-    icon: "rate-us",
-    path: "/dashboard/profile/rate-us",
-  },
+  // {
+  //   label: "Rate this Application",
+  //   icon: "rate-us",
+  //   path: "/dashboard/profile/rate-us",
+  // },
 ]);
 
 // Define the percentage of profile completion

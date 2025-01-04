@@ -1,14 +1,17 @@
 <template>
   <main>
     <TopNavBar />
-   <div v-if="!loading" class="p-6 bg-gray-25 min-h-screen">
+   <div v-if="!loading" class="lg:p-6 p-3 bg-gray-25 min-h-screen">
      <div class="max-w-2xl mx-auto">
+     <div class="flex items-center gap-x-4">
+      <CoreGoBack />
        <!-- Breadcrumbs -->
-       <div class="text-sm text-gray-500 mb-4">
+       <div class="text-sm text-gray-500 my-4">
          <span>Profile</span>
          <span class="mx-2">|</span>
          <span class="font-medium text-gray-700">Contact us</span>
        </div>
+     </div>
  
        <!-- {{ contactsInfo }} -->
        <!-- Chat Section -->
@@ -71,7 +74,7 @@
  
  
          <!-- Call Section -->
-         <div class="mb-6">
+         <!-- <div class="mb-6">
          <h3 class="text-[#1D2739] rounded-xl font-medium mb-3 border-[0.5px] border-gray-25 bg-white py-4 p-3">Lagos State Emergency Contacts</h3>
          <div v-for="item in contactsInfo?.lagos_state_emergency_contacts" class="flex justify-between items-center bg-white p-4 rounded-lg border-[0.5px] border-gray-25">
            <div>
@@ -81,7 +84,7 @@
              <p class="text-sm text-gray-500">{{ item?.description ?? 'Nil' }}</p>
            </div>
          </div>
-       </div>
+       </div> -->
  
        <!-- Email Section -->
        <div class="mb-6">
