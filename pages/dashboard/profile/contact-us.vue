@@ -1,6 +1,6 @@
 <template>
   <main>
-    <TopNavBar />
+    <CoreNavbar />
    <div v-if="!loading" class="lg:p-6 p-3 bg-gray-25 min-h-screen">
      <div class="max-w-2xl mx-auto">
      <div class="flex items-center gap-x-4">

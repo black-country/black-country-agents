@@ -19,7 +19,7 @@
                         <td class="px-4 py-6 text-[#667185] font-light text-sm"> {{ moment(visit.date).format("MMMM Do YYYY") }}</td>
                         <td class="px-4 py-6 text-[#667185] font-light text-sm">{{ visit.time }}</td>
                         <td class="px-4 py-3.5 text-[#1D2739] font-medium gap-x-2 text-sm flex items-center space-x-2">
-                            {{ visit.status }}
+                            {{ visit.status == 'no_show' ? 'No show' : visit.status }}
                             <button class="text-gray-400 hover:text-gray-600">
                                 <img src="@/assets/icons/info-icon.svg" alt="Info" />
                             </button>

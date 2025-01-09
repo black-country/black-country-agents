@@ -2,6 +2,7 @@ import { ref, onMounted, watch } from 'vue'
 import { property_api } from '@/api_factory/modules/property'
 import { useUser } from '@/composables/auth/user'
 import { debounce } from 'lodash'
+const route = useRoute()
 
 export const useGetProperties = () => {
     const loadingProperties = ref(false) // Loading state for general properties
@@ -11,6 +12,7 @@ export const useGetProperties = () => {
     const searchQuery = ref('')
     const currentPage = ref(1)
     const perPage = ref(20)
+    const segmentId = ref(route.query.tab || ''); // Segment ID obtained from the query parameter
     const totalPages = ref(1) // To store total pages
     const sortBy = ref('all') // To store the sort type
     const { user } = useUser()
@@ -21,7 +23,7 @@ export const useGetProperties = () => {
         loadingProperties.value = true
 
         // Pass page, perPage, and searchQuery to the API factory
-        const res = await $_fetch_properties(currentPage.value, perPage.value, searchQuery.value, user.value.id) as any
+        const res = await $_fetch_properties(currentPage.value, perPage.value, searchQuery.value, user.value.id, segmentId.value) as any
 
         if (res.type !== 'ERROR') {
             propertiesList.value = res?.data?.result ?? [];
@@ -69,9 +71,19 @@ export const useGetProperties = () => {
         }
     })
 
-    onMounted(() => {
-        getProperties()
-    })
+    watch(() => route.query.tab, (newTab, oldTab) => {
+        if (newTab !== oldTab) {
+          segmentId.value = newTab || ''; // Update segmentId with the new tab value
+          currentPage.value = 1; // Reset to page 1
+          getProperties(); // Refetch properties
+        }
+      });
+
+      onMounted(() => {
+        segmentId.value = route.query.tab || ''; // Initialize segmentId from the query parameter
+        getProperties();
+      });
+    
 
     const clearSearch = () => {
         searchQuery.value = '';

@@ -1,6 +1,6 @@
 <template>
   <main>
-    <TopNavBar />
+    <CoreNavbar />
     <div class="lg:p-6 p-3 bg-gray-25 min-h-screen">
       <div class="max-w-xl mx-auto">
         <svg @click="router.back()" class="cursor-pointer mb-3" width="36" height="36" viewBox="0 0 36 36" fill="none"

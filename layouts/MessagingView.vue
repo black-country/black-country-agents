@@ -20,8 +20,12 @@
               </svg>
             </div>
   
-            <div class="p-2 cursor-pointer flex justify-center items-center mx-3">
-              <NuxtLink to="/dashboard">
+            
+            <CoreNavTooltip 
+              to="/dashboard" 
+              text="Dashboard"
+              :isActive="$route.path === '/dashboard'"
+            >
                 <svg
                   width="20"
                   height="21"
@@ -58,10 +62,13 @@
                     stroke-linejoin="round"
                   />
                 </svg>
-              </NuxtLink>
-            </div>
-            <div class="p-2 cursor-pointer flex justify-center items-center mx-3">
-              <NuxtLink to="/dashboard/property">
+             </CoreNavTooltip>
+           
+             <CoreNavTooltip 
+              to="/dashboard/listings" 
+              text="Listings"
+              :isActive="$route.path === '/dashboard/listings'"
+            >
                 <svg
                   width="20"
                   height="21"
@@ -90,55 +97,19 @@
                     stroke-width="1.5"
                   />
                 </svg>
-              </NuxtLink>
-            </div>
-            <div class="p-2 cursor-pointer flex justify-center items-center mx-3">
-              <NuxtLink to="/dashboard/tenant-mgt">
-                <svg
-                  width="20"
-                  height="21"
-                  viewBox="0 0 20 21"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M4.23521 12.7678C3.21998 13.3821 0.558115 14.6363 2.17937 16.2058C2.97134 16.9725 3.85339 17.5208 4.96234 17.5208H11.2903C12.3992 17.5208 13.2813 16.9725 14.0732 16.2058C15.6945 14.6363 13.0326 13.3821 12.0174 12.7678C9.63672 11.3274 6.6159 11.3274 4.23521 12.7678Z"
-                    stroke="#EBE5E0"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                  <path
-                    d="M11.2487 5.85286C11.2487 7.69381 9.75628 9.1862 7.91536 9.1862C6.07441 9.1862 4.58203 7.69381 4.58203 5.85286C4.58203 4.01191 6.07441 2.51953 7.91536 2.51953C9.75628 2.51953 11.2487 4.01191 11.2487 5.85286Z"
-                    stroke="#EBE5E0"
-                    stroke-width="1.5"
-                  />
-                  <path
-                    d="M14.168 4.1875H18.3346"
-                    stroke="#EBE5E0"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                  <path
-                    d="M14.168 6.6875H18.3346"
-                    stroke="#EBE5E0"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                  <path
-                    d="M16.668 9.1875H18.3346"
-                    stroke="#EBE5E0"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-              </NuxtLink>
-            </div>
-            <div class="p-2 cursor-pointer bg-[#5B8469] rounded-lg flex justify-center items-center mx-3">
-              <NuxtLink class="" to="/dashboard/messages">
+             </CoreNavTooltip>
+             <CoreNavTooltip 
+              to="/dashboard/visitations" 
+              text="Visitations"
+              :isActive="$route.path === '/dashboard/visitations'"
+            >
+            <img src="@/assets/icons/visitation.svg" alt="" />
+            </CoreNavTooltip>
+            <CoreNavTooltip 
+              to="/dashboard/messages" 
+              text="Messages"
+              :isActive="$route.path === '/dashboard/messages'"
+            >
                 <svg
                   width="20"
                   height="21"
@@ -160,88 +131,14 @@
                     stroke-linejoin="round"
                   />
                 </svg>
-              </NuxtLink>
-            </div>
-            <div class="p-2 cursor-pointer flex justify-center items-center mx-3">
-              <NuxtLink to="/dashboard/finance-mgt">
-                <svg
-                  width="20"
-                  height="21"
-                  viewBox="0 0 20 21"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M16.68 1.6875C15.7522 1.6875 15 3.92607 15 6.6875H16.68C17.4897 6.6875 17.8945 6.6875 18.1451 6.40796C18.3958 6.12841 18.3521 5.76027 18.2648 5.02401C18.0345 3.08036 17.4119 1.6875 16.68 1.6875Z"
-                    stroke="#EBE5E0"
-                    stroke-width="1.5"
-                  />
-                  <path
-                    d="M15.0013 6.73272V15.559C15.0013 16.8188 15.0013 17.4486 14.6163 17.6965C13.9872 18.1018 13.0147 17.252 12.5256 16.9436C12.1214 16.6887 11.9194 16.5613 11.6951 16.5539C11.4527 16.5459 11.2471 16.6682 10.8104 16.9436L9.21797 17.9478C8.78839 18.2187 8.57363 18.3542 8.33463 18.3542C8.09564 18.3542 7.88085 18.2187 7.4513 17.9478L5.85891 16.9436C5.45476 16.6887 5.25268 16.5613 5.02841 16.5539C4.78607 16.5459 4.58041 16.6682 4.14369 16.9436C3.65459 17.252 2.68203 18.1018 2.05293 17.6965C1.66797 17.4486 1.66797 16.8188 1.66797 15.559V6.73272C1.66797 4.35438 1.66797 3.16521 2.4002 2.42636C3.13244 1.6875 4.31094 1.6875 6.66797 1.6875H16.668"
-                    stroke="#EBE5E0"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                  <path
-                    d="M5 5.01953H11.6667"
-                    stroke="#EBE5E0"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                  <path
-                    d="M6.66667 8.35156H5"
-                    stroke="#EBE5E0"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                  <path
-                    d="M10.418 9.08073C9.72764 9.08073 9.16797 9.5704 9.16797 10.1745C9.16797 10.7786 9.72764 11.2682 10.418 11.2682C11.1083 11.2682 11.668 11.7579 11.668 12.362C11.668 12.9661 11.1083 13.4557 10.418 13.4557M10.418 9.08073C10.9622 9.08073 11.4252 9.38506 11.5968 9.8099M10.418 9.08073V8.35156M10.418 13.4557C9.87372 13.4557 9.41072 13.1514 9.23914 12.7266M10.418 13.4557V14.1849"
-                    stroke="#EBE5E0"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                  />
-                </svg>
-              </NuxtLink>
-            </div>
-            <div class="p-2 cursor-pointer flex justify-center items-center mx-3">
-              <NuxtLink to="/dashboard/members">
-                <svg
-                  width="20"
-                  height="21"
-                  viewBox="0 0 20 21"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M17.3117 15.0195C17.9361 15.0195 18.4327 14.6266 18.8787 14.0771C19.7916 12.9524 18.2928 12.0535 17.7212 11.6134C17.14 11.1659 16.4912 10.9124 15.8333 10.8529M15 9.1862C16.1506 9.1862 17.0833 8.25346 17.0833 7.10286C17.0833 5.95227 16.1506 5.01953 15 5.01953"
-                    stroke="#EBE5E0"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                  />
-                  <path
-                    d="M2.687 15.0195C2.06258 15.0195 1.56592 14.6266 1.11999 14.0771C0.207104 12.9524 1.70592 12.0535 2.27757 11.6134C2.85867 11.1659 3.50751 10.9124 4.16536 10.8529M4.58203 9.1862C3.43144 9.1862 2.4987 8.25346 2.4987 7.10286C2.4987 5.95227 3.43144 5.01953 4.58203 5.01953"
-                    stroke="#EBE5E0"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                  />
-                  <path
-                    d="M6.7352 12.6135C5.88372 13.14 3.65119 14.2151 5.01095 15.5603C5.67518 16.2175 6.41496 16.6875 7.34505 16.6875H12.6524C13.5824 16.6875 14.3222 16.2175 14.9864 15.5603C16.3462 14.2151 14.1137 13.14 13.2622 12.6135C11.2654 11.3788 8.73195 11.3788 6.7352 12.6135Z"
-                    stroke="#EBE5E0"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                  <path
-                    d="M12.9154 6.26823C12.9154 7.87906 11.6095 9.1849 9.9987 9.1849C8.38786 9.1849 7.08203 7.87906 7.08203 6.26823C7.08203 4.6574 8.38786 3.35156 9.9987 3.35156C11.6095 3.35156 12.9154 4.6574 12.9154 6.26823Z"
-                    stroke="#EBE5E0"
-                    stroke-width="1.5"
-                  />
-                </svg>
-              </NuxtLink>
-            </div>
+             </CoreNavTooltip>
+             <CoreNavTooltip 
+              to="/dashboard/earnings" 
+              text="Earnings"
+              :isActive="$route.path === '/dashboard/earnings'"
+            >
+            <img src="@/assets/icons/earnings.svg" alt="" />
+            </CoreNavTooltip>
           </nav>
           <div class="mt-auto p-2 space-y-6 cursor-pointer mb-4 flex justify-center items-center mx-3">
             <svg

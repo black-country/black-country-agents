@@ -44,15 +44,37 @@
         </div>
       </div>
       <div class="flex items-center space-x-4 hidden lg:flex">
-        <img @click="router.push('/dashboard/notifications')" class="h-8 cursor-pointer" src="@/assets/icons/notification.svg" alt="" />
+        <!-- <img @click="router.push('/dashboard/notifications')" class="h-8 cursor-pointer" src="@/assets/icons/notification.svg" alt="" /> -->
 
-        <button @click="router.push('/dashboard/profile')" class="flex cursor-pointer items-center block space-x-2">
+        <!-- <button @click="router.push('/dashboard/profile')" class="flex cursor-pointer items-center block space-x-2">
           <img src="@/assets/icons/user-icon.svg" alt="" />
 
           <span class="text-">{{ `${user?.firstName} ${user?.lastName}` ?? 'Nil' }}</span>
           <img src="@/assets/icons/more-caret.svg" alt="" />
 
-        </button>
+        </button> -->
+
+        <div class="flex items-center">
+          <slot name="extra" />
+         <div class="space-x-1 px-2 flex">
+          <NuxtLink data-intro="Saved Properties" to="/dashboard/listings/bookmarked" class="">
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="40" height="40" rx="6" fill="#1D1D1D"/>
+              <path d="M26.2187 13.3285C23.9839 11.9577 22.0335 12.5101 20.8618 13.39C20.3813 13.7508 20.1412 13.9312 19.9998 13.9312C19.8585 13.9312 19.6183 13.7508 19.1378 13.39C17.9662 12.5101 16.0157 11.9577 13.781 13.3285C10.8482 15.1275 10.1846 21.0624 16.9494 26.0695C18.2379 27.0232 18.8822 27.5 19.9998 27.5C21.1175 27.5 21.7618 27.0232 23.0503 26.0695C29.8151 21.0624 29.1514 15.1275 26.2187 13.3285Z" stroke="#EBE5E0" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+          </NuxtLink>
+          <NuxtLink data-intro="Notifications" to="/dashboard/notifications" class="">
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="40" height="40" rx="6" fill="#1D1D1D"/>
+              <path d="M21.4417 27.4998C21.2952 27.7524 21.0849 27.962 20.8319 28.1078C20.5788 28.2535 20.292 28.3302 20 28.3302C19.708 28.3302 19.4212 28.2535 19.1681 28.1078C18.9151 27.962 18.7048 27.7524 18.5583 27.4998M25 16.6665C25 15.3404 24.4732 14.0687 23.5355 13.131C22.5979 12.1933 21.3261 11.6665 20 11.6665C18.6739 11.6665 17.4021 12.1933 16.4645 13.131C15.5268 14.0687 15 15.3404 15 16.6665C15 22.4998 12.5 24.1665 12.5 24.1665H27.5C27.5 24.1665 25 22.4998 25 16.6665Z" stroke="#EBE5E0" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+          </NuxtLink>
+         </div>
+         <ProfileDropdown 
+          :user="user" 
+          :profileObj="profileObj" 
+        />
+        </div>
       </div>
     </nav>
 
@@ -205,7 +227,9 @@
   </template>
 
   <script setup lang="ts">
+     import { use_tenant_profile } from '@/composables/auth/fetchProfile'
   import { useUser } from '@/composables/auth/user'
+  const { loading, profileObj } = use_tenant_profile()
 const { user } = useUser()
 const router = useRouter()
 const isOpen = ref(false)

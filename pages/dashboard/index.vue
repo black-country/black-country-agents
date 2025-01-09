@@ -40,7 +40,7 @@
           <DashboardUpcomingVisits v-else :visits="visits" />
         </div> -->
 
-        <div class="rounded-lg mb-4 space-y-3">
+        <!-- <div class="rounded-lg mb-4 space-y-3">
           <div class="flex justify-between items-center w-full px-6 bg-white rounded-lg py-4 border-[0.5px] border-gray-25">
             <h2 class="text- font-medium text-[#1D2739] mb-2">Recent
               transactions
@@ -54,6 +54,16 @@
               </template>
             </DashboardEmptyState>
           </div>
+        </div> -->
+
+        <div class="rounded-lg mb-4 space-y-3">
+          <!-- <div class="flex justify-between items-center w-full px-6 bg-white rounded-lg py-4 border-[0.5px] border-gray-25">
+            <h2 class="text- font-medium text-[#1D2739] mb-2">Recent
+              transactions
+            </h2>
+            <a href="#" class="text-[#D0D5DD] hover:underline">View all</a>
+          </div> -->
+          <DashboardTransactionsList />
         </div>
       </div>
     </section>

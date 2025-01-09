@@ -1,6 +1,6 @@
 <template>
   <div class="-ml-10">
-    <TopNavBar />
+    <CoreNavbar />
   </div>
   <main>
     <div v-if="!loading && Object.keys(termsList)?.length" class="max-w-4xl mx-auto">
