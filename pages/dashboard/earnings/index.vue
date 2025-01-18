@@ -1,6 +1,6 @@
 <template>
   <main class="container mx-auto">
-    <EarningsHeader />
+    <!-- <EarningsHeader /> -->
     <EarningsTable />
   </main>
 </template>
