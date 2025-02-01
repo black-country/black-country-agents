@@ -1,5 +1,5 @@
 <template>
-    <div class="flex items-center justify-between space-x-4 p-4 bg-white rounded-md">
+    <div class="lg:flex space-y-2 items-center justify-between lg:pace-x-4 p-4 bg-white rounded-md">
     <!-- Total Earnings Section -->
     <div class="flex items-center space-x-2">
       <div class="w-10 h-10 bg-green-50 rounded-md flex items-center justify-center">

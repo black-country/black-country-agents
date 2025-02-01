@@ -103,6 +103,7 @@ export const useUser = () => {
     ...runtimeData,
     logOut,
     updateUser,
-    setToken
+    setToken,
+    user: runtimeData.user
   };
 };

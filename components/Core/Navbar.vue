@@ -3,10 +3,60 @@
 <main>
   <section class="bg-[#292929] sticky top-0 z-50 mb-20">
     <nav class="flex items-center justify-between fixed top-0 w-full bg-[#292929]  mx-auto p-4 py-3 text-white">
-      <div class="flex items-center space-x-4">
+      <div class="flex items-center justify-between w-full lg:w-auto">
+            <!-- <img src="@/assets/icons/white-logo-with-text.svg" alt="Logo" /> -->
+            <div class="flex items-center   space-x-4 relative">
         <img src="@/assets/icons/white-logo-with-text.svg" alt="" />
 
-      <div class="block lg:hidden">
+      <!-- <div id="hamburger" class="block lg:hidden">
+        <button @click="isOpen = true" class="p-2">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+          </svg>
+        </button>
+      </div> -->
+
+        <div class="flex items-center space-x-2 hidden lg:flex">
+          <NuxtLink to="/dashboard" class="px-4 py-3 rounded-lg flex items-center gap-x-1.5 text-sm">
+            <img src="@/assets/icons/dashboard.svg" alt="" />
+
+            Dashboard
+        </NuxtLink>
+          <NuxtLink to="/dashboard/listings" class="flex py-3 px-4 rounded-lg  items-center space-x-1 gap-x-1.5">
+            <img src="@/assets/icons/listing.svg" alt="" />
+
+            <span>Listings</span>
+          </NuxtLink>
+          <NuxtLink to="/dashboard/visitations" class="flex py-3 px-4 rounded-lg  items-center gap-x-1.5 text-sm">
+            <img src="@/assets/icons/visitation.svg" alt="" />
+
+
+            <span>Visitations</span>
+          </NuxtLink>
+          <NuxtLink to="/dashboard/earnings" class="flex py-3 px-4 rounded-lg items-center gap-x-1.5 text-sm">
+            <img src="@/assets/icons/earnings.svg" alt="" />
+
+            <span>Earnings</span>
+          </NuxtLink>
+          <NuxtLink to="/dashboard/messages" class="flex py-3 px-4 rounded-lg items-center gap-x-1.5 text-sm">
+            <img src="@/assets/icons/messaging.svg" alt="" />
+
+            <span>Messages</span>
+          </NuxtLink>
+        </div>
+      </div>
+  
+            <!-- Hamburger Menu (visible only on mobile) -->
+            <button @click="isOpen = !isOpen" class="p-2 block lg:hidden">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+              </svg>
+            </button>
+          </div>
+      <!-- <div class="flex items-center   space-x-4 relative">
+        <img src="@/assets/icons/white-logo-with-text.svg" alt="" />
+
+      <div id="hamburger" class="block lg:hidden">
         <button @click="isOpen = true" class="p-2">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
@@ -42,17 +92,8 @@
             <span>Messages</span>
           </NuxtLink>
         </div>
-      </div>
+      </div> -->
       <div class="flex items-center space-x-4 hidden lg:flex">
-        <!-- <img @click="router.push('/dashboard/notifications')" class="h-8 cursor-pointer" src="@/assets/icons/notification.svg" alt="" /> -->
-
-        <!-- <button @click="router.push('/dashboard/profile')" class="flex cursor-pointer items-center block space-x-2">
-          <img src="@/assets/icons/user-icon.svg" alt="" />
-
-          <span class="text-">{{ `${user?.firstName} ${user?.lastName}` ?? 'Nil' }}</span>
-          <img src="@/assets/icons/more-caret.svg" alt="" />
-
-        </button> -->
 
         <div class="flex items-center">
           <slot name="extra" />
@@ -153,8 +194,9 @@
               </li>
 
               <li class="mt-auto">
-                <a
-                  href="#"
+                <NuxtLink
+                  to="/dashboard/profile"
+                   @click.native="isOpen = false"
                   class="group -mx-2 flex gap-x-3 rounded-md p-2 py-3 text-sm font-semibold leading-6 text-gray-400 hover:bg-gray-800 hover:text-white"
                 >
                   <img
@@ -162,8 +204,8 @@
                     alt="settings"
                     class="h-6 w-6"
                   />
-                  Settings
-                </a>
+                  Profile
+                </NuxtLink>
                 <a
                   href="#"
                   @click="showBLogoutModal = true"
@@ -252,12 +294,88 @@ const onCancel = () => {
   // Logic to close the modal
   console.log("Cancelled");
 };
-
 </script>
+   <!-- <template>
+    <main>
+      <section class="bg-[#292929] sticky top-0 z-50 mb-20">
+        <nav class="flex items-center justify-between fixed top-0 w-full bg-[#292929] mx-auto p-4 py-3 text-white">
+
+          <div class="flex items-center justify-between w-full lg:w-auto">
+            <img src="@/assets/icons/white-logo-with-text.svg" alt="Logo" />
+  
+
+            <button @click="isOpen = !isOpen" class="p-2 block lg:hidden">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+              </svg>
+            </button>
+          </div>
+  
+
+          <div class="hidden lg:flex items-center space-x-4">
+            <NuxtLink to="/dashboard" class="px-4 py-3 rounded-lg flex items-center gap-x-1.5 text-sm">
+              <img src="@/assets/icons/dashboard.svg" alt="Dashboard" />
+              Dashboard
+            </NuxtLink>
+            <NuxtLink to="/dashboard/listings" class="flex py-3 px-4 rounded-lg items-center gap-x-1.5">
+              <img src="@/assets/icons/listing.svg" alt="Listings" />
+              <span>Listings</span>
+            </NuxtLink>
+            <NuxtLink to="/dashboard/visitations" class="flex py-3 px-4 rounded-lg items-center gap-x-1.5 text-sm">
+              <img src="@/assets/icons/visitation.svg" alt="Visitations" />
+              <span>Visitations</span>
+            </NuxtLink>
+            <NuxtLink to="/dashboard/earnings" class="flex py-3 px-4 rounded-lg items-center gap-x-1.5 text-sm">
+              <img src="@/assets/icons/earnings.svg" alt="Earnings" />
+              <span>Earnings</span>
+            </NuxtLink>
+            <NuxtLink to="/dashboard/messages" class="flex py-3 px-4 rounded-lg items-center gap-x-1.5 text-sm">
+              <img src="@/assets/icons/messaging.svg" alt="Messages" />
+              <span>Messages</span>
+            </NuxtLink>
+          </div>
+        </nav>
+  
+
+        <div v-if="isOpen" class="fixed inset-0 bg-gray-900/80 z-50">
+          <div class="fixed inset-0 flex">
+            <div class="relative w-64 bg-gray-900 text-white flex flex-col p-6 space-y-4">
+              <button @click="isOpen = false" class="absolute top-4 right-4">
+                <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+  
+              <NuxtLink @click.native="isOpen = false" to="/dashboard" class="flex gap-x-3 p-2 rounded-md hover:bg-gray-800">
+                <img src="@/assets/icons/dashboard.svg" alt="Dashboard" />
+                Dashboard
+              </NuxtLink>
+              <NuxtLink @click.native="isOpen = false" to="/dashboard/listings" class="flex gap-x-3 p-2 rounded-md hover:bg-gray-800">
+                <img src="@/assets/icons/listing.svg" alt="Listings" />
+                Listings
+              </NuxtLink>
+              <NuxtLink @click.native="isOpen = false" to="/dashboard/visitations" class="flex gap-x-3 p-2 rounded-md hover:bg-gray-800">
+                <img src="@/assets/icons/visitation.svg" alt="Visitations" />
+                Visitations
+              </NuxtLink>
+              <NuxtLink @click.native="isOpen = false" to="/dashboard/earnings" class="flex gap-x-3 p-2 rounded-md hover:bg-gray-800">
+                <img src="@/assets/icons/earnings.svg" alt="Earnings" />
+                Earnings
+              </NuxtLink>
+              <NuxtLink @click.native="isOpen = false" to="/dashboard/messages" class="flex gap-x-3 p-2 rounded-md hover:bg-gray-800">
+                <img src="@/assets/icons/messaging.svg" alt="Messages" />
+                Messages
+              </NuxtLink>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </template> -->
   
   <style scoped>
   .router-link-exact-active {
-    background-color: #5B8469;
+    background-color: #5b8469;
     color: white;
   }
   </style>

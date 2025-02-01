@@ -126,9 +126,9 @@ const onFileSelected = async (event: Event) => {
     // Upload the file using the composable
     await uploadFile(file);
 
-    if (uploadResponse.value?.secure_url) {
+    if (uploadResponse.value?.url) {
       // Update profile with the secure URL after upload
-      const uploadPayload = { profilePicture: uploadResponse.value.secure_url }
+      const uploadPayload = { profilePicture: uploadResponse.value.url }
       await updateProfile(uploadPayload);
     }
   }
@@ -151,9 +151,9 @@ const onFileSelected = async (event: Event) => {
   
   //     try {
   //       await uploadFile(formData); // Call to uploadFile composable
-  //       if (uploadResponse.value?.secure_url) {
+  //       if (uploadResponse.value?.url) {
   //         // Update the profile with the secure URL
-  //         await updateProfile({ profilePicture: uploadResponse.value.secure_url });
+  //         await updateProfile({ profilePicture: uploadResponse.value.url });
   //         // Refresh the page on success
   //         window.location.reload();
   //       }

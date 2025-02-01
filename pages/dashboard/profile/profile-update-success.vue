@@ -36,7 +36,7 @@
 const router = useRouter();
 
 const handleSuccess = () => {
-  router.push("/profile/profile-settings");
+  router.back()
 };
 
 definePageMeta({

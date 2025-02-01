@@ -27,10 +27,10 @@ export const use_auth_verify_otp = () => {
       loading.value = false;
 
       if (otpRes.type !== "ERROR") {
-        useNuxtApp().$toast.success(otpRes?.data?.message, {
-          autoClose: 5000,
-          dangerouslyHTMLString: true,
-        });
+        // useNuxtApp().$toast.success(otpRes?.data?.message, {
+        //   autoClose: 5000,
+        //   dangerouslyHTMLString: true,
+        // });
         const referrer = route.query.referrer || route.meta.referrer;
         console.log(referrer, "here");
 
@@ -52,20 +52,20 @@ export const use_auth_verify_otp = () => {
           })) as any;
           console.log(signupRes, 'here res')
           if (signupRes.type !== "ERROR") {
-            useNuxtApp().$toast.success(signupRes?.data?.message, {
-              autoClose: 5000,
-              dangerouslyHTMLString: true,
-            });
+            // useNuxtApp().$toast.success(signupRes?.data?.message, {
+            //   autoClose: 5000,
+            //   dangerouslyHTMLString: true,
+            // });
             useUser().createUser(signupRes.data);
             Router.push("/success");
             return { success: true, data: signupRes?.data };
           } else {
             errorMessage.value =
               signupRes?.data?.error || "Registration failed.";
-            useNuxtApp().$toast.error(errorMessage.value, {
-              autoClose: 5000,
-              dangerouslyHTMLString: true,
-            });
+            // useNuxtApp().$toast.error(errorMessage.value, {
+            //   autoClose: 5000,
+            //   dangerouslyHTMLString: true,
+            // });
             return { success: false, error: errorMessage.value };
           }
         } else {
@@ -74,19 +74,19 @@ export const use_auth_verify_otp = () => {
         }
       } else {
         errorMessage.value = otpRes?.data?.error || "OTP verification failed.";
-        useNuxtApp().$toast.error(errorMessage.value, {
-          autoClose: 5000,
-          dangerouslyHTMLString: true,
-        });
+        // useNuxtApp().$toast.error(errorMessage.value, {
+        //   autoClose: 5000,
+        //   dangerouslyHTMLString: true,
+        // });
         return { success: false, error: errorMessage.value };
       }
     } catch (error: any) {
       loading.value = false;
       errorMessage.value = error?.message || "An unexpected error occurred.";
-      useNuxtApp().$toast.error(errorMessage.value, {
-        autoClose: 5000,
-        dangerouslyHTMLString: true,
-      });
+      // useNuxtApp().$toast.error(errorMessage.value, {
+      //   autoClose: 5000,
+      //   dangerouslyHTMLString: true,
+      // });
       return { success: false, error: errorMessage.value };
     }
   };
