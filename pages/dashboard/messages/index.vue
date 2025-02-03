@@ -180,13 +180,13 @@
                   </div>
                 </div> -->
 
-                <div class="flex justify-center mb-4">
+                <!-- <div class="flex justify-center mb-4">
                   <div class="rounded py-2 px-4" style="background-color: #FCF4CB">
                     <p class="text-xs">
                       Messages to this chat and calls are now secured with end-to-end encryption. Tap for more info.
                     </p>
                   </div>
-                </div>
+                </div> -->
 
                 <!-- <div class="flex mb-2">
                                   <div class="rounded py-2 px-3" style="background-color: #F2F2F2">
@@ -431,7 +431,7 @@ const sendMessageToUser = async (content: string) => {
 const selectUser = (user: any) => {
   selectedUser.value = user;
   // Optionally update URL
-  router.push({ query: { userId: user.id } });
+  router.push({ query: { userId: user.participant.id } });
 };
 
 // Scroll handling
@@ -445,18 +445,61 @@ const scrollToBottom = () => {
 // Event handling
 const { $emitter } = useNuxtApp();
 
+// onMounted(() => {
+//   // Handle URL parameters
+//   const userId = route.query.userId;
+//   if (userId && activeChatsList.value) {
+//     const user = activeChatsList.value.find(u => u.id === userId);
+//     if (user) {
+//       selectUser(user);
+//     }
+//   }
+
+//   // Set up event listeners
+//   $emitter.on('customEvent', async (payload: any) => {
+//     if (payload.data) {
+//       await getRoomChats(payload.data);
+//       scrollToBottom();
+//     }
+//   });
+// });
+
+watch(
+  activeChatsList,
+  (newVal) => {
+    console.log(newVal, "active chats (watch)");
+    const userId = route.query.userId;
+    if (userId) {
+      const user = newVal.find((u) => u?.participant?.id === userId);
+      if (user) {
+        selectUser(user);
+      } else {
+        if (newVal.length === 1) {
+          selectUser(newVal[0]);
+        }
+      }
+    }
+
+    if (newVal.length) {
+      selectUser(newVal[0]);
+      console.log("only one item found");
+    }
+  },
+  { immediate: true }
+);
+
 onMounted(() => {
-  // Handle URL parameters
+  console.log(activeChatsList.value, "active chats (onMounted)");
   const userId = route.query.userId;
-  if (userId && activeChatsList.value) {
-    const user = activeChatsList.value.find(u => u.id === userId);
+
+  if (userId && activeChatsList.value?.length > 0) {
+    const user = activeChatsList.value.find((u) => u.id === userId);
     if (user) {
       selectUser(user);
     }
   }
 
-  // Set up event listeners
-  $emitter.on('customEvent', async (payload: any) => {
+  $emitter.on("customEvent", async (payload: any) => {
     if (payload.data) {
       await getRoomChats(payload.data);
       scrollToBottom();
