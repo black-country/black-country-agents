@@ -21,7 +21,7 @@
 
       </div>
       <div>
-        <p v-if="!oadingEarningSum" class="text-2xl font-semibold text-[#1D2739]">{{ earningSum.amount ?? '0' }}</p>
+        <p v-if="!oadingEarningSum" class="text-2xl font-semibold text-[#1D2739]">{{ formatCurrency(earningSum.amount) ?? '0' }}</p>
         <div v-else
           class="rounded-md h-10 w-10 bg-gray-100 animate-pulse p-4 w-full mx-auto mt-10"
         ></div>
@@ -31,26 +31,17 @@
 
 <section class="flex items-center justify-between gap-x-5">
       <!-- Filter Button -->
-      <button class="flex items-center px-4 py-3 bg-white border-gray-50 border rounded-md space-x-2 text-gray-700 hover:bg-gray-200">
-      <span>Filter</span>
-      <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M10.8333 3.83398H2.5" stroke="#1D2739" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M9.16667 16.334H2.5" stroke="#1D2739" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M17.4993 16.334H14.166" stroke="#1D2739" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M17.4993 10.084H9.16602" stroke="#1D2739" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M17.5007 3.83398H15.834" stroke="#1D2739" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M4.16667 10.084H2.5" stroke="#1D2739" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M12.084 2.16602C12.4722 2.16602 12.6664 2.16602 12.8196 2.22945C13.0237 2.31402 13.186 2.47626 13.2706 2.68045C13.334 2.83359 13.334 3.02773 13.334 3.41602V4.24935C13.334 4.63763 13.334 4.83177 13.2706 4.98492C13.186 5.18911 13.0237 5.35134 12.8196 5.43592C12.6664 5.49935 12.4722 5.49935 12.084 5.49935C11.6957 5.49935 11.5016 5.49935 11.3484 5.43592C11.1442 5.35134 10.982 5.18911 10.8974 4.98492C10.834 4.83177 10.834 4.63763 10.834 4.24935V3.41602C10.834 3.02773 10.834 2.83359 10.8974 2.68045C10.982 2.47626 11.1442 2.31402 11.3484 2.22945C11.5016 2.16602 11.6957 2.16602 12.084 2.16602Z" stroke="#1D2739" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M10.416 14.666C10.8043 14.666 10.9984 14.666 11.1516 14.7294C11.3558 14.814 11.518 14.9763 11.6026 15.1804C11.666 15.3336 11.666 15.5278 11.666 15.916V16.7493C11.666 17.1376 11.666 17.3318 11.6026 17.4849C11.518 17.6891 11.3558 17.8513 11.1516 17.9359C10.9984 17.9993 10.8043 17.9993 10.416 17.9993C10.0278 17.9993 9.8336 17.9993 9.68043 17.9359C9.47627 17.8513 9.31402 17.6891 9.22943 17.4849C9.16602 17.3318 9.16602 17.1376 9.16602 16.7493V15.916C9.16602 15.5278 9.16602 15.3336 9.22943 15.1804C9.31402 14.9763 9.47627 14.814 9.68043 14.7294C9.8336 14.666 10.0278 14.666 10.416 14.666Z" stroke="#1D2739" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M7.91602 8.41602C8.3043 8.41602 8.49843 8.41602 8.6516 8.47945C8.85577 8.56402 9.01802 8.72626 9.1026 8.93043C9.16602 9.0836 9.16602 9.27777 9.16602 9.66602V10.4993C9.16602 10.8876 9.16602 11.0818 9.1026 11.2349C9.01802 11.4391 8.85577 11.6013 8.6516 11.6859C8.49843 11.7493 8.3043 11.7493 7.91602 11.7493C7.52773 11.7493 7.33359 11.7493 7.18045 11.6859C6.97626 11.6013 6.81402 11.4391 6.72945 11.2349C6.66602 11.0818 6.66602 10.8876 6.66602 10.4993V9.66602C6.66602 9.27777 6.66602 9.0836 6.72945 8.93043C6.81402 8.72626 6.97626 8.56402 7.18045 8.47945C7.33359 8.41602 7.52773 8.41602 7.91602 8.41602Z" stroke="#1D2739" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>
-
-    </button>
 
     <!-- Properties Dropdown -->
-    <select class="px-4 py-3 rounded-md bg-white border-gray-50 text-sm border text-gray-700 cursor-pointer hover:bg-gray-200">
+    <select v-if="!loadingProperties"  v-model="selectedProperty" class="px-4 py-3 outline-none rounded-md bg-white border-gray-50 text-sm border text-gray-700 cursor-pointer">
       <option>All Properties</option>
       <!-- Additional options can be added here -->
+       <!-- <option v-for="(item, idx) in propertiesList" :key="idx">
+        {{item.name}}
+       </option> -->
+       <option v-for="(item, idx) in propertiesList" :key="idx" :value="item.name">
+    {{ item.name }}
+  </option>
     </select>
 
     <!-- Search Input -->
@@ -62,6 +53,11 @@
 
       <input v-model="searchQuery" type="text" placeholder="Search" class="bg-transparent text-gray-700 focus:outline-none" />
     </div>
+
+    <button class="flex items-center px-6 py-3  text-sm border-gray-50 border rounded-lg space-x-2 text-white bg-[#292929]">
+         Withdraw Earnings
+
+    </button>
 </section>
   </div>
     <div v-if="!loading && earningsList?.length"  class="p-6 min-h-screen container mx-auto">
@@ -77,18 +73,26 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(earning, index) in earningsList" :key="index" class="border-b border-gray-50">
-              <td class="px-4 py-6 text-[#667185] font-light text-sm">{{ earning.transactionId }}</td>
-              <td class="px-4 py-6 text-[#667185] font-light text-sm">{{ earning.propertyName }}</td>
-              <td class="px-4 py-6 text-[#667185] font-light text-sm">{{ earning.tenantName }}</td>
-              <td class="px-4 py-6 text-[#667185] font-light text-sm">{{ earning.date }}</td>
-              <td class="px-4 py-6 text-[#667185] font-light text-sm">{{ earning.commissionFee }}</td>
+            <tr v-for="(earning, index) in filteredEarnings" :key="index" class="border-b border-gray-50">
+              <td class="px-4 py-6 text-[#667185]  text-sm">{{ earning?.transactionId }}</td>
+              <td class="px-4 py-6 text-[#667185]  text-sm">{{ earning?.house.name ?? 'Nil' }}</td>
+              <td class="px-4 py-6 text-[#667185]  text-sm">{{ `${earning?.rentPayment?.tenant?.firstName} ${earning?.rentPayment?.tenant?.lastName}` }}</td>
+              <td class="px-4 py-6 text-[#667185]  text-sm">{{ moment(earning?.rentPayment?.paymentDate).format("MMMM Do YYYY") ?? 'Nil' }}</td>
+              <td class="px-4 py-6 text-[#667185]  text-sm">{{ earning?.commissionFee ?? 'Nil' }}</td>
             </tr>
           </tbody>
         </table>
       </div>
+      <div v-if="!filteredEarnings.length" class="bg-white px-4 py-5 sm:p-6 h-80 rounded-lg flex flex-col gap-y-4 justify-center border items-center border-gray-50">
+        <img
+        :src="dynamicIcons('payment-empty-state')"
+        alt="leases empty state"
+        class=""
+      />
+         <p v class="flex justify-center items-center">No Earnings Available</p>
+      </div>
       <CorePagination
-          v-if="!loading && earningsList.length > 0"
+          v-if="!loading && filteredEarnings.length > 0"
           :total="metadata.total"
           :page="metadata.page"
           :perPage="metadata.perPage"
@@ -115,9 +119,13 @@
   </template>
   
   <script setup lang="ts">
+    import moment from "moment";
   import { ref } from 'vue';
+  import { useGetProperties } from "@/composables/modules/property/fetchProperties";
+  import { useCurrencyFormatter } from '@/composables/core/useCurrencyFormatter';
   import { useGetEarnings } from '@/composables/modules/earnings/useGetEarnings'
     import { useGetTotalEarnings } from '@/composables/modules/earnings/useGetTotalEarnings'
+    const { formatCurrency } = useCurrencyFormatter('en-NG', 'NGN');
   const { getEarnings,
         loading,
         earningsList,
@@ -125,6 +133,17 @@
         metadata,
         setPaginationObj } = useGetEarnings()
         const { loadingEarningSum, earningSum } = useGetTotalEarnings()
+
+const {
+  propertiesList,
+  loadingSearch,
+  searchResults,
+  loadingProperties,
+  sortBy,
+  clearSearch,
+} = useGetProperties();
+
+const selectedProperty = ref<string | null>(null);
   
   // Earnings data array
   interface Earning {
@@ -140,17 +159,32 @@
   getEarnings(); // Explicitly call the method to fetch new data
 };
 
-  
-  // const earnings = ref<Earning[]>([
-  //   { transactionId: 'TXN26656890', propertyName: 'Ortiz - Kunde', tenantName: 'Jackie Goodwin', date: '30/05/2024', commissionFee: '116, 20.52' },
-  //   { transactionId: 'TXN26656890', propertyName: 'Hodkiewicz - Cummings', tenantName: 'Henry Veum', date: '30/05/2024', commissionFee: '693,590.94' },
-  //   { transactionId: 'TXN26656890', propertyName: 'Gislason - Crona', tenantName: 'Shari Lang', date: '30/05/2024', commissionFee: '597,399.00' },
-  //   { transactionId: 'TXN26656890', propertyName: 'Cassin - Simonis', tenantName: 'Kristina Schinner', date: '30/05/2024', commissionFee: '597,399.00' },
-  //   { transactionId: 'TXN26656890', propertyName: 'Parisian - Haley', tenantName: 'Alex Brown', date: '06/06/2024', commissionFee: '597,399.00' },
-  //   { transactionId: 'TXN26656890', propertyName: 'Torp, O\'Kon and Gislason', tenantName: 'Pat Haley', date: '06/06/2024', commissionFee: '597,399.00' },
-  //   { transactionId: 'TXN26656890', propertyName: 'Lubowitz, Berge and Cartwright', tenantName: 'Kristopher Beatty', date: '06/06/2024', commissionFee: '597,399.00' },
-  //   { transactionId: 'TXN26656890', propertyName: 'Fritsch LLC', tenantName: 'Franklin Jakubowski', date: '06/06/2024', commissionFee: '597,399.00' },
-  // ]);
+
+//   const filteredEarnings = computed(() => {
+//   if (!searchQuery.value) return earningsList.value;
+//   return earningsList.value.filter((earning: any) =>
+//     earning?.transactionId?.toLowerCase()?.includes(searchQuery.value.toLowerCase()) ||
+//     earning?.house?.name?.toLowerCase()?.includes(searchQuery.value.toLowerCase()) ||
+//     earning?.rentPayment?.tenant?.firstName?.toLowerCase()?.includes(searchQuery.value.toLowerCase()) ||
+//     earning?.rentPayment?.tenant?.lastName?.toLowerCase()?.includes(searchQuery.value.toLowerCase())
+//   );
+// });
+
+// Computed property for filtering earnings
+const filteredEarnings = computed(() => {
+  return earningsList.value.filter((earning: any) => {
+    const matchesSearch =
+      !searchQuery.value ||
+      earning?.transactionId?.toLowerCase()?.includes(searchQuery.value.toLowerCase()) ||
+      earning?.house?.name?.toLowerCase()?.includes(searchQuery.value.toLowerCase()) ||
+      earning?.rentPayment?.tenant?.firstName?.toLowerCase()?.includes(searchQuery.value.toLowerCase()) ||
+      earning?.rentPayment?.tenant?.lastName?.toLowerCase()?.includes(searchQuery.value.toLowerCase());
+
+    const matchesProperty = !selectedProperty.value || earning?.house?.name === selectedProperty.value;
+
+    return matchesSearch && matchesProperty;
+  });
+});
   
   const currentPage = ref(1);
   </script>

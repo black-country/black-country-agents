@@ -41,7 +41,7 @@ export const useGetEarnings = () => {
         loading.value = true;
         try {
             const res = await $_get_earnings(user.value.id, metadata.value) as any;
-    
+        console.log(res, 'res hee')
             if (res.type !== 'ERROR') {
                 // Sort properties by 'createdAt' in descending order
                 earningsList.value = res?.data?.result

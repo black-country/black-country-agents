@@ -14,7 +14,7 @@
           </div>
           <div>
             <h3 class="text-base font-medium text-[#1D2739]">{{ payment.description }}</h3>
-            <p class="text-sm text-[#667185] font-light">{{ payment.date }},{{ payment.time }}</p>
+            <p class="text-sm text-[#667185] ">{{ payment.date }},{{ payment.time }}</p>
           </div>
         </div>
         <p class="text-base font-medium text-[#292929]">{{ payment.amount }}</p>

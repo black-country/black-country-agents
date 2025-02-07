@@ -39,7 +39,7 @@
           <div v-for="item in filteredFaqList" :key="item.id" class="overflow-hidden border-[0.5px] border-gray-50 px-3 bg-white rounded-lg">
             <button class="w-full text-left py-3  transition-colors duration-300 flex justify-between items-center"
               @click="toggle(item.id)">
-              <p class="text-[#1D2739] font-light">
+              <p class="text-[#1D2739] ">
                 {{ item.question }}
               </p>
               <span class="relative h-5 w-5 shrink-0">
@@ -58,7 +58,7 @@
             </button>
             <div v-if="isOpen(item.id)" class="overflow-hidden transition-max-height duration-500 pb-3"
               :style="{ maxHeight: isOpen(item.id) ? `${maxHeight}px` : '0' }">
-              <p class="p-1 lg:p-4 text-gray-700 text-sm font-light md:text-base rounded-lg">
+              <p class="p-1 lg:p-4 text-gray-700 text-sm  md:text-base rounded-lg">
                 {{ item.answer }}
               </p>
             </div>
