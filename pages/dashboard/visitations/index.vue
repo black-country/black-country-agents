@@ -31,7 +31,7 @@
             <!-- <p class="text-[#667185]">You have not contacted anyone</p> -->
       </section>
      <!-- <VisitationsCalender v-if="activeTab === 'calendar'" /> -->
-     <ListingsCalender v-if="activeTab === 'calendar'"  />
+     <ListingsCalender :visitations="visitations" v-if="activeTab === 'calendar'"  />
    </main>
 </template>
 

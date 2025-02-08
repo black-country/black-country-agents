@@ -35,8 +35,8 @@
       <div class="relative">
         <select v-model="propertyOption" class="px-4 py-3 outline-none border border-gray-100 pr-6 bg-white text-[#1D2739] rounded-md text-sm">
           <option value="all-properties">All Properties</option>
-          <option value="property-1">Property 1</option>
-          <option value="property-2">Property 2</option>
+          <option v-for="(item, idx) in propertiesList" :key="idx" :value="item.id">{{ item.name ?? 'Nil' }}</option>
+          <!-- <option value="property-2">Property 2</option> -->
         </select>
       </div>
 
@@ -65,6 +65,9 @@
 </template>
 
 <script setup lang="ts">
+import { useGetProperties } from "@/composables/modules/property/fetchProperties";
+const { propertiesList, loadingProperties } =
+  useGetProperties();
 import { ref, defineEmits } from 'vue'
 
 // const emit = defineEmits(['setTab', 'viewModeChange']);

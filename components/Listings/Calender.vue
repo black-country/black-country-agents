@@ -1,16 +1,15 @@
 <template>
   <div class="w-full h-full min-h-screen bg-white">
     <!-- Calendar Header -->
+     <!-- {{ visitations }} -->
     <div class="p-4 border-b flex items-center justify-between">
       <div class="flex items-center gap-4">
-        <button class="p-2 hover:bg-gray-100 rounded-full">
-          <!-- <ChevronLeft class="w-5 h-5" /> -->
-           Left
+        <button class="p-2 hover:bg-gray-100 rounded-full" @click="changeWeek(-1)">
+          Left
         </button>
         <span class="text-lg font-medium">{{ currentMonth }} {{ currentYear }}</span>
-        <button class="p-2 hover:bg-gray-100 rounded-full">
-          <!-- <ChevronRight class="w-5 h-5" /> -->
-           Right
+        <button class="p-2 hover:bg-gray-100 rounded-full" @click="changeWeek(1)">
+          Right
         </button>
         <button class="px-4 py-2 rounded-lg bg-green-700 text-white ml-4">
           Week
@@ -19,32 +18,16 @@
     </div>
 
     <!-- Calendar Days Header -->
-    <div class="flex border-b relative">
+    <div class="flex border-b">
       <div class="w-20 border-r bg-white"></div>
-      <div class="flex-1 relative overflow-hidden">
-        <div class="flex" ref="daysContainer">
-          <button 
-            class="p-2 hover:bg-gray-100 absolute left-0 top-1/2 -translate-y-1/2 z-10"
-            @click="scrollDays('left')"
-          >
-            <!-- <ChevronLeft class="w-5 h-5" /> -->
-             Left
-          </button>
-          <button 
-            class="p-2 hover:bg-gray-100 absolute right-0 top-1/2 -translate-y-1/2 z-10"
-            @click="scrollDays('right')"
-          >
-            <!-- <ChevronRight class="w-5 h-5" /> -->
-             Right
-          </button>
-          <div 
-            v-for="day in visibleDays" 
-            :key="day.date"
-            class="flex-1 min-w-[120px] p-2 text-center border-r"
-          >
-            <div class="text-sm text-gray-600">{{ day.name }}</div>
-            <div class="text-2xl font-medium">{{ day.date }}</div>
-          </div>
+      <div class="flex-1 grid grid-cols-7">
+        <div 
+          v-for="day in visibleDays" 
+          :key="day.fullDate"
+          class="p-2 text-center border-r"
+        >
+          <div class="text-sm text-gray-600">{{ day.name }}</div>
+          <div class="text-2xl font-medium">{{ day.date }}</div>
         </div>
       </div>
     </div>
@@ -63,107 +46,178 @@
       </div>
 
       <!-- Calendar Grid -->
-      <div class="flex-1 relative">
-        <div class="flex">
+      <div class="flex-1 grid grid-cols-7">
+        <div 
+          v-for="day in visibleDays" 
+          :key="day.fullDate"
+          class="border-r relative"
+          :class="{'bg-blue-50': hasEventsOnDay(day)}"
+          @mouseover="showDayTooltip(day, $event)"
+          @mouseleave="hideTooltip"
+        >
           <div 
-            v-for="day in visibleDays" 
-            :key="day.date"
-            class="flex-1 min-w-[120px] border-r relative"
+            v-for="hour in hours" 
+            :key="hour"
+            class="h-20 border-b relative"
           >
-            <!-- Time Slots -->
-            <div 
-              v-for="hour in hours" 
-              :key="hour"
-              class="h-20 border-b relative"
-            >
-              <!-- Events -->
-              <template v-for="event in getEventsForDayAndHour(day, hour)" :key="event.id">
-                <div
-                  class="absolute left-0 right-2 rounded p-2 text-sm bg-green-50 border-l-4 border-green-700"
-                  :style="{
-                    top: `${calculateEventTop(event)}px`,
-                    height: `${calculateEventHeight(event)}px`
-                  }"
-                >
-                  <div class="font-medium">{{ event.time }}</div>
-                  <div>{{ event.title }}</div>
-                </div>
-              </template>
-            </div>
+            <template v-for="event in getEventsForDayAndHour(day, hour)" :key="event.id">
+              <div
+                class="absolute left-0 right-2 rounded p-2 text-sm cursor-pointer"
+                :class="getEventClass(event.status)"
+                :style="{
+                  top: `${calculateEventTop(event)}px`,
+                  height: `${calculateEventHeight(event)}px`
+                }"
+                @mouseover.stop="showEventTooltip(event, $event)"
+                @mouseleave.stop="hideTooltip"
+              >
+                <div class="font-medium">{{ formatEventTime(event) }}</div>
+                <div>{{ `${event.tenant.firstName} ${event.tenant.lastName}` }}</div>
+              </div>
+            </template>
           </div>
         </div>
       </div>
+    </div>
+
+    <!-- Tooltip -->
+    <div 
+      v-if="activeTooltip"
+      class="fixed bg-white shadow-lg rounded-lg p-3 z-50 max-w-xs"
+      :style="tooltipStyle"
+    >
+      <template v-if="activeTooltip.type === 'event'">
+        <p class="font-medium">{{ activeTooltip.data.note || 'No note provided' }}</p>
+        <p class="text-sm text-gray-600 mt-1">Status: {{ activeTooltip.data.status }}</p>
+      </template>
+      <template v-else>
+        <p class="font-medium">{{ getEventCountForDay(activeTooltip.data) }} events on this day</p>
+      </template>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-// import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 interface Day {
   name: string
   date: number
   month: number
   year: number
+  fullDate: Date
+}
+
+interface Tenant {
+  firstName: string
+  lastName: string
 }
 
 interface Event {
   id: string
-  title: string
+  date: string
   time: string
-  startHour: number
-  startMinute: number
-  duration: number // in minutes
-  day: number
+  note: string
+  status: string
+  tenant: Tenant
 }
 
-const currentDate = new Date()
-const currentMonth = computed(() => {
-  return currentDate.toLocaleString('default', { month: 'long' })
-})
-const currentYear = computed(() => currentDate.getFullYear())
+interface Tooltip {
+  type: 'event' | 'day'
+  data: Event | Day
+}
 
-// Generate array of hours for the day (7 AM to 11 PM)
+const props = defineProps({
+  visitations: {
+    type: Array,
+    default: () => []
+  }
+})
+
+// const events = ref<Event[]>([
+//   {
+//     id: "1",
+//     date: "2025-02-07T09:00:00.000Z",
+//     time: "09:00 AM",
+//     note: "First viewing of the day",
+//     status: "scheduled",
+//     tenant: {
+//       firstName: "John",
+//       lastName: "Doe"
+//     }
+//   },
+//   {
+//     id: "2",
+//     date: "2025-02-07T14:30:00.000Z",
+//     time: "02:30 PM",
+//     note: "Second viewing",
+//     status: "completed",
+//     tenant: {
+//       firstName: "Jane",
+//       lastName: "Smith"
+//     }
+//   },
+//   {
+//     id: "3",
+//     date: "2025-02-08T11:00:00.000Z",
+//     time: "11:00 AM",
+//     note: "Missed appointment",
+//     status: "no_show",
+//     tenant: {
+//       firstName: "Mike",
+//       lastName: "Johnson"
+//     }
+//   }
+// ])
+
+const currentDate = ref(new Date('2025-02-07'))
+const activeTooltip = ref<Tooltip | null>(null)
+const tooltipStyle = ref({
+  top: '0px',
+  left: '0px'
+})
+
+const currentMonth = computed(() => {
+  return currentDate.value.toLocaleString('default', { month: 'long' })
+})
+
+const currentYear = computed(() => currentDate.value.getFullYear())
+
 const hours = Array.from({ length: 17 }, (_, i) => i + 7)
 
-// Generate 7 days starting from current date
+const hasEventsOnDay = (day: Day): boolean => {
+  return props.visitations.some(event => isSameDay(new Date(event.date), day.fullDate))
+}
+
+const getEventCountForDay = (day: Day): number => {
+  return props.visitations.filter(event => isSameDay(new Date(event.date), day.fullDate)).length
+}
+
 const generateWeekDays = (startDate: Date): Day[] => {
+  const startOfWeek = new Date(startDate)
+  startOfWeek.setDate(startDate.getDate() - startDate.getDay())
+
   return Array.from({ length: 7 }, (_, i) => {
-    const date = new Date(startDate)
+    const date = new Date(startOfWeek)
     date.setDate(date.getDate() + i)
     return {
       name: date.toLocaleString('default', { weekday: 'short' }).toUpperCase(),
       date: date.getDate(),
       month: date.getMonth(),
-      year: date.getFullYear()
+      year: date.getFullYear(),
+      fullDate: new Date(date)
     }
   })
 }
 
-const visibleDays = ref(generateWeekDays(currentDate))
+const visibleDays = ref(generateWeekDays(currentDate.value))
 
-// Sample events data
-const events = ref<Event[]>([
-  {
-    id: '1',
-    title: 'Jacky Godwin',
-    time: '07:00 AM - 08:20 AM',
-    startHour: 7,
-    startMinute: 0,
-    duration: 80,
-    day: 21
-  },
-  {
-    id: '2',
-    title: 'Lorem ipsum dolor sit amet',
-    time: '11:00 AM - 11:20 AM',
-    startHour: 11,
-    startMinute: 0,
-    duration: 20,
-    day: 21
-  }
-])
+const changeWeek = (direction: number) => {
+  const newDate = new Date(currentDate.value)
+  newDate.setDate(newDate.getDate() + (direction * 7))
+  currentDate.value = newDate
+  visibleDays.value = generateWeekDays(newDate)
+}
 
 const formatHour = (hour: number): string => {
   const ampm = hour >= 12 ? 'PM' : 'AM'
@@ -171,38 +225,78 @@ const formatHour = (hour: number): string => {
   return `${displayHour} ${ampm}`
 }
 
+const formatEventTime = (event: Event): string => {
+  return event.time
+}
+
+const getEventClass = (status: string): string => {
+  const baseClasses = 'border-l-4'
+  switch (status) {
+    case 'scheduled':
+      return `${baseClasses} bg-blue-50 border-blue-700`
+    case 'completed':
+      return `${baseClasses} bg-green-50 border-green-700`
+    case 'no_show':
+      return `${baseClasses} bg-red-50 border-red-700`
+    default:
+      return `${baseClasses} bg-gray-50 border-gray-700`
+  }
+}
+
+const isSameDay = (date1: Date, date2: Date): boolean => {
+  return date1.getDate() === date2.getDate() &&
+         date1.getMonth() === date2.getMonth() &&
+         date1.getFullYear() === date2.getFullYear()
+}
+
 const getEventsForDayAndHour = (day: Day, hour: number) => {
-  return events.value.filter(event => 
-    event.day === day.date && 
-    event.startHour === hour
-  )
+  return props.visitations.filter(event => {
+    const eventDate = new Date(event.date)
+    return isSameDay(eventDate, day.fullDate) && eventDate.getHours() === hour
+  })
 }
 
 const calculateEventTop = (event: Event): number => {
-  return (event.startMinute / 60) * 80 // 80px is the height of hour slot
+  const eventDate = new Date(event.date)
+  return (eventDate.getMinutes() / 60) * 80
 }
 
-const calculateEventHeight = (event: Event): number => {
-  return (event.duration / 60) * 80 // 80px is the height of hour slot
+const calculateEventHeight = (_event: Event): number => {
+  return 60
 }
 
-// Scroll handling for days
-const daysContainer = ref<HTMLElement | null>(null)
+const showEventTooltip = (event: Event, e: MouseEvent) => {
+  activeTooltip.value = {
+    type: 'event',
+    data: event
+  }
+  updateTooltipPosition(e)
+}
 
-const scrollDays = (direction: 'left' | 'right') => {
-  if (!daysContainer.value) return
-  
-  const scrollAmount = direction === 'left' ? -240 : 240
-  daysContainer.value.scrollBy({
-    left: scrollAmount,
-    behavior: 'smooth'
-  })
+const showDayTooltip = (day: Day, e: MouseEvent) => {
+  if (hasEventsOnDay(day)) {
+    activeTooltip.value = {
+      type: 'day',
+      data: day
+    }
+    updateTooltipPosition(e)
+  }
+}
+
+const updateTooltipPosition = (e: MouseEvent) => {
+  tooltipStyle.value = {
+    top: `${e.clientY + 10}px`,
+    left: `${e.clientX + 10}px`
+  }
+}
+
+const hideTooltip = () => {
+  activeTooltip.value = null
 }
 </script>
 
 <style scoped>
 .calendar-grid {
-  display: grid;
-  grid-template-columns: 80px repeat(7, 1fr);
+  height: calc(100vh - 120px);
 }
 </style>

@@ -29,7 +29,7 @@
       </div>
     </div>
 
-<section class="flex items-center justify-between gap-x-5">
+<section class="lg:flex space-y-3 items-center justify-between gap-x-5">
       <!-- Filter Button -->
 
     <!-- Properties Dropdown -->
@@ -78,7 +78,8 @@
               <td class="px-4 py-6 text-[#667185]  text-sm">{{ earning?.house.name ?? 'Nil' }}</td>
               <td class="px-4 py-6 text-[#667185]  text-sm">{{ `${earning?.rentPayment?.tenant?.firstName} ${earning?.rentPayment?.tenant?.lastName}` }}</td>
               <td class="px-4 py-6 text-[#667185]  text-sm">{{ moment(earning?.rentPayment?.paymentDate).format("MMMM Do YYYY") ?? 'Nil' }}</td>
-              <td class="px-4 py-6 text-[#667185]  text-sm">{{ earning?.commissionFee ?? 'Nil' }}</td>
+              <td class="px-4 py-6 text-[#667185]  text-sm">{{ calculateCommission(earning?.amountSubunit)?? 'Nil' }}</td>
+              <!-- <td class="px-4 py-6 text-[#667185] text-sm">{{ earning.commissionFee }}</td> -->
             </tr>
           </tbody>
         </table>
@@ -185,6 +186,37 @@ const filteredEarnings = computed(() => {
     return matchesSearch && matchesProperty;
   });
 });
+
+
+const useTenPercent = (amount: any) => {
+  const tenPercent = computed(() => {
+    if (typeof amount !== 'number' || isNaN(amount)) {
+      return 'Invalid amount';
+    }
+    return `₦${(amount * 0.1).toLocaleString('en-NG', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+  });
+
+  return {
+    tenPercent,
+  };
+}
+
+const calculateCommission = (amount: number): string => {
+  if (isNaN(amount) || amount < 0) {
+    throw new Error("Invalid amount. Please enter a valid number.");
+  }
+
+  const commission = (amount * 10) / 100;
+  return `₦${commission.toLocaleString("en-NG", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+};
+
+
+const computedEarnings = computed(() =>
+  earningsList.value.map(earning => ({
+    ...earning,
+    commissionFee: useTenPercent(earning.amountSubunit).tenPercent.value
+  }))
+);
   
   const currentPage = ref(1);
   </script>
