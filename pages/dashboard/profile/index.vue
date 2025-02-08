@@ -326,11 +326,11 @@ const accountSettings = ref([
     icon: "profile",
     path: "/dashboard/profile/personal-information",
   },
-  {
-    label: "Payment Information",
-    icon: "payment",
-    path: "/dashboard/profile/payment-information",
-  },
+  // {
+  //   label: "Payment Information",
+  //   icon: "payment",
+  //   path: "/dashboard/profile/payment-information",
+  // },
   {
     label: "Notification Preference",
     icon: "profile-notification",
@@ -362,11 +362,11 @@ const legalSettings = ref([
     icon: "privacy",
     path: "/dashboard/profile/privacy",
   },
-  {
-    label: "Third Party Licenses",
-    icon: "privacy",
-    path: "/dashboard/profile/third-party",
-  },
+  // {
+  //   label: "Third Party Licenses",
+  //   icon: "privacy",
+  //   path: "/dashboard/profile/third-party",
+  // },
 ]);
 
 const helpSettings = ref([
