@@ -22,9 +22,6 @@
         <p>Current as of <strong>{{ lastUpdated }}</strong></p>
       </div>
 
-      <!-- Title -->
-      <h1 class="text-2xl font-semibold text-gray-800 mb-6">Terms & Conditions</h1>
-
       <!-- Rendered Terms List -->
       <div v-html="formattedTermsList" class="space-y-6 text-gray-700"></div>
     </div>
