@@ -79,7 +79,7 @@ const { loading, termsList } = useFetchTermsOfUse();
 const router = useRouter();
 
 // Extract last updated date if provided by the backend
-const lastUpdated = computed(() => termsList.value?.lastUpdated || "");
+const lastUpdated = computed(() => termsList.value?.createdAt || "");
 
 // Format the dynamic termsList into an HTML structure
 const formattedTermsList = computed(() => {
