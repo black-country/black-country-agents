@@ -106,7 +106,7 @@
           placeholder="Enter your password"
           class="mt-1 block w-full bg-[#E4E7EC] text-sm px-4 py-4 border-[0.5px] border-gray-100 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
         />
-        <p v-if="credential.password.value.length > 0 && credential.password.value.length < 6" class="text-red-500 text-sm">
+        <p v-if="credential.password.value.length > 0 && credential.password.value.length < 6" class="text-red-500 text-xs">
           Password must be at least 6 characters long.
         </p>
         <div
@@ -185,14 +185,7 @@
           class="block text-sm font-medium text-[#1D2739]"
           >Confirm password</label
         >
-        <!-- <input
-          :type="showConfirmPassword ? 'text' : 'password'"
-          id="confirm-password"
-          min="6"
-          v-model.trim="credential.confirmPassword.value"
-          placeholder="Confirm your password"
-          class="mt-1 block w-full bg-[#E4E7EC] text-sm px-4 py-4 border-[0.5px] border-gray-100 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-        /> -->
+
         <input
               :type="showConfirmPassword ? 'text' : 'password'"
               id="confirm-password"
@@ -201,7 +194,7 @@
               placeholder="Confirm your password"
               class="mt-1 block w-full bg-[#E4E7EC] text-sm px-4 py-4 border-[0.5px] border-gray-100 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
             />
-            <p v-if="credential.confirmPassword.value.length > 0 && credential.confirmPassword.value.length < 6" class="text-red-500 text-sm">
+            <p v-if="credential.confirmPassword.value.length > 0 && credential.confirmPassword.value.length < 6" class="text-red-500 text-xs">
               Password must be at least 6 characters long.
             </p>
         <div
