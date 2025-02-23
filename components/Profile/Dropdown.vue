@@ -59,6 +59,7 @@
       <!-- Dropdown Menu -->
       <div ref="target" v-if="openDropdown" class="absolute right-0 mt-2 w-56 bg-white divide-y-[0.5px] divide-gray-300 rounded-lg shadow-lg py-2 z-50">
       <NuxtLink
+        @click="isOpen = false"
         to="/dashboard/profile"
         class="flex items-center px-4 py-3 text-[#1D2739] space-x-3"
       >

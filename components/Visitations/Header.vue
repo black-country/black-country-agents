@@ -1,10 +1,10 @@
 <template>
-  <div class="lg:flex flex-wrap space-y-6 lg:space-y-0 mx-6 lg:mx-auto justify-between items-center gap-4 p-4">
+  <div class="lg:flex flex-wrap space-y-6 lg:space-y-0 lg:mx-auto justify-between items-center gap-4 p-4">
     <!-- View Mode Buttons -->
     <section class="flex items-center gap-x-4">
       <button
         :class="[
-          'px-10 py-3 rounded-md font-medium transition-colors text-sm',
+          'px-10 py-3 w-full lg:w-auto rounded-md font-medium transition-colors text-sm',
           isGridView ? 'bg-[#5B8469] text-white' : 'bg-[#F0F2F5] text-[#1A1A1A]'
         ]"
         @click="changeViewMode('grid')"
@@ -13,7 +13,7 @@
       </button>
       <button
         :class="[
-          'px-10 py-3 rounded-md font-medium transition-colors text-sm',
+          'px-10 py-3 w-full lg:w-auto rounded-md font-medium transition-colors text-sm',
           !isGridView ? 'bg-[#5B8469] text-white' : 'bg-[#F0F2F5] text-[#1A1A1A]'
         ]"
         @click="changeViewMode('calendar')"

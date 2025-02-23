@@ -246,7 +246,7 @@ const saveSchedule = async () => {
               <div
                 v-for="(timeSlot, index) in daySchedule.timeSlots"
                 :key="index"
-                class="flex w-5/12 items-center space-x-2 flex-wrap md:flex-nowrap gap-2"
+                class="flex w-5/12 items-center space-x-2  gap-2"
               >
                 <button
                   @click="openTimePicker(day, index, 'start')"

@@ -2,12 +2,16 @@
   <main>
     <CoreNavbar />
    <div v-if="!loading" class="lg:p-6 p-3 bg-gray-25 min-h-screen">
+    <svg @click="router.back()" class="cursor-pointer ml-5" width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="36" height="36" rx="18" fill="#EAEAEA"/>
+            <path d="M20.5 13C20.5 13 15.5 16.6824 15.5 18C15.5 19.3177 20.5 23 20.5 23" stroke="#1D2739" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
      <div class="max-w-2xl mx-auto">
      <div class="flex items-center gap-x-4">
       <CoreGoBack />
        <!-- Breadcrumbs -->
        <div class="text-sm text-gray-500 my-4">
-         <span>Profile</span>
+         <NuxtLink to="/dashboard/profile">Profile</NuxtLink>
          <span class="mx-2">|</span>
          <span class="font-medium text-gray-700">Contact us</span>
        </div>
@@ -165,6 +169,7 @@
    import {  useFetchContacts } from '@/composables/core/useFetchContacts'
    const { loading,
      contactsInfo } = useFetchContacts()
+     const router = useRouter()
  
  const navigateToSocials = (item: any) => {
    console.log(item, 'item herre')

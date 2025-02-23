@@ -34,9 +34,9 @@
         <DashboardUpcomingVisits v-else :visits="visitations" />
     </div>
 
-        <div class="rounded-lg mb-4 space-y-3">
+        <!-- <div class="rounded-lg mb-4 space-y-3">
           <DashboardTransactionsList />
-        </div>
+        </div> -->
       </div>
     </section>
   </main>

@@ -29,20 +29,23 @@
       </div>
     </div>
 
-<section class="lg:flex space-y-3 items-center justify-between gap-x-5">
+<section class="lg:flex space-y-3 lg:space-y-0 items-center justify-between gap-x-5">
       <!-- Filter Button -->
 
     <!-- Properties Dropdown -->
-    <select v-if="!loadingProperties"  v-model="selectedProperty" class="px-4 py-3 outline-none rounded-md bg-white border-gray-50 text-sm border text-gray-700 cursor-pointer">
-      <option>All Properties</option>
-      <!-- Additional options can be added here -->
-       <!-- <option v-for="(item, idx) in propertiesList" :key="idx">
-        {{item.name}}
-       </option> -->
+    <!-- <select v-if="!loadingProperties"  v-model="selectedProperty" class="px-4 py-3 outline-none rounded-md bg-white border-gray-50 text-sm border text-gray-700 cursor-pointer">
+      <option value="" disabled>All Properties</option>
        <option v-for="(item, idx) in propertiesList" :key="idx" :value="item.name">
     {{ item.name }}
+    </option>
+    </select> -->
+    <select v-if="!loadingProperties" v-model="selectedProperty" class="px-4 py-3 border outline-none rounded-md bg-white border-gray-50 text-sm border text-gray-700 cursor-pointer">
+  <option disabled value="" hidden>Select a property</option>
+  <option v-for="(item, idx) in propertiesList" :key="idx" :value="item.name">
+    {{ item.name }}
   </option>
-    </select>
+</select>
+
 
     <!-- Search Input -->
     <div class="flex items-center px-4 py-3 bg-white rounded-md space-x-2 border-gray-50 text-sm border">
@@ -54,10 +57,10 @@
       <input v-model="searchQuery" type="text" placeholder="Search" class="bg-transparent text-gray-700 focus:outline-none" />
     </div>
 
-    <button class="flex items-center px-6 py-3  text-sm border-gray-50 border rounded-lg space-x-2 text-white bg-[#292929]">
+    <!-- <button class="flex items-center px-6 py-3  text-sm border-gray-50 border rounded-lg space-x-2 text-white bg-[#292929]">
          Withdraw Earnings
 
-    </button>
+    </button> -->
 </section>
   </div>
     <div v-if="!loading && earningsList?.length"  class="p-6 min-h-screen container mx-auto">

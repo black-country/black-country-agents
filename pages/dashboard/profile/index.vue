@@ -1,11 +1,15 @@
 <template>
   <main>
     <div class="min-h-screen bg-gray-25 pb-10">
-      <div class="max-w-xl mx-auto space-y-4 pt-10">
+      <div class="max-w-xl mx-auto space-y-4 pt-8">
+        <svg @click="router.back()" class="cursor-pointer ml-10 lg:ml-0" width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="36" height="36" rx="18" fill="#EAEAEA"/>
+            <path d="M20.5 13C20.5 13 15.5 16.6824 15.5 18C15.5 19.3177 20.5 23 20.5 23" stroke="#1D2739" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
           <h3 class="text-[#1D2739] text-lg font-semibold pl-10 lg:pl-0">Profile</h3>
-        <div class="max-w-sm mx-auto px-6 pb-6 text-center space-y-4 relative">
+          <div class="max-w-sm mx-auto px-6 pb-6 text-center space-y-4 relative">
           <!-- Profile Picture with Border-Based Circular Progress -->
-          <div class="relative inline-block">
+          <div v-if="completionPercentage !== 100" class="relative inline-block">
             <!-- Circular Progress Container -->
             <div
               class="w-24 h-24 rounded-full flex items-center justify-center"
@@ -13,21 +17,61 @@
                 background: progressBackground,
               }"
             >
-              <!-- User Profile Picture -->
-              <div class="w-20 h-20 bg-gray-300 rounded-full"></div>
+              <div class="w-20 h-20 bg-gray-300 rounded-full"> </div>
             </div>
       
             <!-- Percentage Text -->
+            <div class="absolute inset-0 flex items-center justify-center">
+              <svg v-if="!user.profilePicture" width="" height="" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M38.9271 39.7854C40.9459 37.8885 42.5541 35.5977 43.6524 33.0546C44.7507 30.5115 45.3157 27.7701 45.3125 25C45.3125 13.7812 36.2188 4.6875 25 4.6875C13.7813 4.6875 4.68751 13.7812 4.68751 25C4.68431 27.7701 5.24932 30.5115 6.34762 33.0546C7.44592 35.5977 9.05416 37.8885 11.0729 39.7854C14.8374 43.3414 19.8216 45.3195 25 45.3125C30.1785 45.3195 35.1626 43.3414 38.9271 39.7854ZM12.8021 37.1083C14.2648 35.2784 16.1209 33.8015 18.2326 32.7873C20.3443 31.7731 22.6574 31.2477 25 31.25C27.3427 31.2477 29.6557 31.7731 31.7674 32.7873C33.8792 33.8015 35.7353 35.2784 37.1979 37.1083C35.6021 38.7202 33.7022 39.9992 31.6083 40.8711C29.5144 41.743 27.2682 42.1904 25 42.1875C22.7318 42.1904 20.4856 41.743 18.3917 40.8711C16.2978 39.9992 14.3979 38.7202 12.8021 37.1083ZM32.8125 18.75C32.8125 20.822 31.9894 22.8091 30.5243 24.2743C29.0592 25.7394 27.072 26.5625 25 26.5625C22.928 26.5625 20.9409 25.7394 19.4757 24.2743C18.0106 22.8091 17.1875 20.822 17.1875 18.75C17.1875 16.678 18.0106 14.6909 19.4757 13.2257C20.9409 11.7606 22.928 10.9375 25 10.9375C27.072 10.9375 29.0592 11.7606 30.5243 13.2257C31.9894 14.6909 32.8125 16.678 32.8125 18.75Z" fill="#D6D0CC"/>
+                  </svg>
+                  <img v-else :src="user.profilePicture" class="h-20 rounded-full w-20" />
+            </div>
+          </div>
+         <div v-else class="flex justify-center items-center">
+          <img :src="user.profilePicture" class="h-20 rounded-full w-20" />
+         </div>
+      
+          <!-- User Info -->
+          <div>
+             <div  v-if="completionPercentage !== 100"  class="flex justify-center items-center">
+              <span class="text-white rounded-full text-xs px-2 py-1 font-semibold bg-[#5B8469] absolute top-[81px]">{{ completionPercentage }}%</span> 
+             </div>
+            <p class="text-xl font-bold text-[#1D2739]">{{user.firstName ?? 'Nil'}} {{user.lastName ?? 'Nil'}}</p>
+            <p class="text-sm text-[#667185]">{{user.email ?? 'Nil'}}</p>
+          </div>
+      
+          <!-- Action Button -->
+          <div v-if="completionPercentage !== 100" class="flex justify-center items-center space-x-2 bg-[#F0F2F5] rounded-full py-2 px-4">
+            <p class="text-sm font-medium text-[#1D2739]">Complete your Account Setup</p>
+            <span class="w-3 h-3 bg-[#099137] rounded-full"></span>
+          </div>
+        </div>
+        <!-- <div class="max-w-sm mx-auto px-6 pb-6 text-center space-y-4 relative">
+
+          <div class="relative inline-block">
+
+            <div
+              class="w-24 h-24 rounded-full flex items-center justify-center"
+              :style="{
+                background: progressBackground,
+              }"
+            >
+
+              <div class="w-20 h-20 bg-gray-300 rounded-full"></div>
+            </div>
+      
+
             <div class="absolute inset-0 flex items-center justify-center">
               <svg v-if="!user?.profilePicture?.length" width="" height="" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path fill-rule="evenodd" clip-rule="evenodd" d="M38.9271 39.7854C40.9459 37.8885 42.5541 35.5977 43.6524 33.0546C44.7507 30.5115 45.3157 27.7701 45.3125 25C45.3125 13.7812 36.2188 4.6875 25 4.6875C13.7813 4.6875 4.68751 13.7812 4.68751 25C4.68431 27.7701 5.24932 30.5115 6.34762 33.0546C7.44592 35.5977 9.05416 37.8885 11.0729 39.7854C14.8374 43.3414 19.8216 45.3195 25 45.3125C30.1785 45.3195 35.1626 43.3414 38.9271 39.7854ZM12.8021 37.1083C14.2648 35.2784 16.1209 33.8015 18.2326 32.7873C20.3443 31.7731 22.6574 31.2477 25 31.25C27.3427 31.2477 29.6557 31.7731 31.7674 32.7873C33.8792 33.8015 35.7353 35.2784 37.1979 37.1083C35.6021 38.7202 33.7022 39.9992 31.6083 40.8711C29.5144 41.743 27.2682 42.1904 25 42.1875C22.7318 42.1904 20.4856 41.743 18.3917 40.8711C16.2978 39.9992 14.3979 38.7202 12.8021 37.1083ZM32.8125 18.75C32.8125 20.822 31.9894 22.8091 30.5243 24.2743C29.0592 25.7394 27.072 26.5625 25 26.5625C22.928 26.5625 20.9409 25.7394 19.4757 24.2743C18.0106 22.8091 17.1875 20.822 17.1875 18.75C17.1875 16.678 18.0106 14.6909 19.4757 13.2257C20.9409 11.7606 22.928 10.9375 25 10.9375C27.072 10.9375 29.0592 11.7606 30.5243 13.2257C31.9894 14.6909 32.8125 16.678 32.8125 18.75Z" fill="#D6D0CC"/>
                   </svg>
                   <img v-else class="rounded-full h-[80px] w-[80px] object-cover" :src="user.profilePicture" />
             </div>
-            <!-- <img v-else class="h-32 w-32 rounded-full object-cover" :src="user.profilePicture" /> -->
+
           </div>
       
-          <!-- User Info -->
+
           <div>
              <div class="flex justify-center items-center">
               <span class="text-white rounded-full text-xs px-2 py-1 font-semibold bg-[#5B8469] absolute top-[81px]">{{ percentage }}%</span> 
@@ -35,13 +79,12 @@
             <p class="text-xl font-bold text-[#1D2739]">{{user.firstName ?? 'Nil'}} {{user.lastName ?? 'Nil'}}</p>
             <p class="text-sm text-[#667185]">{{user.email ?? 'Nil'}}</p>
           </div>
-      
-          <!-- Action Button -->
+
           <div class="flex justify-center items-center space-x-2 bg-[#F0F2F5] rounded-full py-2 px-4">
             <p class="text-sm font-medium text-[#1D2739]">Complete your Account Setup</p>
             <span class="w-3 h-3 bg-[#099137] rounded-full"></span>
           </div>
-        </div>
+        </div> -->
   
   
   <section class="space-y-5 p-6 lg:p-0">
@@ -292,6 +335,7 @@
 </template>
 
 <script setup lang="ts">
+import { useProfileCompletion } from '@/composables/core/useProfileCompletion'
 import { useUser } from '@/composables/auth/user'
 import { dynamicIcons } from "@/utils/assets";
 const { user } = useUser()
@@ -410,6 +454,7 @@ const progressSize = computed(() => {
   return percentage.value < 100 ? '4px' : '6px'
 })
 
+const { completionPercentage } = useProfileCompletion(user.value)
 // Define the percentage of profile completion
 const percentage = ref(80) // You can dynamically update this value
 
@@ -421,6 +466,7 @@ const progressBackground = computed(() => {
     lightgray 0deg
   )`
 })
+
 </script>
 
 <style scoped>

@@ -26,9 +26,13 @@
              </div>
              <div class='flex justify-between items-center w-full'>
               <p class="text-sm text-[#667185]">{{ user?.lastMessage?.content }}</p>
-              <svg v-if="user?.unreadMessagesCount > 0" width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- {{user?.lastMessage?.readAt}} -->
+              <svg v-if="user?.lastMessage?.readAt === null" width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="5" cy="5" r="4" fill="#099137"/>
                 </svg>
+              <!-- <svg v-if="user?.unreadMessagesCount > 0" width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="5" cy="5" r="4" fill="#099137"/>
+                </svg> -->
              </div>
             </div>
           </div>

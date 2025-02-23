@@ -1,7 +1,7 @@
 <template>
   <main class="container mx-auto">
     <VisitationsHeader @setTab="handleSetTab">
-      <template #filters>
+      <template v-if="activeTab !== 'calendar'" #filters>
       <div class="lg:flex space-y-6 lg:space-y-0 space-x-6 lg:space-x-0 flex-col md:flex-row items-center justify-between lg:gap-4 mb-4">
       <input 
         v-model="searchQuery" 

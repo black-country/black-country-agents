@@ -25,7 +25,7 @@
            </svg>
        <!-- Breadcrumbs -->
        <div class="text-sm text-gray-500 mb-4">
-         <span>Profile</span>
+        <NuxtLink to="/dashboard/profile">Profile</NuxtLink>
          <span class="mx-2">|</span>
          <span class="font-semibold text-[#1D2739]">Privacy Policy</span>
        </div>
