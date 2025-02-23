@@ -60,13 +60,20 @@
             v-if="!availability?.length"
           @click="showBookingCalender = true"
           class="lg:ml-auto w-full lg:w-auto px-4 py-3 bg-[#292929] text-white text-sm rounded-md">
-          create availability
+          Set availability
         </button>
           </div>
         </div>
       </section>
       <!-- {{ availability }} -->
-<ListingsImageGallery v-if="propertyObj?.images" :loading="loading" :propertyObj="propertyObj" :images="allImages" class="mt-6" />
+        <!-- <ImageGa -->
+      <ImageGallery
+           :loading="loading"
+           :property="propertyObj"
+           :images="allImages"
+          />
+      <!-- <ListingsImageGallery v-if="propertyObj?.images" :loading="loading" :property="propertyObj" :images="allImages" class="mt-6" /> -->
+<!-- <ListingsImageGallery v-if="propertyObj?.images" :loading="loading" :propertyObj="propertyObj" :images="allImages" class="mt-6" /> -->
  <section v-if="!loading">
   <div class="pt-4 pb-8">
     <ListingsDetails :propertyObj="propertyObj" :loading="loading" :availability="availability" />

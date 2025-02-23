@@ -29,20 +29,23 @@
       </div>
     </div>
 
-<section class="flex items-center justify-between gap-x-5">
+<section class="lg:flex space-y-3 lg:space-y-0 items-center justify-between gap-x-5">
       <!-- Filter Button -->
 
     <!-- Properties Dropdown -->
-    <select v-if="!loadingProperties"  v-model="selectedProperty" class="px-4 py-3 outline-none rounded-md bg-white border-gray-50 text-sm border text-gray-700 cursor-pointer">
-      <option>All Properties</option>
-      <!-- Additional options can be added here -->
-       <!-- <option v-for="(item, idx) in propertiesList" :key="idx">
-        {{item.name}}
-       </option> -->
+    <!-- <select v-if="!loadingProperties"  v-model="selectedProperty" class="px-4 py-3 outline-none rounded-md bg-white border-gray-50 text-sm border text-gray-700 cursor-pointer">
+      <option value="" disabled>All Properties</option>
        <option v-for="(item, idx) in propertiesList" :key="idx" :value="item.name">
     {{ item.name }}
+    </option>
+    </select> -->
+    <select v-if="!loadingProperties" v-model="selectedProperty" class="px-4 py-3 border outline-none rounded-md bg-white border-gray-50 text-sm border text-gray-700 cursor-pointer">
+  <option disabled value="" hidden>Select a property</option>
+  <option v-for="(item, idx) in propertiesList" :key="idx" :value="item.name">
+    {{ item.name }}
   </option>
-    </select>
+</select>
+
 
     <!-- Search Input -->
     <div class="flex items-center px-4 py-3 bg-white rounded-md space-x-2 border-gray-50 text-sm border">
@@ -54,10 +57,10 @@
       <input v-model="searchQuery" type="text" placeholder="Search" class="bg-transparent text-gray-700 focus:outline-none" />
     </div>
 
-    <button class="flex items-center px-6 py-3  text-sm border-gray-50 border rounded-lg space-x-2 text-white bg-[#292929]">
+    <!-- <button class="flex items-center px-6 py-3  text-sm border-gray-50 border rounded-lg space-x-2 text-white bg-[#292929]">
          Withdraw Earnings
 
-    </button>
+    </button> -->
 </section>
   </div>
     <div v-if="!loading && earningsList?.length"  class="p-6 min-h-screen container mx-auto">
@@ -78,7 +81,8 @@
               <td class="px-4 py-6 text-[#667185]  text-sm">{{ earning?.house.name ?? 'Nil' }}</td>
               <td class="px-4 py-6 text-[#667185]  text-sm">{{ `${earning?.rentPayment?.tenant?.firstName} ${earning?.rentPayment?.tenant?.lastName}` }}</td>
               <td class="px-4 py-6 text-[#667185]  text-sm">{{ moment(earning?.rentPayment?.paymentDate).format("MMMM Do YYYY") ?? 'Nil' }}</td>
-              <td class="px-4 py-6 text-[#667185]  text-sm">{{ earning?.commissionFee ?? 'Nil' }}</td>
+              <td class="px-4 py-6 text-[#667185]  text-sm">{{ calculateCommission(earning?.amountSubunit)?? 'Nil' }}</td>
+              <!-- <td class="px-4 py-6 text-[#667185] text-sm">{{ earning.commissionFee }}</td> -->
             </tr>
           </tbody>
         </table>
@@ -185,6 +189,37 @@ const filteredEarnings = computed(() => {
     return matchesSearch && matchesProperty;
   });
 });
+
+
+const useTenPercent = (amount: any) => {
+  const tenPercent = computed(() => {
+    if (typeof amount !== 'number' || isNaN(amount)) {
+      return 'Invalid amount';
+    }
+    return `₦${(amount * 0.1).toLocaleString('en-NG', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+  });
+
+  return {
+    tenPercent,
+  };
+}
+
+const calculateCommission = (amount: number): string => {
+  if (isNaN(amount) || amount < 0) {
+    throw new Error("Invalid amount. Please enter a valid number.");
+  }
+
+  const commission = (amount * 10) / 100;
+  return `₦${commission.toLocaleString("en-NG", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+};
+
+
+const computedEarnings = computed(() =>
+  earningsList.value.map(earning => ({
+    ...earning,
+    commissionFee: useTenPercent(earning.amountSubunit).tenPercent.value
+  }))
+);
   
   const currentPage = ref(1);
   </script>

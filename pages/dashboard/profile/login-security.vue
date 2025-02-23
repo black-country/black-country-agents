@@ -1,7 +1,7 @@
 <template>
   <main>
     
-  <div class="p-8 bg-gray-25 min-h-screen">
+  <div class="p-6 lg:p-8 bg-gray-25 min-h-screen">
     <div class="max-w-xl mx-auto px-6">
       <svg @click="router.back()" class="cursor-pointer mb-3" width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect width="36" height="36" rx="18" fill="#EAEAEA"/>
@@ -9,7 +9,7 @@
       </svg>
       <!-- Breadcrumbs -->
       <div class="text-sm text-gray-500 mb-4">
-        <span>Profile</span>
+        <NuxtLink to="/dashboard/profile">Profile</NuxtLink>
         <span class="mx-2">|</span>
         <span class="font-semibold text-gray-700">Login and security</span>
       </div>
@@ -39,7 +39,7 @@
           </svg>
         </div> -->
 
-        <div @click="router.push('/profile/change-password')" class="flex cursor-pointer justify-between items-center p-4 rounded-lg bg-white">
+        <div @click="router.push('/dashboard/profile/change-password')" class="flex cursor-pointer justify-between items-center p-4 rounded-lg bg-white">
           <div class="space-y-2">
             <p class="text-[#1D2739] text-sm font-medium">Change password</p>
             <p class="text-[#1D2739] text-xs">
@@ -66,7 +66,7 @@
       <section
         class="space-y-6 mt-5 border-[0.5px] disabled opacity-25 bg-white rounded-md border-gray-50 p-3"
       >
-        <CoreToggleSwitch
+        <!-- <CoreToggleSwitch
           id="EnablePasswordLogin"
           label="Enable Password login"
           v-model="options.passwordLogin"
@@ -77,7 +77,7 @@
           label="Enable Biometrics"
           v-model="options.biometricsLogin"
           extra="On clicking the switch, you enable fingerprint & face id login option"
-        />
+        /> -->
 
         <!-- Enable Password Login (disabled) -->
         <!-- <div class="flex justify-between items-center p-4 bg-gray-100">

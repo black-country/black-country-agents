@@ -1,11 +1,45 @@
 <template>
-   <main class="container mx-auto">
-    <VisitationsHeader :searchQuery="searchQuery" :filteredVisitations="filteredVisitations" @setTab="handleSetTab" />
-    <div v-if="visitations.length && !loading">
-      <VisitationsGrid :searchQuery="searchQuery" :filteredVisitations="filteredVisitations" :visitations="visitations" v-if="activeTab === 'grid'" />
+  <main class="container mx-auto">
+    <VisitationsHeader @setTab="handleSetTab">
+      <template v-if="activeTab !== 'calendar'" #filters>
+      <div class="lg:flex space-y-6 lg:space-y-0 space-x-6 lg:space-x-0 flex-col md:flex-row items-center justify-between lg:gap-4 mb-4">
+      <input 
+        v-model="searchQuery" 
+        type="text" 
+        placeholder="Search visitations..." 
+        class="w-full px-4 py-3 bg-white text-gray-700 text-base rounded-md pl-10 focus:outline-none border border-gray-100"
+      />
+      <select 
+        v-model="propertyOption" 
+        class="px-4 py-3 outline-none border border-gray-100 pr-6 bg-white text-[#1D2739] rounded-md text-sm"
+      >
+        <option value="all-properties">All Properties</option>
+        <option v-for="property in propertiesList" :key="property.id" :value="property.id">
+          {{ property.name }}
+        </option>
+      </select>
+      <select 
+        v-model="sortOption" 
+        class="px-4 py-3 outline-none border border-gray-100 pr-6 bg-white text-[#1D2739] rounded-md text-sm"
+      >
+        <option value="most-recent">Most Recent</option>
+        <option value="least-recent">Least Recent</option>
+      </select>
     </div>
-    <CoreFullScreenLoader v-else-if="loading && !visitations.length" :visible="loading" text="Fetching Properties" logo="" />
-    <section v-else class="flex flex-col justify-between items-center space-y-2 mt-10">
+    </template> 
+    </VisitationsHeader>
+
+    <div v-if="filteredVisitations.length && !loading">
+      <VisitationsGrid 
+        v-if="activeTab === 'grid'"
+        :searchQuery="searchQuery" 
+        :filteredVisitations="filteredVisitations" 
+        :visitations="filteredVisitations" 
+      />
+      <ListingsCalender :visitations="filteredVisitations" v-if="activeTab === 'calendar'" />
+    </div>
+    <CoreFullScreenLoader v-else-if="loading" :visible="loading" text="Fetching Properties" logo="" />
+    <section v-else class="flex flex-col justify-between items-center border-[0.5px] border-gray-100 rounded-lg py-20 space-y-2">
              <svg width="152" height="124" viewBox="0 0 152 124" fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle cx="76" cy="58" r="52" fill="#EAEAEA"/>
             <circle cx="21" cy="25" r="5" fill="#BDBDBD"/>
@@ -28,33 +62,55 @@
             </defs>
             </svg>
             <h2 class="text-[#1D2739]">No Visitations found</h2>
-            <!-- <p class="text-[#667185]">You have not contacted anyone</p> -->
       </section>
-     <!-- <VisitationsCalender v-if="activeTab === 'calendar'" /> -->
-     <ListingsCalender v-if="activeTab === 'calendar'"  />
-   </main>
+  </main>
 </template>
 
 <script setup lang="ts">
-import {  useFetchScheduledVisitations } from '@/composables/modules/visitation/useFetchScheduledVisitations'
-const { loading, visitations, searchQuery, filteredVisitations } = useFetchScheduledVisitations()
-definePageMeta({
-  layout: "dashboard",
-  middleware: 'auth'
-})
+import { ref, computed } from 'vue';
+import { useFetchScheduledVisitations } from '@/composables/modules/visitation/useFetchScheduledVisitations';
+import { useGetProperties } from '@/composables/modules/property/fetchProperties';
 
-const activeTab = ref('grid')
+const { loading, visitations } = useFetchScheduledVisitations();
+const { propertiesList, loadingProperties } = useGetProperties();
+
+const activeTab = ref('grid');
+const searchQuery = ref('');
+const sortOption = ref('most-recent');
+const propertyOption = ref('all-properties');
+
+const filteredVisitations = computed(() => {
+  let result = [...visitations.value];
+
+  if (searchQuery.value) {
+    result = result.filter(v => 
+      v.tenant.firstName.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
+      v.house.name.toLowerCase().includes(searchQuery.value.toLowerCase())
+    );
+  }
+
+  if (propertyOption.value !== 'all-properties') {
+    result = result.filter(v => v.house.id === propertyOption.value);
+  }
+
+  if (sortOption.value === 'most-recent') {
+    result.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+  } else {
+    result.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
+  }
+
+  return result;
+});
+
 
 const handleSetTab = (item: any) => {
-  console.log(item, 'item here')
   activeTab.value = item
 }
 
-interface Visit {
-    name: string;
-    property: string;
-    date: string;
-    time: string;
-    status: string;
-}
+definePageMeta({
+  layout: "dashboard"
+})
+
+
+
 </script>

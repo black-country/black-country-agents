@@ -25,18 +25,15 @@
            </svg>
        <!-- Breadcrumbs -->
        <div class="text-sm text-gray-500 mb-4">
-         <span>Profile</span>
+        <NuxtLink to="/dashboard/profile">Profile</NuxtLink>
          <span class="mx-2">|</span>
          <span class="font-semibold text-[#1D2739]">Privacy Policy</span>
        </div>
  
        <!-- Date -->
        <div class="text-sm text-gray-500 mb-6">
-         <p class="text-[#1D2739]">Current as of <strong>20 Jan 2022</strong></p>
+         <p class="text-[#1D2739]">Current as of <strong>{{  moment(lastUpdated).format("MMM Do YYYY, HH:MM A") ?? 'Nil' }}</strong></p>
        </div>
- 
-       <!-- Title -->
-       <h1 class="text-2xl font-semibold text-[#667185] mb-6">Privacy Policy</h1>
  
        <!-- Paragraphs -->
        <div v-html="formattedPrivacy" class="space-y-6 text-gray-700"></div>
@@ -88,13 +85,14 @@
    import { useFetchPrivacyPolicy } from "@/composables/modules/settings/useFetchPrivacyPolicy";
    import { computed } from "vue";
    import { useRouter } from "vue-router";
+  import moment from "moment"
    
    // Fetch terms of use from the backend
    const { loading, policiesList } = useFetchPrivacyPolicy();
    const router = useRouter();
    
    // Extract last updated date if provided by the backend
-   const lastUpdated = computed(() => policiesList.value?.lastUpdated || "");
+   const lastUpdated = computed(() => policiesList.value?.createdAt || "");
    
    // Format the dynamic policiesList into an HTML structure
    const formattedPrivacy = computed(() => {

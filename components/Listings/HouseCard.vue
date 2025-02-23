@@ -2,13 +2,14 @@
      <div
     class="relative cursor-pointer min-w-[300px] w-full lg:max-w-[350px] bg-white"
   >
-    <img
+    <!-- <img
       @click="router.push(`/dashboard/listings/${property.id}`)"
       v-if="property?.images?.length"
       :src="property?.images[0]"
       class="rounded-lg cursor-pointer object-cover h-56 w-full"
       alt="alt"
-    />
+    /> -->
+    <ImageCarousel  v-if="property?.images?.length" :property="property"  />
     <img
       @click="router.push(`/dashboard/listings/${property.id}`)"
       v-else

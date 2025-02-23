@@ -1,8 +1,8 @@
 
 <template>
 <main>
-  <section class="bg-[#292929] sticky top-0 z-50 mb-20">
-    <nav class="flex items-center justify-between fixed top-0 w-full bg-[#292929]  mx-auto p-4 py-3 text-white">
+  <section class="bg-[#292929] sticky  top-0 z-50 mb-20">
+    <nav class="flex items-center justify-between lg:px-20 fixed top-0 w-full bg-[#292929]  mx-auto p-4 py-3 text-white">
       <div class="flex items-center justify-between w-full lg:w-auto">
             <!-- <img src="@/assets/icons/white-logo-with-text.svg" alt="Logo" /> -->
             <div class="flex items-center   space-x-4 relative">
@@ -98,12 +98,12 @@
         <div class="flex items-center">
           <slot name="extra" />
          <div class="space-x-1 px-2 flex">
-          <NuxtLink data-intro="Saved Properties" to="/dashboard/listings/bookmarked" class="">
+          <!-- <NuxtLink data-intro="Saved Properties" to="/dashboard/listings/bookmarked" class="">
             <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
               <rect width="40" height="40" rx="6" fill="#1D1D1D"/>
               <path d="M26.2187 13.3285C23.9839 11.9577 22.0335 12.5101 20.8618 13.39C20.3813 13.7508 20.1412 13.9312 19.9998 13.9312C19.8585 13.9312 19.6183 13.7508 19.1378 13.39C17.9662 12.5101 16.0157 11.9577 13.781 13.3285C10.8482 15.1275 10.1846 21.0624 16.9494 26.0695C18.2379 27.0232 18.8822 27.5 19.9998 27.5C21.1175 27.5 21.7618 27.0232 23.0503 26.0695C29.8151 21.0624 29.1514 15.1275 26.2187 13.3285Z" stroke="#EBE5E0" stroke-width="1.5" stroke-linecap="round"/>
               </svg>
-          </NuxtLink>
+          </NuxtLink> -->
           <NuxtLink data-intro="Notifications" to="/dashboard/notifications" class="">
             <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
               <rect width="40" height="40" rx="6" fill="#1D1D1D"/>
@@ -208,7 +208,7 @@
                 </NuxtLink>
                 <a
                   href="#"
-                  @click="showBLogoutModal = true"
+                  @click="showLogoutModal = true"
                   class="group -mx-2 flex gap-x-3 rounded-md p-2 py-3 text-sm font-semibold leading-6 text-gray-400 hover:bg-gray-800 hover:text-white"
                 >
                   <img
@@ -224,11 +224,11 @@
         </div>
       </div>
     </div>
-  </div>
+    </div>
    </section>
    <CoreModalWithoutCloseBtn
-  :isOpen="showBLogoutModal"
-  @close="showBLogoutModal = false"
+  :isOpen="showLogoutModal"
+  @close="showLogoutModal = false"
   >
   <div
   class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"

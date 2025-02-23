@@ -37,21 +37,6 @@
           </button>
         </nav>
       </div>
-      <!-- <div class="lg:space-x-4 space-y-4 lg:space-y-0">
-        <button
-          v-for="(tab, index) in tabs"
-          :key="index"
-          class="w-full lg:w-auto"
-          @click="selectedTab = tab"
-          :class="[
-            'px-16 py-3 text-sm rounded-md font-medium transition-colors duration-200',
-            selectedTab === tab
-              ? 'bg-[#5B8469] text-white'
-              : 'bg-[#F0F2F5] text-[#1A1A1A]',
-          ]">
-          {{ tab }}
-        </button>
-      </div> -->
       <div>
         <button
           @click="showBookingCalender = true"

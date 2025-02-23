@@ -80,6 +80,8 @@
             </svg>
           </button>
         </div>
+<!-- {{ selectedRoomObj?.additionalCharges }} -->
+        <CoreHousingFees v-if="selectedRoomObj?.additionalCharges?.length" :additionalChargesList="selectedRoomObj?.additionalCharges" class="mb-8" />
     
         <!-- Interior Features Section -->
         <div class="mb-6 space-y-3">
