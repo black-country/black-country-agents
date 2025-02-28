@@ -433,6 +433,7 @@ const router = useRouter();
 const route = useRoute();
 const selectedUser = ref(null);
 const messageStatus = ref('idle');
+const showFilterModal = ref(false)
 // const showFilterModal = ref(false)
 const filterStatus = ref('all')
 
@@ -551,7 +552,6 @@ onMounted(() => {
   });
 });
 
-const showFilterModal = ref(false)
 onUnmounted(() => {
   // Clean up event listeners
   $emitter.off('customEvent');
