@@ -368,7 +368,7 @@ definePageMeta({
 const showShareModal = ref(false);
 // const showBookingModal = ref(true);
 
-// Property Manager
+// Agent
 
 const initials = ref('') as any
 

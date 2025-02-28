@@ -69,8 +69,10 @@
         </div>
 
         <div @click="previewRoomImages(activeTab)" class="flex cursor-pointer items-center border-[0.5px] border-gray-50 space-x-4 bg-white p-4 rounded-lg">
-          <img :src="dynamicImage('placeholder.png')" alt="Gallery" class="w-12 h-12 rounded-full">
+          <img v-if="!selectedRoomObj?.images?.length" :src="dynamicImage('placeholder.png')" alt="Gallery" class="w-12 h-12 rounded-full">
+          <img v-else :src="selectedRoomObj?.images[0]"  alt="Gallery" class="w-12 h-12 rounded-full" />
           <div class="flex-1">
+            <!-- {{selectedRoomObj.images[0]}} -->
             <h3 class="text-lg font-medium">Gallery</h3>
             <p class="text-gray-500 text-sm">Click to view photos of all common areas</p>
           </div>
@@ -114,13 +116,13 @@
 
     <!-- Right Section -->
     <div class="lg:w-1/2 space-y-6">
-      <!-- Property Manager -->
+      <!-- Agent -->
       <div class="bg-[#F0F2F5] p-6 rounded-md">
         <div class="flex items-center justify-between space-x-4">
           <div class="flex items-center space-x-4">
             <img
               :src="dynamicImage(propertyManagerImage)"
-              alt="Property Manager"
+              alt="Agent"
               class="w-10 h-10 rounded-full"
             />
             <div>
@@ -131,11 +133,11 @@
                 </span>
                 <span v-else>Nil</span>
               </h3>
-              <p class="text-xs text-[#1D2739]">Property Manager</p>
+              <p class="text-xs text-[#1D2739]">Agent</p>
             </div>
           </div>
           <div class="ml-auto flex space-x-2">
-            <button @click="makeCall" class="p-2 rounded-full">
+            <button @click="makeCall" disabled class="p-2 disabled:cursor-not-allowed disabled:opacity-25 rounded-full">
               <svg
                 width="44"
                 height="44"
@@ -158,7 +160,7 @@
                 />
               </svg>
             </button>
-            <button @click="sendSms" class="p-2 rounded-full">
+            <button @click="sendSms" disabled class="p-2 disabled:cursor-not-allowed disabled:opacity-25 rounded-full">
               <svg
                 width="44"
                 height="44"

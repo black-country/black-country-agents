@@ -96,7 +96,7 @@
 //   // Mock users
 // const users = [
 //   { participant: { id: 1, firstName: 'Jeffery', lastName: 'McKenzie' }, role: 'Super admin', profilePicture: null },
-//   { participant: { id: 2, firstName: 'Susie', lastName: 'Roob' }, role: 'Property manager', profilePicture: null },
+//   { participant: { id: 2, firstName: 'Susie', lastName: 'Roob' }, role: 'Agent', profilePicture: null },
 //   // Add other users here...
 // ];
   

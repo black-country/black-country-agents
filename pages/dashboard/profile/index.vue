@@ -46,7 +46,7 @@
             <p class="text-sm font-medium text-[#1D2739]">Complete your Account Setup</p>
             <span class="w-3 h-3 bg-[#099137] rounded-full"></span>
           </div>
-        </div>
+          </div>
         <!-- <div class="max-w-sm mx-auto px-6 pb-6 text-center space-y-4 relative">
 
           <div class="relative inline-block">
