@@ -282,8 +282,9 @@ const generateTimesBetween = (start: string, end: string) => {
   while (currentTime <= end) {
     times.push(currentTime)
     // Add 30 minutes
-    const [time, period] = currentTime.split(' ')
+    const [time, periodOriginal] = currentTime.split(' ')
     let [hours, minutes] = time.split(':').map(Number)
+    let period = periodOriginal
     
     minutes += 30
     if (minutes >= 60) {
