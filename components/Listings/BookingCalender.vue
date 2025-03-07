@@ -282,8 +282,9 @@ const generateTimesBetween = (start: string, end: string) => {
   while (currentTime <= end) {
     times.push(currentTime)
     // Add 30 minutes
-    const [time, period] = currentTime.split(' ')
+    const [time, periodOriginal] = currentTime.split(' ')
     let [hours, minutes] = time.split(':').map(Number)
+    let period = periodOriginal
     
     minutes += 30
     if (minutes >= 60) {
@@ -319,10 +320,11 @@ const saveSchedule = async () => {
 </script>
 
 <template>
-  <div class="max-w-xl mx-auto p-4 bg-white rounded-lg">
+  <div class="max-w-xl mx-auto p-4 bg-white rounded-lg ">
     <h1 class="text-base text-[#1D2739] font-medium">Set your availability</h1>
 
-    <div class="h-[500px] overflow-y-auto space-y-6">
+    <!-- <div class="h-[500px] overflow-y-auto space-y-6"> -->
+    <div class="space-y-6">
       <!-- Property Selection -->
       <div class="space-y-2">
         <label class="text-gray-700 text-sm font-medium">Property</label>

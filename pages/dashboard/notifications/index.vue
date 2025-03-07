@@ -209,9 +209,10 @@
                           </p>
                         </div>
                       </div>
-                      <div class="text-xs text-gray-500">
-                        {{ formatDate(notification.createdAt) }}
-                      </div>
+                      <div class="text-xs text-gray-500 flex items-center gap-0.5">
+                      <span>{{ formatDate(notification.createdAt) }}</span>
+                      <div v-if="notification.readAt === null" class="h-1.5 w-1.5 bg-red-600 rounded-full"></div>
+                    </div>
                     </div>
                   </div>
                 </div>
@@ -434,6 +435,7 @@
   import { useUser } from "@/composables/auth/user";
   const { user } = useUser();
   import { useGetNotifications } from "@/composables/modules/notification/fetch";
+  import { useMarkNotificationAsRead } from '~/composables/modules/notification/markAsRead'
   const { loadingNotification, notificationList } = useGetNotifications();
   import { useRouter } from "vue-router";
   import { dynamicIcons } from "@/utils/assets";
@@ -447,6 +449,7 @@
 })
   
   const { groupedNotifications, formatNotifications } = useFormatNotifications();
+const {markNotificationAsRead} = useMarkNotificationAsRead();
   
   // Format the notifications when the component is mounted
   formatNotifications(notificationList.value);
@@ -490,10 +493,14 @@
     });
   }
   
-  const viewNotification = (item: any) => {
-    console.log(item, "here");
-    selectedNotification.value = item;
-  };
+  
+
+  const viewNotification = async (item: any) => {
+  console.log(item, "here");
+  selectedNotification.value = item;
+  await markNotificationAsRead(item?.id)
+  formatNotifications(notificationList.value);
+};
 
 watch(notificationList, (newVal) => {
   if (newVal && newVal.length) {

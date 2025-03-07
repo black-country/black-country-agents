@@ -17,6 +17,7 @@
           :messages="messages"
         />
       </div>
+      <div ref="scrollAnchor"></div>
     </div>
   </template>
   
@@ -30,6 +31,10 @@
     messages: Array,
     roomChats: Array
   });
+
+  const chatContainer = ref(null);
+  const scrollAnchor = ref(null);
+  const isInitialRender = ref(true);
   
   // Merge messages and roomChats, then sort and add date headers
   const sortedMessagesWithHeaders = computed(() => {
@@ -66,5 +71,37 @@
       return messageDate.format('MMMM D, YYYY');
     }
   };
+
+  const scrollToBottom = async () => {
+    await nextTick();
+    if (scrollAnchor.value) {
+      scrollAnchor.value.scrollIntoView({ behavior: 'auto' });
+    }
+    if (chatContainer.value) {
+      chatContainer.value.scrollTop = chatContainer.value.scrollHeight;
+      requestAnimationFrame(() => {
+        chatContainer.value.scrollTop = chatContainer.value.scrollHeight;
+      });
+    }
+  };
+
+  onMounted(async () => {
+    await new Promise(resolve => setTimeout(resolve, 100));
+    await scrollToBottom();
+    setTimeout(async () => {
+      await scrollToBottom();
+      isInitialRender.value = false;
+    }, 500);
+  });
+  
+  watch(() => [...(props.messages || []), ...(props.roomChats || [])], async () => {
+    if (isInitialRender.value) return;
+    await scrollToBottom();
+  }, { deep: true });
+  
+  watch(() => sortedMessagesWithHeaders.value.length, async () => {
+    if (isInitialRender.value) return;
+    await scrollToBottom();
+  });
   </script>
   

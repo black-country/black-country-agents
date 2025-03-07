@@ -1,7 +1,7 @@
 <template>
   <div class="p-6 min-h-screen container mx-auto">
-    <div class="overflow-x-auto bg-white pb-20">
-      <table class="min-w-full text-left rounded-md border-[0.5px] border-gray-50">
+    <!-- <div class="overflow-x-auto bg-white pb-20"> -->
+      <table class="min-w-full text-left rounded-md border-[0.5px] border-gray-50 overflow-x-auto">
         <thead>
           <tr class="text-gray-500 text-sm border-b border-gray-50">
             <th class="px-4 py-4 font-medium text-[#1D2739]">Full name</th>
@@ -11,7 +11,7 @@
             <th class="px-4 py-4 font-medium text-[#1D2739]">Status</th>
             <th class="px-4 py-3 font-medium sr-only">Actions</th>
           </tr>
-        </thead>
+        </thead> 
         <tbody>
           <tr v-for="(visit, index) in visitations" :key="index" class="border-b border-gray-50">
             <td class="px-4 py-6 text-[#667185]  text-sm"> {{ `${visit.tenant.firstName} ${visit.tenant.lastName}` ??
@@ -66,7 +66,8 @@
               </div>
             </td>
             <td class="py-4 px-5 relative whitespace-nowrap text-sm text-[#667185]">
-              <button @click="toggleDropdown(index)"
+              <button @click="toggleDropdown(index)" :disabled="visit?.status==='no_show' || visit.status === 'completed'"
+                :class="visit?.status==='no_show' || visit.status === 'completed' ? 'cursor-not-allowed' : ''"
                 class="inline-flex items-center text-sm font-medium text-[#667185] hover:text-black">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M9.99414 10H10.0016" stroke="#1D2739" stroke-width="2.5" stroke-linecap="round"
@@ -150,7 +151,7 @@
       <div v-if="activeDropdown !== null" @click="closeDropdown" class="fixed inset-0 z-40 bg-black opacity-25"></div>
 
       <div v-if="infoDropdown !== null" @click="closeInfoDropdown" class="fixed inset-0 z-40 bg-black opacity-50"></div>
-    </div>
+    <!-- </div> -->
   </div>
 </template>
 

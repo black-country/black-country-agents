@@ -32,7 +32,7 @@ emit('close');
       @click.self="closeModal"
     >
       <!-- Added wrapper with margin/padding for spacing -->
-      <div class="bg-white rounded-lg p-2 mx-4 my-4">
+      <div class="bg-white rounded-lg p-2 mx-4 my-4 h-[60%] overflow-y-scroll custom-scrollbar">
         <slot />
       </div>
     </div>
@@ -53,4 +53,28 @@ emit('close');
     emit('close');
   };
   </script>
+
+<style scoped>
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #cccccc #f1f1f1;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background-color: #cccccc;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #cccccc;
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: #cccccc;
+}
+</style>
   
