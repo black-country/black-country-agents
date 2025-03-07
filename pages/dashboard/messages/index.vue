@@ -480,8 +480,7 @@ watch(activeChatsList, (newChats) => {
   if (selectedUser.value) {
     const selectedChat = newChats.find(chat => chat.id === selectedUser.value.id);
     if (selectedChat) {
-      // Update the read status of the selected chat
-      selectedChat.unreadMessagesCount = 0; // or whatever property is used to track unread status
+      selectedChat.unreadMessagesCount = 0; 
     }
   }
 });
@@ -631,7 +630,6 @@ const filteredChats = computed(() => {
     });
   }
 
-  // Filter chats by read/unread status if not 'all'
   if (filterStatus.value !== 'all') {
     filtered = filtered.filter(chat =>
     filterStatus.value === 'read' ? chat?.unreadMessagesCount <= 0 : chat?.unreadMessagesCount > 0
