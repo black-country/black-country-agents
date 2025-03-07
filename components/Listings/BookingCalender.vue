@@ -4,7 +4,7 @@ import { ref, reactive, computed } from 'vue'
 import { useGetProperties } from '@/composables/modules/property/fetchProperties'
 
 
-const {loadingProperties, propertiesList } = useGetProperties()
+const { loadingProperties, propertiesList } = useGetProperties()
 const { createVisitationSchedule, loading: processing, setPayload } = useCreateVisitationSchedule()
 
 interface TimeSlot {
@@ -27,7 +27,7 @@ interface ScheduleState {
 const props = defineProps({
   existingAvailability: {
     type: Object,
-    default: () => {}
+    default: () => { }
   }
 })
 
@@ -75,23 +75,23 @@ const populateExistingData = () => {
   if (props.existingAvailability && Object.keys(props.existingAvailability).length > 0) {
     // Set duration from the combined durationNumber and durationUnit
     state.duration = `${props.existingAvailability.durationNumber} ${props.existingAvailability.durationUnit}`
-    
+
     // Set property if available
     if (props.existingAvailability.houseId) {
       state.selectedProperty = props.existingAvailability.houseId
     }
-    
+
     // Reset all days first
     Object.keys(state.schedule).forEach(day => {
       state.schedule[day].isEnabled = false
       state.schedule[day].timeSlots = []
     })
-    
+
     // Map the day and populate intervals
     const dayName = reverseDaysMap[props.existingAvailability.dayOfWeek]
     if (dayName && props.existingAvailability.intervals) {
       state.schedule[dayName].isEnabled = true
-      
+
       // Map the intervals to time slots
       props.existingAvailability.intervals.forEach(interval => {
         state.schedule[dayName].timeSlots.push({
@@ -110,7 +110,7 @@ watch(() => props.existingAvailability, (newValue) => {
 }, { immediate: true })
 
 const computedProperty = computed(() => {
-  if(route.params.id){
+  if (route.params.id) {
     return propertiesList.value.find((itm: any) => itm.id === route.params.id)
   }
 })
@@ -135,7 +135,7 @@ const generateTimePickerOptions = (type: 'start' | 'end', currentStartTime?: str
     const modifier = hours >= 12 ? 'PM' : 'AM';
 
     if (hours > 12) hours -= 12;
-    if (hours === 0) hours = 12; 
+    if (hours === 0) hours = 12;
     return `${hours}:${minutes.toString().padStart(2, '0')} ${modifier}`;
   };
 
@@ -228,93 +228,103 @@ const formatTime = (time12: string): string => {
   return `${hours}:${minutes} ${period.toUpperCase()}`;
 }
 
-// const formatPayload = () => {
-//   const list = Object.entries(state.schedule)
-//     .filter(([_, daySchedule]) => daySchedule.isEnabled && daySchedule.timeSlots.length > 0)
-//     .map(([day, daySchedule]) => ({
-//       dayOfWeek: daysMap[day],
-//       intervals: daySchedule.timeSlots
-//         .filter(slot => slot.startTime && slot.endTime) // Only include complete time slots
-//         .map(slot => ({
-//           start: formatTime(slot.startTime),
-//           end: formatTime(slot.endTime)
-//         })),
-//       duration: state.duration
-//     }))
-//     .filter(day => day.intervals.length > 0); // Only include days with valid intervals
-
-//   return { list };
-// }
-
-// Update the formatPayload function to match the expected structure
 const formatPayload = () => {
+  if (!state.selectedProperty && !computedProperty.value?.id) {
+    console.log('select property')
+    return null
+  }
+
   const list = Object.entries(state.schedule)
-    .filter(([_, daySchedule]) => daySchedule.isEnabled && daySchedule.timeSlots.length > 0)
+    .filter(([_, daySchedule]) => daySchedule.isEnabled)
     .map(([day, daySchedule]) => {
-      const intervals = daySchedule.timeSlots
-        .filter(slot => slot.startTime && slot.endTime)
-        .map(slot => ({
-          start: formatTime(slot.startTime),
-          end: formatTime(slot.endTime),
-          // Generate times array between start and end at 30-minute intervals
-          times: generateTimesBetween(slot.startTime, slot.endTime)
-        }))
+      const validTimeSlots = daySchedule.timeSlots.filter(slot => {
+        if (!slot.startTime || !slot.endTime) {
+          return false
+        }
+
+        const parseTime = (timeStr) => {
+          const [time, period] = timeStr.split(' ')
+          let [hours, minutes] = time.split(':').map(Number)
+          if (period === 'PM' && hours < 12) hours += 12
+          if (period === 'AM' && hours === 12) hours = 0
+          return hours * 60 + minutes
+        }
+
+        const startMinutes = parseTime(slot.startTime)
+        const endMinutes = parseTime(slot.endTime)
+
+        return endMinutes > startMinutes
+      })
+
+      if (validTimeSlots.length === 0) {
+        return null
+      }
+
+      const intervals = validTimeSlots.map(slot => ({
+        start: formatTime(slot.startTime),
+        end: formatTime(slot.endTime),
+        times: generateTimesBetween(slot.startTime, slot.endTime)
+      }))
 
       return {
         dayOfWeek: daysMap[day],
         intervals,
         duration: state.duration,
-        // Split duration into number and unit
         durationNumber: parseInt(state.duration.split(' ')[0]),
         durationUnit: state.duration.split(' ')[1],
       }
     })
-    .filter(day => day.intervals.length > 0)
+    .filter(day => day !== null && day.intervals.length > 0)
+
+  if (list.length === 0) {
+    console.log('invalid time slots')
+    return null
+  }
 
   return { list }
 }
 
-// Add helper function to generate times array
 const generateTimesBetween = (start: string, end: string) => {
-  const times: string[] = []
-  let currentTime = start
-  
-  while (currentTime <= end) {
-    times.push(currentTime)
-    // Add 30 minutes
-    const [time, periodOriginal] = currentTime.split(' ')
-    let [hours, minutes] = time.split(':').map(Number)
-    let period = periodOriginal
-    
-    minutes += 30
-    if (minutes >= 60) {
-      minutes = 0
-      hours += 1
-    }
-    
-    if (hours >= 12) {
-      if (period === 'AM') {
-        period = 'PM'
-        hours = hours === 12 ? 12 : hours - 12
-      } else {
-        period = 'AM'
-        hours = 0
-      }
-    }
-    
-    currentTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')} ${period}`
+  const times: string[] = [];
+  const parseTime = (timeStr: string) => {
+    const [time, period] = timeStr.split(' ');
+    let [hours, minutes] = time.split(':').map(Number);
+    if (period === 'PM' && hours < 12) hours += 12;
+    if (period === 'AM' && hours === 12) hours = 0;
+    return hours * 60 + minutes;
+  };
+
+  const startMinutes = parseTime(start);
+  const endMinutes = parseTime(end);
+  let currentMinutes = startMinutes;
+
+  while (currentMinutes <= endMinutes) {
+    let hours = Math.floor(currentMinutes / 60);
+    let minutes = currentMinutes % 60;
+    let period = hours >= 12 ? 'PM' : 'AM';
+    if (hours > 12) hours -= 12;
+    if (hours === 0) hours = 12;
+    times.push(`${hours}:${minutes.toString().padStart(2, '0')} ${period}`);
+    currentMinutes += 30;
   }
-  
-  return times
-}
+  return times;
+};
 
 const saveSchedule = async () => {
-  const payload = formatPayload();
+  const payload = formatPayload()
+  if (!payload) {
+    return
+  }
+  
   setPayload(payload)
-  if (route.params.id) {
-    await createVisitationSchedule(computedProperty.value.id)
-  } else {
-    await createVisitationSchedule(state.selectedProperty)
+  try {
+    if (route.params.id) {
+      await createVisitationSchedule(computedProperty.value.id)
+    } else {
+      await createVisitationSchedule(state.selectedProperty)
+    }
+  } catch (error) {
+    console.error('error saving:', error)
   }
 }
 </script>
