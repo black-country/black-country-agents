@@ -109,8 +109,7 @@
               <rect width="40" height="40" rx="6" fill="#1D1D1D"/>
               <path d="M21.4417 27.4998C21.2952 27.7524 21.0849 27.962 20.8319 28.1078C20.5788 28.2535 20.292 28.3302 20 28.3302C19.708 28.3302 19.4212 28.2535 19.1681 28.1078C18.9151 27.962 18.7048 27.7524 18.5583 27.4998M25 16.6665C25 15.3404 24.4732 14.0687 23.5355 13.131C22.5979 12.1933 21.3261 11.6665 20 11.6665C18.6739 11.6665 17.4021 12.1933 16.4645 13.131C15.5268 14.0687 15 15.3404 15 16.6665C15 22.4998 12.5 24.1665 12.5 24.1665H27.5C27.5 24.1665 25 22.4998 25 16.6665Z" stroke="#EBE5E0" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
-            <div v-if="notificationCount > 0" class="h-2 w-2 bg-red-600 absolute rounded-full top-2.5 right-2.5"  aria-label="Unread notifications"
-              +              role="status"></div>
+            <div v-if="notificationCount > 0" class="h-2 w-2 bg-red-600 absolute rounded-full top-2.5 right-2.5"  aria-label="Unread notifications" role="status"></div>
           </NuxtLink>
          </div>
          <ProfileDropdown 
