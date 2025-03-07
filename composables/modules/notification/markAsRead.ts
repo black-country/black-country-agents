@@ -9,6 +9,7 @@ export const useMarkNotificationAsRead = () => {
         loading.value = true;
         try {
             const response = await notification_api.$_read_notification(user.value.id, notificationId);
+            console.log(response)
             return response;
         } catch (error: any) {
             console.log("Error", error)
@@ -18,3 +19,4 @@ export const useMarkNotificationAsRead = () => {
     };
     return { markNotificationAsRead, loading };
 };
+ 

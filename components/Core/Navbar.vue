@@ -378,7 +378,7 @@ const onCancel = () => {
   
   <style scoped>
   .router-link-exact-active {
-    background-color: #5b8469;
+    /* background-color: #5b8469; */
     color: white;
   }
   </style>

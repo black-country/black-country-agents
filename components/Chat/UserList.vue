@@ -21,7 +21,8 @@
 
             <div class="w-full space-y-1 pl-3">
              <div class='flex justify-between items-center w-full'>
-              <p class="font-">{{ user?.participant?.firstName }} {{ user?.participant?.lastName }}</p>
+              <p v-if="user?.participant?.id" class="">{{ user?.participant?.firstName }} {{ user?.participant?.lastName }}</p>
+              <p v-else>Deleted User</p>
               <p class="text-sm text-gray-400">{{ getDate(user?.lastMessage?.createdAt) }}</p>
              </div>
              <div class='flex justify-between items-center w-full'>
