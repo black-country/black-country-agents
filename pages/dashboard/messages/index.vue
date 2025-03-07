@@ -345,7 +345,8 @@
 
               <!-- Chat Messages -->
               <div class="flex-1 overflow-y-auto p-4">
-                <ChatWindow class="z-10" :roomChats="roomChatsList" :messages="currentRoomMessages" :selectedUser="selectedUser" />
+                <ChatWindow class="z-10" :roomChats="roomChatsList" :messages="currentRoomMessages"
+                  :selectedUser="selectedUser" />
               </div>
 
               <!-- Message Input -->
@@ -373,7 +374,7 @@ import avatar from '@/assets/icons/user-avatar.svg'
 // Composables
 const { loadingActiveChats, activeChatsList, getActiveChats } = useGetActiveChats();
 const { getRoomChats, loadingRoomChats, roomChatsList } = useGetRoomChats();
-const { messagesByRoom, currentRoomMessages, setActiveRoom, socket, newMessage, isConnected, sendMessage } = useWebSocket();
+const { messagesByRoom, currentRoomMessages, setActiveRoom, socket, newMessage, isConnected, sendMessage, markMessageAsRead } = useWebSocket();
 
 
 definePageMeta({
@@ -454,16 +455,36 @@ const sendMessageToUser = async (content: string) => {
 };
 
 // User selection
-const selectUser = (user: any) => {
+// const selectUser = (user: any) => {
+//   selectedUser.value = user;
+//   // Optionally update URL
+//   // router.push({ query: { userId: user.participant.id } });
+//   const userId = user?.participant?.id
+//   if (userId) {
+//     // setActiveRoom(userId);
+//     router.push({ query: { userId } });
+//   }
+// };
+
+const selectUser = async (user: any) => {
   selectedUser.value = user;
-  // Optionally update URL
-  // router.push({ query: { userId: user.participant.id } });
-  const userId = user?.participant?.id 
-    if (userId) {
-      // setActiveRoom(userId);
-      router.push({ query: { userId } });
+  await markMessageAsRead(user.lastMessage.roomId, user.lastMessage.recipientId);
+  await nextTick();
+  const userId = user?.participant?.id
+  if (userId) {
+    router.push({ query: { userId } });
+  }
+}
+
+watch(activeChatsList, (newChats) => {
+  if (selectedUser.value) {
+    const selectedChat = newChats.find(chat => chat.id === selectedUser.value.id);
+    if (selectedChat) {
+      // Update the read status of the selected chat
+      selectedChat.unreadMessagesCount = 0; // or whatever property is used to track unread status
     }
-};
+  }
+});
 
 // Scroll handling
 const scrollToBottom = () => {
@@ -604,7 +625,8 @@ const filteredChats = computed(() => {
       return (
         chat.participant?.firstName.toLowerCase().includes(lowerSearchTerm) ||
         chat.participant?.lastName.toLowerCase().includes(lowerSearchTerm) ||
-        chat.lastMessage?.content.toLowerCase().includes(lowerSearchTerm)
+        chat.lastMessage?.content.toLowerCase().includes(lowerSearchTerm) ||
+        chat.participant?.email.toLowerCase().includes(lowerSearchTerm)
       );
     });
   }
@@ -612,7 +634,7 @@ const filteredChats = computed(() => {
   // Filter chats by read/unread status if not 'all'
   if (filterStatus.value !== 'all') {
     filtered = filtered.filter(chat =>
-      filterStatus.value === 'read' ? chat.readAt !== null : chat.readAt === null
+    filterStatus.value === 'read' ? chat?.unreadMessagesCount <= 0 : chat?.unreadMessagesCount > 0
     );
   }
 

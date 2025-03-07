@@ -406,6 +406,30 @@ export const useWebSocket = () => {
     });
   };
 
+  const markMessageAsRead = (roomId: string, recipientId: string) => {
+    if (!socket.value?.connected) {
+      console.error("Socket not connected");
+      return;
+    }
+
+    const payload = { roomId, recipientId };
+
+    socket.value.emit("message.read.all", payload, (response: any) => {
+      if (response.status === "success" || response.success === "true") {
+        // console.log(`msg read in ${roomId}`);
+        // console.log(payload)
+
+        messages.value = messages.value.map((msg) =>
+          msg.roomId === roomId && (!recipientId || msg.recipientId === recipientId)
+            ? { ...msg, unreadMessagesCount: 0 }
+            : msg
+        );
+      } else {
+        console.error("Failed to mark message as read:", response);
+      }
+    });
+  };
+
   onMounted(() => {
     initializeSocket();
   });
@@ -428,6 +452,7 @@ export const useWebSocket = () => {
     currentRoomMessages,
     setActiveRoom,
     activeRoomId,
-    messageStatus
+    messageStatus,
+    markMessageAsRead
   };
 };

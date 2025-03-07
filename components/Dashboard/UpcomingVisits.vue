@@ -45,22 +45,22 @@
                   class="absolute z-50 right-0 w-72 bg-[#E4E7EC] rounded-lg shadow-lg border border-gray-200">
                   <div class="">
                     <h3 class="text-sm font-semibold mb-2 px-4 pt-4">Status Information</h3>
-                    <p class="text-xs text-[#344054] mb-3 px-4">
+                    <p class="text-xs text-[#344054] mb-3 px-4 text-wrap">
                       Here are the different types of visitation statuses and what they mean.
                     </p>
                     <div class="space-y-3">
                       <div class="border-b-[0.5px] border-gray-400 pb-4 px-4">
                         <h4 class="text-sm font-medium">Scheduled</h4>
-                        <p class="text-xs text-[#344054]">The visitation is planned and awaiting tour of the available
+                        <p class="text-xs text-[#344054] text-wrap">The visitation is planned and awaiting tour of the available
                           rooms in the property.</p>
                       </div>
                       <div class="border-b-[0.5px] border-gray-400 pb-4 px-4">
                         <h4 class="text-sm font-medium">Completed</h4>
-                        <p class="text-xs text-[#344054]">The visitation has been completed successfully.</p>
+                        <p class="text-xs text-[#344054] text-wrap">The visitation has been completed successfully.</p>
                       </div>
                       <div class="px-4 pb-4">
                         <h4 class="text-sm font-medium">No Show</h4>
-                        <p class="text-xs text-[#344054]">The tenant did not show up for the scheduled visitation.</p>
+                        <p class="text-xs text-[#344054] text-wrap">The tenant did not show up for the scheduled visitation.</p>
                       </div>
                     </div>
                     <div class="border-t-[0.5px] flex justify-center-items-center border-gray-400 py-3">
