@@ -23,7 +23,7 @@
             {{ moment(visit.date).format("MMMM Do YYYY") }}
           </td>
           <td class="px-4 py-6 text-[#667185] text-sm">{{ visit.time }}</td>
-          <td class="px-4 py-3.5 text-[#1D2739] font-medium gap-x-2 text-sm flex items-center space-x-2 relative">
+          <td class="px-4 py-3.5 text-[#1D2739] font-medium gap-x-2 text-sm flex items-center space-x-2 relative capitalize">
             {{ visit.status === "no_show" ? "No show" : visit.status }}
             <div class="relative inline-block">
               <button @click="toggleInfo(index, $event)"
