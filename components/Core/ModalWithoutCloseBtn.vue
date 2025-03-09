@@ -32,7 +32,7 @@ emit('close');
       @click.self="closeModal"
     >
       <!-- Added wrapper with margin/padding for spacing -->
-      <div class="bg-white rounded-lg p-2 mx-4 my-4 h-[60%] overflow-y-scroll custom-scrollbar">
+      <div class="bg-white rounded-lg p-2 mx-4 my-4 max-h-[60%] overflow-y-auto custom-scrollbar">
         <slot />
       </div>
     </div>
