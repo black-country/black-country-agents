@@ -368,11 +368,11 @@ const hideTooltip = () => {
             </svg>
           </button>
         </div>
-        <div>
+        <!-- <div>
           <button class="px-6 py-3 rounded-lg bg-[#5B8469] text-white ml-4">
             Week
           </button>
-        </div>
+        </div> -->
       </div>
     </div>
 
@@ -514,7 +514,8 @@ const props = defineProps({
   },
 });
 
-const currentDate = ref(new Date("2025-02-07"));
+// const currentDate = ref(new Date("2025-02-07"));
+const currentDate = ref(new Date());  
 const activeTooltip = ref<Tooltip | null>(null);
 const tooltipStyle = ref({
   top: "0px",

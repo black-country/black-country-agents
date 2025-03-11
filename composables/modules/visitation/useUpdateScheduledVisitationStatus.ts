@@ -14,7 +14,7 @@ export const useUpdateScheduledVisitationStatus = () => {
       if (res.type !== "ERROR") {
         showToast({
           title: "Success",
-          message: `Visitation status updated successfully for visitation ID: ${visitationId}.`,
+          message: `Visitation status updated successfully.`,
           toastType: "success",
           duration: 3000,
         });
