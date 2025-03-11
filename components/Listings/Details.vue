@@ -74,7 +74,7 @@
           <div class="flex-1">
             <!-- {{selectedRoomObj.images[0]}} -->
             <h3 class="text-lg font-medium">Gallery</h3>
-            <p class="text-gray-500 text-sm">Click to view photos of all common areas</p>
+            <p class="text-gray-500 text-sm">Click to view photos of {{selectedRoomObj.name}}</p>
           </div>
           <button class="text-gray-500">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -279,7 +279,7 @@
                   visibleType === type ? 'bg-[#EBE5E0] text-[#344054]' : 'bg-[#F0F2F5]',
                 ]"
               >
-                {{ type }}
+                {{ formatAmenities(type) }}
               </button>
             </div>
           </div>
@@ -370,6 +370,7 @@
 const propertyManagerImage = ref("shape.png");
 const activeTab = ref("property-overview");
 import { useCurrencyFormatter } from '@/composables/core/useCurrencyFormatter';
+import { formatAmenities } from '~/composables/core/useFormatAmenities';
 
 const { formatCurrency } = useCurrencyFormatter('en-NG', 'NGN');
 const props = defineProps({
@@ -439,13 +440,21 @@ const extractRoomImages = (room: any): string[] => {
   if (room?.features && Array.isArray(room.features)) {
     room.features.forEach((feature: any) => {
       if (feature?.images && Array.isArray(feature.images)) {
-        allImages.push(...feature.images);
+        // allImages.push(...feature.images);
+        feature.images.forEach((image: string) => {
+          if (!allImages.includes(image)) {
+            allImages.push(image);
+          }
+        });
       }
     });
   }
 
   return allImages;
 };
+
+
+
 
 const previewRoomImages = (itemTab: any) => {
   const selectedRoom = props.propertyObj.rooms.find((room: any) => room?.name === itemTab)
