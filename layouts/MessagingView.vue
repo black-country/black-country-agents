@@ -279,7 +279,7 @@ const onConfirm = () => {
     // loading.value = false
     showBLogoutModal.value = false;
     // router.push("/login");
-    window.location.href = "/agent/login";
+    window.location.href = "/agent/login"; 
   }),
     3000;
   console.log("Logging out...");
