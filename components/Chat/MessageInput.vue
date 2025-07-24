@@ -2,7 +2,7 @@
     <main>
       <div class="flex items-center p-4 border-gray-25  border-t-[0.5px] relative border-gray-200">
         <button
-          class="bg-gray-200 p-3 rounded-full hover:bg-gray-300 transition-colors absolute top-7 left-12"
+          class="absolute p-3 transition-colors bg-gray-200 rounded-full hover:bg-gray-300 top-7 left-12"
         >
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M3.33325 10.0005V12.1206C3.33325 14.8247 3.33325 16.1769 4.07164 17.0926C4.22082 17.2776 4.38934 17.4462 4.57436 17.5954C5.49018 18.3338 6.84227 18.3338 9.54642 18.3338C10.1344 18.3338 10.4283 18.3338 10.6976 18.2388C10.7536 18.219 10.8084 18.1963 10.862 18.1706C11.1196 18.0475 11.3274 17.8396 11.7432 17.4239L15.6903 13.4767C16.172 12.9951 16.4128 12.7541 16.5398 12.4479C16.6666 12.1416 16.6666 11.801 16.6666 11.1197V8.3338C16.6666 5.19107 16.6666 3.61973 15.6903 2.64341C14.8077 1.76078 13.4387 1.67609 10.862 1.66797M10.8333 17.9171V17.5005C10.8333 15.1434 10.8333 13.9649 11.5655 13.2326C12.2978 12.5005 13.4763 12.5005 15.8333 12.5005H16.2499" stroke="white" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
@@ -18,7 +18,7 @@
         />
         <button
           @click="emitMessage"
-          class="ml-4 text-white p-3 transition-colors absolute top-5 right-6"
+          class="absolute p-3 ml-4 text-white transition-colors top-5 right-6"
         >
           <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect width="36" height="36" rx="18" fill="#5B8469"/>

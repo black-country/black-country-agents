@@ -6,12 +6,12 @@
       <div class="mt-[-128px]">
         <div class="h-screen">
           <!-- Mobile View (Original Code) -->
-          <div class="lg:hidden h-full w-full">
+          <div class="w-full h-full lg:hidden">
             <transition name="flip" mode="out-in">
               <!-- Chat List View -->
-              <div v-if="!showChatDetail" class="h-full flex flex-col w-full overflow-hidden">
+              <div v-if="!showChatDetail" class="flex flex-col w-full h-full overflow-hidden">
                 <!-- Fixed Header -->
-                <!-- <div class="flex items-center justify-between px-4 border-b bg-white w-full">
+                <!-- <div class="flex items-center justify-between w-full px-4 bg-white border-b">
                 <h1 class="text-lg font-semibold">Messages</h1>
                 <button @click="toggleDropdown" class="p-2">
                   <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -19,7 +19,7 @@
                   </svg>
                 </button>
               </div> -->
-                <div class="flex items-center justify-between px-4 border-b bg-white w-full">
+                <div class="flex items-center justify-between w-full px-4 bg-white border-b">
                   <h1 class="text-lg font-semibold">Messages</h1>
                   <div class="relative">
                     <button @click="toggleFilterModal" class="p-2">
@@ -55,7 +55,7 @@
                   </div>
                 </div>
                 <!-- Search Bar - Fixed -->
-                <div class="p-4 bg-white flex items-center gap-x-3 w-full">
+                <div class="flex items-center w-full p-4 bg-white gap-x-3">
                   <div class="relative w-full">
                     <input type="text" v-model="searchTerm" placeholder="Search"
                       class="w-full p-3 pl-12 bg-[#EAEAEA] text-sm rounded-lg text-gray-700 outline-none" />
@@ -96,15 +96,15 @@
                 </div>
 
                 <!-- Scrollable Chat List -->
-                <div class="flex-1 overflow-y-auto overflow-x-hidden bg-white w-full">
+                <div class="flex-1 w-full overflow-x-hidden overflow-y-auto bg-white">
                   <div v-if="!loadingActiveChats && filteredChats.length" class="divide-y divide-gray-100">
                     <div v-for="chat in filteredChats" :key="chat.id" @click="openChatDetail(chat)"
-                      class="flex items-center p-4 cursor-pointer hover:bg-gray-50 w-full">
+                      class="flex items-center w-full p-4 cursor-pointer hover:bg-gray-50">
                       <!-- {{ chat.readAt }} -->
                       <div class="relative shrink-0">
                         <img v-if="chat.participant?.profilePicture" :src="chat.participant?.profilePicture"
-                          class="w-12 h-12 rounded-full object-cover" :alt="chat.participant?.firstName" />
-                        <svg v-else class="h-16 w-16" viewBox="0 0 111 106" fill="none"
+                          class="object-cover w-12 h-12 rounded-full" :alt="chat.participant?.firstName" />
+                        <svg v-else class="w-16 h-16" viewBox="0 0 111 106" fill="none"
                           xmlns="http://www.w3.org/2000/svg">
                           <path fill-rule="evenodd" clip-rule="evenodd"
                             d="M86.162 83.0406C90.5989 78.8716 94.1335 73.8369 96.5473 68.2476C98.9612 62.6584 100.203 56.6334 100.196 50.5452C100.196 25.8886 80.2096 5.90234 55.553 5.90234C30.8964 5.90234 10.9102 25.8886 10.9102 50.5452C10.9031 56.6334 12.1449 62.6584 14.5588 68.2476C16.9726 73.8369 20.5072 78.8716 24.9441 83.0406C33.2176 90.8561 44.1718 95.2034 55.553 95.1881C66.9343 95.2034 77.8885 90.8561 86.162 83.0406ZM28.7444 77.1569C31.9591 73.1351 36.0384 69.8892 40.6796 67.6602C45.3207 65.4312 50.4044 64.2763 55.553 64.2815C60.7017 64.2763 65.7854 65.4312 70.4265 67.6602C75.0676 69.8892 79.147 73.1351 82.3616 77.1569C78.8544 80.6995 74.6787 83.5104 70.0767 85.4267C65.4747 87.343 60.5381 88.3264 55.553 88.3199C50.568 88.3264 45.6313 87.343 41.0294 85.4267C36.4274 83.5104 32.2516 80.6995 28.7444 77.1569ZM72.7234 36.8089C72.7234 41.3628 70.9144 45.7301 67.6943 48.9502C64.4742 52.1703 60.1069 53.9793 55.553 53.9793C50.9992 53.9793 46.6318 52.1703 43.4118 48.9502C40.1917 45.7301 38.3827 41.3628 38.3827 36.8089C38.3827 32.2551 40.1917 27.8877 43.4118 24.6677C46.6318 21.4476 50.9992 19.6386 55.553 19.6386C60.1069 19.6386 64.4742 21.4476 67.6943 24.6677C70.9144 27.8877 72.7234 32.2551 72.7234 36.8089Z"
@@ -117,15 +117,15 @@
                         </div>
                       </div>
                       <div class="flex-1 min-w-0 ml-3">
-                        <div class="flex justify-between items-start w-full">
+                        <div class="flex items-start justify-between w-full">
                           <h3 class="font-medium text-sm truncate max-w-[150px]">
                             {{ chat.participant?.firstName }} {{ chat.participant?.lastName }}
                           </h3>
-                          <span class="text-xs text-gray-500 shrink-0 ml-2">
+                          <span class="ml-2 text-xs text-gray-500 shrink-0">
                             {{ formatDate(chat.lastMessage?.createdAt) }}
                           </span>
                         </div>
-                        <p class="text-sm text-gray-500 truncate pr-4">
+                        <p class="pr-4 text-sm text-gray-500 truncate">
                           {{ chat.lastMessage?.content }}
                         </p>
                       </div>
@@ -133,11 +133,11 @@
                   </div>
 
                   <div v-else-if="loadingActiveChats" class="p-4 space-y-4">
-                    <div v-for="n in 3" :key="n" class="animate-pulse flex space-x-4">
-                      <div class="rounded-full bg-slate-200 h-12 w-12 shrink-0"></div>
-                      <div class="flex-1 space-y-2 py-1 min-w-0">
-                        <div class="h-4 bg-slate-200 rounded w-3/4"></div>
-                        <div class="h-4 bg-slate-200 rounded w-1/2"></div>
+                    <div v-for="n in 3" :key="n" class="flex space-x-4 animate-pulse">
+                      <div class="w-12 h-12 rounded-full bg-slate-200 shrink-0"></div>
+                      <div class="flex-1 min-w-0 py-1 space-y-2">
+                        <div class="w-3/4 h-4 rounded bg-slate-200"></div>
+                        <div class="w-1/2 h-4 rounded bg-slate-200"></div>
                       </div>
                     </div>
                   </div>
@@ -145,9 +145,9 @@
               </div>
 
               <!-- Chat Detail View -->
-              <div v-else class="h-full flex flex-col w-full overflow-hidden">
+              <div v-else class="flex flex-col w-full h-full overflow-hidden">
                 <!-- Fixed Header -->
-                <div class="flex items-center p-4 border-b bg-white w-full">
+                <div class="flex items-center w-full p-4 bg-white border-b">
                   <button @click="showChatDetail = false" class="p-2 shrink-0">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -157,9 +157,9 @@
                   <div class="flex items-center min-w-0 ml-2">
                     <img v-if="selectedUser?.participant?.profilePicture"
                       :src="selectedUser?.participant?.profilePicture"
-                      class="w-10 h-10 rounded-full object-cover shrink-0"
+                      class="object-cover w-10 h-10 rounded-full shrink-0"
                       :alt="selectedUser?.participant?.firstName" />
-                    <svg v-else class="h-16 w-16" viewBox="0 0 111 106" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <svg v-else class="w-16 h-16" viewBox="0 0 111 106" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path fill-rule="evenodd" clip-rule="evenodd"
                         d="M86.162 83.0406C90.5989 78.8716 94.1335 73.8369 96.5473 68.2476C98.9612 62.6584 100.203 56.6334 100.196 50.5452C100.196 25.8886 80.2096 5.90234 55.553 5.90234C30.8964 5.90234 10.9102 25.8886 10.9102 50.5452C10.9031 56.6334 12.1449 62.6584 14.5588 68.2476C16.9726 73.8369 20.5072 78.8716 24.9441 83.0406C33.2176 90.8561 44.1718 95.2034 55.553 95.1881C66.9343 95.2034 77.8885 90.8561 86.162 83.0406ZM28.7444 77.1569C31.9591 73.1351 36.0384 69.8892 40.6796 67.6602C45.3207 65.4312 50.4044 64.2763 55.553 64.2815C60.7017 64.2763 65.7854 65.4312 70.4265 67.6602C75.0676 69.8892 79.147 73.1351 82.3616 77.1569C78.8544 80.6995 74.6787 83.5104 70.0767 85.4267C65.4747 87.343 60.5381 88.3264 55.553 88.3199C50.568 88.3264 45.6313 87.343 41.0294 85.4267C36.4274 83.5104 32.2516 80.6995 28.7444 77.1569ZM72.7234 36.8089C72.7234 41.3628 70.9144 45.7301 67.6943 48.9502C64.4742 52.1703 60.1069 53.9793 55.553 53.9793C50.9992 53.9793 46.6318 52.1703 43.4118 48.9502C40.1917 45.7301 38.3827 41.3628 38.3827 36.8089C38.3827 32.2551 40.1917 27.8877 43.4118 24.6677C46.6318 21.4476 50.9992 19.6386 55.553 19.6386C60.1069 19.6386 64.4742 21.4476 67.6943 24.6677C70.9144 27.8877 72.7234 32.2551 72.7234 36.8089Z"
                         fill="#D6D0CC" />
@@ -167,22 +167,22 @@
                         d="M105.5 50C105.5 77.6142 83.1142 100 55.5 100C27.8858 100 5.5 77.6142 5.5 50C5.5 22.3858 27.8858 0 55.5 0C83.1142 0 105.5 22.3858 105.5 50ZM11.3186 50C11.3186 74.4007 31.0993 94.1814 55.5 94.1814C79.9007 94.1814 99.6814 74.4007 99.6814 50C99.6814 25.5993 79.9007 5.81863 55.5 5.81863C31.0993 5.81863 11.3186 25.5993 11.3186 50Z"
                         fill="#F0F2F5" />
                     </svg>
-                    <div class="ml-3 min-w-0">
-                      <h2 class="font-medium text-sm truncate">{{ selectedUser?.participant?.firstName }} {{
-                        selectedUser?.participant?.lastName }}</h2>
+                    <div class="min-w-0 ml-3">
+                      <!-- <h2 class="text-sm font-medium truncate">{{ selectedUser?.participant?.firstName }} {{
+                        selectedUser?.participant?.lastName }}</h2> -->
                       <p class="text-xs text-gray-500 truncate">{{ selectedUser?.participant?.status || 'Online' }}</p>
                     </div>
                   </div>
                 </div>
 
                 <!-- Scrollable Messages Area -->
-                <div class="flex-1 overflow-y-auto overflow-x-hidden bg-gray-50">
+                <div class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-50">
                   <ChatWindow class="z-10" :roomChats="roomChatsList" :messages="currentRoomMessages"
                     :selectedUser="selectedUser" />
                 </div>
 
                 <!-- Fixed Message Input -->
-                <div class="border-t bg-white w-full">
+                <div class="w-full bg-white border-t">
                   <ChatMessageInput v-model="newMessage" :isConnected="isConnected"
                     :isSending="messageStatus === 'sending'" @sendMessage="sendMessageToUser" />
                 </div>
@@ -191,7 +191,7 @@
           </div>
 
           <!-- Desktop View (Original Code) -->
-          <section class="hidden lg:flex h-full rounded">
+          <section class="hidden h-full rounded lg:flex">
             <!-- Left sidebar -->
             <div class="w-[400px] flex flex-col border-r border-gray-25">
               <!-- Search and Filter Header -->
@@ -289,19 +289,19 @@
               <!-- Chat List -->
               <div class="flex-1 overflow-y-auto">
                 <div v-if="!loadingActiveChats && filteredChats.length" class="divide-y divide-gray-100">
-                  <ChatUserList class="px-3 flex items-center bg-grey-light cursor-pointer"
+                  <ChatUserList class="flex items-center px-3 cursor-pointer bg-grey-light"
                     :loading="loadingActiveChats" :users="filteredChats" @selectUser="selectUser" />
                   <!-- <div
                     v-for="chat in activeChatsList"
                     :key="chat.id"
                     @click="selectUser(chat)"
-                    class="flex items-center space-x-3 p-4 cursor-pointer hover:bg-gray-50 transition-colors"
+                    class="flex items-center p-4 space-x-3 transition-colors cursor-pointer hover:bg-gray-50"
                     :class="{'bg-gray-50': selectedUser?.id === chat.id}"
                   >
                     <div class="relative">
                       <img
                         :src="chat.participant?.avatar || '/placeholder-avatar.png'"
-                        class="w-12 h-12 rounded-full object-cover"
+                        class="object-cover w-12 h-12 rounded-full"
                         :alt="chat.participant?.name"
                       />
                       <div
@@ -310,9 +310,9 @@
                       ></div>
                     </div>
                     <div class="flex-1 min-w-0">
-                      <div class="flex justify-between items-start">
-                        <h3 class="font-medium text-sm truncate">{{ chat.participant?.name }}</h3>
-                        <span class="text-xs text-gray-500 whitespace-nowrap ml-2">
+                      <div class="flex items-start justify-between">
+                        <h3 class="text-sm font-medium truncate">{{ chat.participant?.name }}</h3>
+                        <span class="ml-2 text-xs text-gray-500 whitespace-nowrap">
                           {{ formatDate(chat.lastMessage?.createdAt) }}
                         </span>
                       </div>
@@ -326,25 +326,25 @@
             </div>
 
             <!-- Right Content -->
-            <div class="flex-1 flex flex-col">
+            <div class="flex flex-col flex-1">
               <!-- Chat Header -->
               <ChatHeader :selectedUser="selectedUser || roomChatsList" :isConnected="isConnected" />
-              <!-- <div class="flex items-center space-x-4 p-4 bg-white border-b border-gray-100">
+              <!-- <div class="flex items-center p-4 space-x-4 bg-white border-b border-gray-100">
                 <div class="flex items-center space-x-3">
                   <img
                     :src="selectedUser?.participant?.avatar || '/placeholder-avatar.png'"
-                    class="w-10 h-10 rounded-full object-cover"
+                    class="object-cover w-10 h-10 rounded-full"
                     :alt="selectedUser?.participant?.name"
                   />
                   <div>
-                    <h2 class="font-medium text-sm">{{ selectedUser?.participant?.name }}</h2>
+                    <h2 class="text-sm font-medium">{{ selectedUser?.participant?.name }}</h2>
                     <p class="text-xs text-gray-500">{{ selectedUser?.participant?.status || 'Online' }}</p>
                   </div>
                 </div>
               </div> -->
 
               <!-- Chat Messages -->
-              <div class="flex-1 overflow-y-auto p-4">
+              <div class="flex-1 p-4 overflow-y-auto">
                 <ChatWindow class="z-10" :roomChats="roomChatsList" :messages="currentRoomMessages"
                   :selectedUser="selectedUser" />
               </div>
