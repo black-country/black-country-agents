@@ -1,6 +1,5 @@
 import { auth_api } from "@/api_factory/modules/auth";
 import { useCustomToast } from '@/composables/core/useCustomToast'
-const { showToast } = useCustomToast();
 const credential = {
   fullName: ref(""),
   email: ref(""),
@@ -13,6 +12,8 @@ const credential = {
 export const use_auth_register = () => {
   const loading = ref(false);
   const router = useRouter();
+  const { showToast } = useCustomToast();
+
 
   const register = async () => {
     loading.value = true;
@@ -30,7 +31,7 @@ export const use_auth_register = () => {
 
     try {
       const res = await auth_api.$_register(sessionPayload) as any;
-     console.log(res, 'res here')
+      console.log(res, 'res here')
       loading.value = false;
 
       if (res.type !== "ERROR") {
@@ -49,7 +50,7 @@ export const use_auth_register = () => {
           duration: 3000
         });
       }
-    } catch (error:any) {
+    } catch (error: any) {
       loading.value = false;
       showToast({
         title: "Error",
@@ -61,29 +62,29 @@ export const use_auth_register = () => {
   };
 
   // Computed properties for validation
-const passwordMismatch = computed(() => {
-  return credential.password.value !== credential.confirmPassword.value;
-});
+  const passwordMismatch = computed(() => {
+    return credential.password.value !== credential.confirmPassword.value;
+  });
 
-const populateObj = (data: any) => {
-   credential.fullName.value = data.fullName
-   credential.email.value = data.email
-   credential.password.value = data.password
-   credential.inviteId.value = data.inviteId
-   credential.confirmPassword.value = data.confirmPassword
-   credential.agreement.value = data.agreement
-}
-const isFormDisabled = computed(() => {
-  return (
-    loading.value ||
-    !credential.agreement.value ||
-    !credential.fullName.value ||
-    !credential.password.value ||
-    credential.password.value.length < 6 ||  // Ensures password is at least 6 characters
-    !credential.confirmPassword.value ||
-    passwordMismatch.value
-  );
-});
+  const populateObj = (data: any) => {
+    credential.fullName.value = data.fullName
+    credential.email.value = data.email
+    credential.password.value = data.password
+    credential.inviteId.value = data.inviteId
+    credential.confirmPassword.value = data.confirmPassword
+    credential.agreement.value = data.agreement
+  }
+  const isFormDisabled = computed(() => {
+    return (
+      loading.value ||
+      !credential.agreement.value ||
+      !credential.fullName.value ||
+      !credential.password.value ||
+      credential.password.value.length < 6 ||  // Ensures password is at least 6 characters
+      !credential.confirmPassword.value ||
+      passwordMismatch.value
+    );
+  });
 
 
 
