@@ -647,7 +647,7 @@ import { useSubmitKYC } from "@/composables/modules/kyc/useSubmitKYC"
 const { loading: savingBusiness, registerPropertyOwnerBusiness } = useRegisterPropertyOwnerBusiness()
 const { loading: savingIndividual, registerPropertyOwnerIndividual } = useRegisterPropertyOwnerIndividual()
 const { loading, verifyOtpEmail } = useVerifyOtpEmail()
-const { loading: submittingKyc, submitKY: handleSubmitKyc } = useSubmitKYC()
+const { loading: submittingKyc } = useSubmitKYC()
 const { loading: attachingSignture,
     attachSignature } = useAttachSignature()
 import { Home, Mail, Upload, FileCheck, ChevronDown } from 'lucide-vue-next'
