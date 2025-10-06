@@ -1,43 +1,44 @@
 import { ref } from "vue"
-import { auth_api, type ForgotPasswordPayload } from "@/api_factory/modules/auth"
+import { auth_api } from "@/api_factory/modules/auth"
+import { useCustomToast } from "@/composables/core/useCustomToast"
 
 export const useForgotPassword = () => {
   const loading = ref(false)
-  const error = ref<string | null>(null)
-  const success = ref(false)
-  const responseData = ref<any>(null)
+  const { showToast } = useCustomToast()
 
-  const forgotPassword = async (payload: ForgotPasswordPayload) => {
+  const forgotPassword = async (payload: { email: string; app: 'customer' | 'property-owner' | 'admin' }) => {
     loading.value = true
-    error.value = null
-    success.value = false
-
     try {
-      const response = await auth_api.$_forgot_password(payload)
-      success.value = true
-      responseData.value = response.data.data
-      return response.data
+      const res = await auth_api.$_forgot_password(payload)
+      if ([200, 201].includes(res.status)) {
+        showToast({ 
+          title: "Success", 
+          message: "Password reset OTP sent to your email!", 
+          toastType: "success", 
+          duration: 3000 
+        })
+        return res.data
+      } else {
+        showToast({ 
+          title: "Error", 
+          message: res?.data?.error || "Failed to send OTP", 
+          toastType: "error", 
+          duration: 3000 
+        })
+        return null
+      }
     } catch (err: any) {
-      error.value = err.response?.data?.message || "Password reset request failed"
-      throw err
+      showToast({ 
+        title: "Error", 
+        message: err?.response?.data?.message || err?.message || "Something went wrong", 
+        toastType: "error", 
+        duration: 3000 
+      })
+      return null
     } finally {
       loading.value = false
     }
   }
 
-  const resetState = () => {
-    loading.value = false
-    error.value = null
-    success.value = false
-    responseData.value = null
-  }
-
-  return {
-    loading,
-    error,
-    success,
-    responseData,
-    forgotPassword,
-    resetState,
-  }
+  return { loading, forgotPassword }
 }

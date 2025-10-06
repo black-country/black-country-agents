@@ -1,137 +1,169 @@
 <template>
-    <div class="animate-fade-in">
-      <!-- Back to Login Link -->
-      <div class="mb-6">
-        <NuxtLink 
-          to="/auth/login" 
-          class="inline-flex items-center text-sm text-gray-600 hover:text-blue-600 transition-colors duration-200"
-        >
-          <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-          </svg>
-          Back to Login
-        </NuxtLink>
-      </div>
-  
-      <!-- Header -->
-      <div class="text-center mb-8">
-        <div class="w-16 h-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
-          <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
-          </svg>
+  <div>
+    <NuxtLayout name="auth">
+      <div v-if="!emailSent">
+        <div class="text-center mb-8">
+          <h2 class="text-2xl font-bold text-gray-900 mb-2">Forgot Password</h2>
+          <p class="text-[#525866]">Continue to your horizon homes account</p>
         </div>
-        <h2 class="text-3xl font-bold text-gray-900 mb-2">Forgot Password?</h2>
-        <p class="text-gray-600">No worries! Enter your email and we'll send you reset instructions.</p>
-      </div>
-  
-      <!-- Success State -->
-      <div v-if="success" class="text-center">
-        <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-          <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-          </svg>
-        </div>
-        <h3 class="text-lg font-semibold text-gray-900 mb-2">Check Your Email!</h3>
-        <p class="text-gray-600 text-sm mb-6">
-          We've sent password reset instructions to your email address.
-        </p>
-        <button 
-          @click="resetState"
-          class="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 px-4 rounded-xl font-medium hover:from-blue-700 hover:to-purple-700 transition-all duration-200 transform hover:scale-[1.02]"
-        >
-          Send Another Email
-        </button>
-      </div>
-  
-      <!-- Form State -->
-      <form v-else @submit.prevent="handleSubmit" class="space-y-6">
-        <!-- Email Input -->
-        <div class="space-y-2">
-          <label for="email" class="block text-sm font-medium text-gray-700">
-            Email Address
-          </label>
-          <div class="relative">
-            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
-              </svg>
-            </div>
-            <input
-              id="email"
-              v-model="form.email"
-              type="email"
+
+        <form @submit.prevent="handleForgotPassword" class="space-y-6">
+          <div>
+            <label class="block text-sm font-medium text-gray-900 mb-2">Email Address</label>
+            <input 
+              v-model="email"
+              type="email" 
+              placeholder="Enter Email Address"
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              :class="{ 'border-red-500': emailError }"
               required
-              class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white"
-              placeholder="Enter your email address"
-              :disabled="loading"
+            />
+            <p v-if="emailError" class="text-red-500 text-sm mt-1">{{ emailError }}</p>
+          </div>
+
+          <div v-if="forgotPasswordError" class="bg-red-50 border border-red-200 rounded-lg p-4">
+            <p class="text-red-600 text-sm">{{ forgotPasswordError }}</p>
+          </div>
+
+          <button 
+            type="submit"
+            :disabled="isLoading"
+            class="w-full bg-[#2970FF] text-white py-3 px-4 rounded-lg font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {{ isLoading ? 'Sending...' : 'Continue' }}
+          </button>
+
+          <div class="text-center">
+            <NuxtLink 
+              to="/auth/login"
+              class="text-blue-600 hover:text-blue-700 text-sm"
+            >
+              Back to Login
+            </NuxtLink>
+          </div>
+        </form>
+      </div>
+
+      <div v-else>
+        <div class="text-center mb-8">
+          <!-- Email icon illustration -->
+          <div class="flex justify-center mb-6">
+            <img src="@/assets/img/email-sent-illustration.png" class="h-[150px] w-[200px]" />
+          </div>
+          
+          <h2 class="text-2xl font-bold text-gray-900 mb-2">Email Sent</h2>
+          <p class="text-[#525866] mb-4">A verification code has been sent to</p>
+          <p class="font-medium text-gray-900 mb-8">{{ email }}</p>
+        </div>
+
+        <!-- Verification Code Input -->
+        <div class="mb-8">
+          <div class="flex justify-center space-x-3 mb-6">
+            <input 
+              v-for="(digit, index) in verificationCode" 
+              :key="index"
+              v-model="verificationCode[index]"
+              type="text" 
+              maxlength="1"
+              class="w-12 h-12 text-center text-xl font-semibold border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              @input="handleCodeInput($event, index)"
+              @keydown="handleKeyDown($event, index)"
             />
           </div>
-        </div>
-  
-        <!-- Error Message -->
-        <div v-if="error" class="bg-red-50 border border-red-200 rounded-xl p-4">
-          <div class="flex items-center">
-            <svg class="w-5 h-5 text-red-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            <p class="text-sm text-red-700">{{ error }}</p>
+          
+          <div class="text-center">
+            <button 
+              @click="handleVerifyCode"
+              :disabled="isLoading || verificationCode.join('').length !== 6"
+              class="w-full bg-[#2970FF] text-white py-3 px-4 rounded-lg font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed mb-4"
+            >
+              {{ isLoading ? 'Verifying...' : 'Verify Email' }}
+            </button>
+            
+            <p class="text-sm text-[#525866] mb-6">
+              Didn't receive the code? 
+              <button @click="resendCode" class="text-blue-600 hover:text-blue-700">Resend Code</button>
+            </p>
+
+            <NuxtLink 
+              to="/auth/login"
+              class="text-blue-600 hover:text-blue-700 text-sm"
+            >
+              Back to Login
+            </NuxtLink>
           </div>
         </div>
-  
-        <!-- Submit Button -->
-        <button
-          type="submit"
-          :disabled="loading || !form.email"
-          class="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 px-4 rounded-xl font-medium hover:from-blue-700 hover:to-purple-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 transform hover:scale-[1.02] disabled:hover:scale-100 flex items-center justify-center"
-        >
-          <svg v-if="loading" class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
-            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-          </svg>
-          {{ loading ? 'Sending...' : 'Send Reset Instructions' }}
-        </button>
-      </form>
-  
-      <!-- Footer Links -->
-      <div class="mt-6 text-center">
-        <p class="text-sm text-gray-600">
-          Remember your password? 
-          <NuxtLink to="/" class="text-blue-600 hover:text-blue-700 font-medium transition-colors duration-200">
-            Sign In
-          </NuxtLink>
-        </p>
       </div>
-    </div>
-  </template>
-  
-  <script setup lang="ts">
-  import { ref, reactive } from 'vue'
-  import { useForgotPassword } from '@/composables/modules/auth/useForgotPassword'
-  import { definePageMeta } from '#imports'
-  
-  
-  // Form data
-  const form = reactive({
-    email: ''
-  })
-  
-  // Composable
-  const { loading, error, success, forgotPassword, resetState } = useForgotPassword()
-  
-  // Methods
-  const handleSubmit = async () => {
-    try {
-      await forgotPassword({ email: form.email })
-    } catch (err) {
-      // Error is handled by the composable
-    }
+    </NuxtLayout>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { Home, Mail } from 'lucide-vue-next'
+
+definePageMeta({
+  layout: false
+})
+
+const { forgotPassword, verifyEmail, isLoading } = useAuth()
+const { validateEmail, validateRequired } = useValidation()
+
+const email = ref('')
+const emailError = ref('')
+const forgotPasswordError = ref('')
+const emailSent = ref(false)
+const verificationCode = ref(['', '', '', '', '', ''])
+
+const handleForgotPassword = async () => {
+  emailError.value = ''
+  forgotPasswordError.value = ''
+
+  if (!validateRequired(email.value)) {
+    emailError.value = 'Email is required'
+    return
   }
 
-    
-  // Meta
-  definePageMeta({
-    layout: false,
-    auth: false
-  })
-  </script>
+  if (!validateEmail(email.value)) {
+    emailError.value = 'Please enter a valid email address'
+    return
+  }
+
+  const result = await forgotPassword(email.value)
   
+  if (result.success) {
+    emailSent.value = true
+  } else {
+    forgotPasswordError.value = result.error || 'Failed to send reset email'
+  }
+}
+
+const handleCodeInput = (event: Event, index: number) => {
+  const target = event.target as HTMLInputElement
+  const value = target.value
+  
+  if (value && index < 5) {
+    const nextInput = target.parentElement?.children[index + 1] as HTMLInputElement
+    nextInput?.focus()
+  }
+}
+
+const handleKeyDown = (event: KeyboardEvent, index: number) => {
+  if (event.key === 'Backspace' && !verificationCode.value[index] && index > 0) {
+    const prevInput = (event.target as HTMLInputElement).parentElement?.children[index - 1] as HTMLInputElement
+    prevInput?.focus()
+  }
+}
+
+const handleVerifyCode = async () => {
+  const code = verificationCode.value.join('')
+  const result = await verifyEmail(code)
+  
+  if (result.success) {
+    await navigateTo('/auth/reset-password')
+  }
+}
+
+const resendCode = async () => {
+  await handleForgotPassword()
+}
+</script>

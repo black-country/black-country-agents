@@ -1,48 +1,49 @@
-import { ref } from 'vue'
-import { auth_api, type LoginCredentials, type AuthResponse } from '@/api_factory/modules/auth'
+import { ref } from "vue"
+import { auth_api } from "@/api_factory/modules/auth"
+import { useCustomToast } from "@/composables/core/useCustomToast"
 import { useUser } from "@/composables/modules/auth/user"
 
+// ===== LOGIN =====
 export const useLogin = () => {
   const loading = ref(false)
-  const error = ref<string | null>(null)
-  const success = ref(false)
-  const authData = ref<AuthResponse | null>(null)
-  const {createUser} = useUser()
+  const { createUser, user, token } = useUser()
+  const { showToast } = useCustomToast()
 
-  const login = async (credentials: LoginCredentials) => {
+  const login = async (payload: { email: string; password: string; app: 'admin' | 'customer' | 'property-owner' }) => {
     loading.value = true
-    error.value = null
-    success.value = false
-
     try {
-      const response = await auth_api.$_login(credentials)
-      console.log(response, 'login res')
-      success.value = true
-      authData.value = response.data
-      createUser(response.data)
-      
-      return response.data
+      const res = await auth_api.$_login(payload)
+      console.log(res, 'rse here')
+      if ([200, 201].includes(res.status)) {
+        showToast({ 
+          title: "Success", 
+          message: "Login successful!", 
+          toastType: "success", 
+          duration: 3000 
+        })
+        createUser(res.data)
+        return res.data
+      } else {
+        showToast({ 
+          title: "Error", 
+          message: res?.data?.error || "Login failed", 
+          toastType: "error", 
+          duration: 3000 
+        })
+        return null
+      }
     } catch (err: any) {
-      error.value = err.response?.data?.message || 'Login failed'
-      throw err
+      showToast({ 
+        title: "Error", 
+        message: err?.response?.data?.message || err?.message || "Invalid credentials", 
+        toastType: "error", 
+        duration: 3000 
+      })
+      return null
     } finally {
       loading.value = false
     }
   }
 
-  const resetState = () => {
-    loading.value = false
-    error.value = null
-    success.value = false
-    authData.value = null
-  }
-
-  return {
-    loading,
-    error,
-    success,
-    authData,
-    login,
-    resetState,
-  }
+  return { loading, login }
 }

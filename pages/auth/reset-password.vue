@@ -1,230 +1,230 @@
 <template>
-    <div class="animate-fade-in">
-      <!-- Back to Login Link -->
-      <div class="mb-6">
-        <NuxtLink 
-          to="/auth/login" 
-          class="inline-flex items-center text-sm text-gray-600 hover:text-blue-600 transition-colors duration-200"
-        >
-          <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-          </svg>
-          Back to Login
-        </NuxtLink>
-      </div>
-  
-      <!-- Header -->
+  <div>
+    <NuxtLayout name="auth">
       <div class="text-center mb-8">
-        <div class="w-16 h-16 bg-gradient-to-r from-green-600 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
-          <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
-          </svg>
+        <!-- Password icon illustration -->
+        <div class="flex justify-center mb-6">
+         <img src="@/assets/img/password-update.png" class="h-32 w-32" />
         </div>
-        <h2 class="text-3xl font-bold text-gray-900 mb-2">Reset Password</h2>
-        <p class="text-gray-600">Enter your new password below to complete the reset process.</p>
+        
+        <h2 class="text-2xl font-bold text-gray-900 mb-2">New Password</h2>
+        <p class="text-[#525866]">Continue to your horizon homes account</p>
       </div>
-  
-      <!-- Success State -->
-      <div v-if="success" class="text-center">
-        <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-          <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-          </svg>
-        </div>
-        <h3 class="text-lg font-semibold text-gray-900 mb-2">Password Reset Successful!</h3>
-        <p class="text-gray-600 text-sm mb-6">
-          Your password has been successfully updated. You can now sign in with your new password.
-        </p>
-        <NuxtLink 
-          to="/auth/login"
-          class="inline-block w-full bg-gradient-to-r from-green-600 to-blue-600 text-white py-3 px-4 rounded-xl font-medium hover:from-green-700 hover:to-blue-700 transition-all duration-200 transform hover:scale-[1.02] text-center"
-        >
-          Continue to Login
-        </NuxtLink>
-      </div>
-  
-      <!-- Invalid Token State -->
-      <div v-else-if="!token" class="text-center">
-        <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-          <svg class="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
-        </div>
-        <h3 class="text-lg font-semibold text-gray-900 mb-2">Invalid Reset Link</h3>
-        <p class="text-gray-600 text-sm mb-6">
-          This password reset link is invalid or has expired. Please request a new one.
-        </p>
-        <NuxtLink 
-          to="/auth/forgot-password"
-          class="inline-block w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 px-4 rounded-xl font-medium hover:from-blue-700 hover:to-purple-700 transition-all duration-200 transform hover:scale-[1.02] text-center"
-        >
-          Request New Reset Link
-        </NuxtLink>
-      </div>
-  
-      <!-- Form State -->
-      <form v-else @submit.prevent="handleSubmit" class="space-y-6">
-        <!-- New Password Input -->
-        <div class="space-y-2">
-          <label for="password" class="block text-sm font-medium text-gray-700">
-            New Password
-          </label>
+
+      <form @submit.prevent="handleResetPassword" class="space-y-6">
+        <div>
+          <label class="block text-sm font-medium text-gray-900 mb-2">New Password</label>
           <div class="relative">
-            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-              </svg>
-            </div>
-            <input
-              id="password"
-              v-model="form.password"
-              :type="showPassword ? 'text' : 'password'"
+            <input 
+              v-model="newPassword"
+              :type="showNewPassword ? 'text' : 'password'"
+              placeholder="••••••••••"
+              class="w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              :class="{ 'border-red-500': passwordErrors.length > 0 }"
               required
-              minlength="8"
-              class="block w-full pl-10 pr-12 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white"
-              placeholder="Enter new password"
-              :disabled="loading"
             />
-            <button
+            <button 
               type="button"
-              @click="showPassword = !showPassword"
+              @click="showNewPassword = !showNewPassword"
               class="absolute inset-y-0 right-0 pr-3 flex items-center"
             >
-              <svg v-if="showPassword" class="h-5 w-5 text-gray-400 hover:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21" />
-              </svg>
-              <svg v-else class="h-5 w-5 text-gray-400 hover:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-              </svg>
+              <Eye v-if="!showNewPassword" class="w-5 h-5 text-gray-400" />
+              <EyeOff v-else class="w-5 h-5 text-gray-400" />
             </button>
           </div>
-          <p class="text-xs text-gray-500">Password must be at least 8 characters long</p>
-        </div>
-  
-        <!-- Confirm Password Input -->
-        <div class="space-y-2">
-          <label for="password_confirmation" class="block text-sm font-medium text-gray-700">
-            Confirm New Password
-          </label>
-          <div class="relative">
-            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-              </svg>
+          
+          <!-- Password strength indicator -->
+          <div class="mt-3">
+            <div class="flex space-x-1 mb-2">
+              <div 
+                class="flex-1 h-1 rounded-full transition-colors"
+                :class="passwordStrength >= 1 ? 'bg-red-500' : 'bg-gray-200'"
+              ></div>
+              <div 
+                class="flex-1 h-1 rounded-full transition-colors"
+                :class="passwordStrength >= 2 ? 'bg-yellow-500' : 'bg-gray-200'"
+              ></div>
+              <div 
+                class="flex-1 h-1 rounded-full transition-colors"
+                :class="passwordStrength >= 3 ? 'bg-green-500' : 'bg-gray-200'"
+              ></div>
             </div>
-            <input
-              id="password_confirmation"
-              v-model="form.password_confirmation"
+            
+            <p class="text-sm text-[#525866] mb-3">
+              {{ passwordStrength === 0 ? 'Weak password. Must contain at least:' : 
+                  passwordStrength === 1 ? 'Weak password. Must contain at least:' :
+                  passwordStrength === 2 ? 'Medium strength password' :
+                  'Strong password' }}
+            </p>
+            
+            <div class="space-y-2">
+              <div class="flex items-center text-sm"> 
+                <svg v-if="passwordValidation.hasUppercase" class="mr-2" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M8 14C4.6862 14 2 11.3138 2 8C2 4.6862 4.6862 2 8 2C11.3138 2 14 4.6862 14 8C14 11.3138 11.3138 14 8 14ZM7.4018 10.4L11.6438 6.1574L10.7954 5.309L7.4018 8.7032L5.7044 7.0058L4.856 7.8542L7.4018 10.4Z" fill="#38C793"/>
+</svg>
+
+                <!-- <svg class="mr-2" v-if="passwordValidation.hasUppercase" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M8 14C4.6862 14 2 11.3138 2 8C2 4.6862 4.6862 2 8 2C11.3138 2 14 4.6862 14 8C14 11.3138 11.3138 14 8 14ZM8 7.1516L6.3032 5.4542L5.4542 6.3032L7.1516 8L5.4542 9.6968L6.3032 10.5458L8 8.8484L9.6968 10.5458L10.5458 9.6968L8.8484 8L10.5458 6.3032L9.6968 5.4542L8 7.1516Z" fill="#868C98"/>
+</svg> -->
+
+                <!-- <CheckCircle v-if="passwordValidation.hasUppercase" class="w-4 h-4 text-green-500 mr-2" /> -->
+                <!-- <Circle v-else class="w-4 h-4 text-gray-400 mr-2" /> -->
+                 <svg class="mr-2" v-else width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M8 14C4.6862 14 2 11.3138 2 8C2 4.6862 4.6862 2 8 2C11.3138 2 14 4.6862 14 8C14 11.3138 11.3138 14 8 14ZM8 7.1516L6.3032 5.4542L5.4542 6.3032L7.1516 8L5.4542 9.6968L6.3032 10.5458L8 8.8484L9.6968 10.5458L10.5458 9.6968L8.8484 8L10.5458 6.3032L9.6968 5.4542L8 7.1516Z" fill="#868C98"/>
+</svg>
+
+                <span :class="passwordValidation.hasUppercase ? 'text-green-700' : 'text-[#525866]'">
+                  At least 1 uppercase
+                </span>
+              </div>
+              
+              <div class="flex items-center text-sm">
+                                <svg v-if="passwordValidation.hasNumber" class="mr-2" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M8 14C4.6862 14 2 11.3138 2 8C2 4.6862 4.6862 2 8 2C11.3138 2 14 4.6862 14 8C14 11.3138 11.3138 14 8 14ZM7.4018 10.4L11.6438 6.1574L10.7954 5.309L7.4018 8.7032L5.7044 7.0058L4.856 7.8542L7.4018 10.4Z" fill="#38C793"/>
+</svg>
+                                <!-- <svg class="mr-2"  v-if="passwordValidation.hasNumber" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M8 14C4.6862 14 2 11.3138 2 8C2 4.6862 4.6862 2 8 2C11.3138 2 14 4.6862 14 8C14 11.3138 11.3138 14 8 14ZM8 7.1516L6.3032 5.4542L5.4542 6.3032L7.1516 8L5.4542 9.6968L6.3032 10.5458L8 8.8484L9.6968 10.5458L10.5458 9.6968L8.8484 8L10.5458 6.3032L9.6968 5.4542L8 7.1516Z" fill="#868C98"/>
+</svg> -->
+                <!-- <CheckCircle v-if="passwordValidation.hasNumber" class="w-4 h-4 text-green-500 mr-2" /> -->
+                <!-- <Circle v-else class="w-4 h-4 text-gray-400 mr-2" /> -->
+                 <svg class="mr-2" v-else width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M8 14C4.6862 14 2 11.3138 2 8C2 4.6862 4.6862 2 8 2C11.3138 2 14 4.6862 14 8C14 11.3138 11.3138 14 8 14ZM8 7.1516L6.3032 5.4542L5.4542 6.3032L7.1516 8L5.4542 9.6968L6.3032 10.5458L8 8.8484L9.6968 10.5458L10.5458 9.6968L8.8484 8L10.5458 6.3032L9.6968 5.4542L8 7.1516Z" fill="#868C98"/>
+</svg>
+
+                <span :class="passwordValidation.hasNumber ? 'text-green-700' : 'text-[#525866]'">
+                  At least 1 number
+                </span>
+              </div>
+              
+              <div class="flex items-center text-sm">
+                                                <svg v-if="passwordValidation.hasMinLength" class="mr-2" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M8 14C4.6862 14 2 11.3138 2 8C2 4.6862 4.6862 2 8 2C11.3138 2 14 4.6862 14 8C14 11.3138 11.3138 14 8 14ZM7.4018 10.4L11.6438 6.1574L10.7954 5.309L7.4018 8.7032L5.7044 7.0058L4.856 7.8542L7.4018 10.4Z" fill="#38C793"/>
+</svg>
+                                                <!-- <svg class="mr-2"  v-if="passwordValidation.hasMinLength" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M8 14C4.6862 14 2 11.3138 2 8C2 4.6862 4.6862 2 8 2C11.3138 2 14 4.6862 14 8C14 11.3138 11.3138 14 8 14ZM8 7.1516L6.3032 5.4542L5.4542 6.3032L7.1516 8L5.4542 9.6968L6.3032 10.5458L8 8.8484L9.6968 10.5458L10.5458 9.6968L8.8484 8L10.5458 6.3032L9.6968 5.4542L8 7.1516Z" fill="#868C98"/>
+</svg> -->
+                <!-- <CheckCircle v-if="passwordValidation.hasMinLength" class="w-4 h-4 text-green-500 mr-2" /> -->
+                <!-- <Circle v-else class="w-4 h-4 text-gray-400 mr-2" /> -->
+                 <svg class="mr-2" v-else width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M8 14C4.6862 14 2 11.3138 2 8C2 4.6862 4.6862 2 8 2C11.3138 2 14 4.6862 14 8C14 11.3138 11.3138 14 8 14ZM8 7.1516L6.3032 5.4542L5.4542 6.3032L7.1516 8L5.4542 9.6968L6.3032 10.5458L8 8.8484L9.6968 10.5458L10.5458 9.6968L8.8484 8L10.5458 6.3032L9.6968 5.4542L8 7.1516Z" fill="#868C98"/>
+</svg>
+
+                <span :class="passwordValidation.hasMinLength ? 'text-green-700' : 'text-[#525866]'">
+                  At least 8 characters
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-900 mb-2">Confirm New Password</label>
+          <div class="relative">
+            <input 
+              v-model="confirmPassword"
               :type="showConfirmPassword ? 'text' : 'password'"
+              placeholder="••••••••••"
+              class="w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              :class="{ 'border-red-500': confirmPasswordError }"
               required
-              class="block w-full pl-10 pr-12 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white"
-              placeholder="Confirm new password"
-              :disabled="loading"
             />
-            <button
+            <button 
               type="button"
               @click="showConfirmPassword = !showConfirmPassword"
               class="absolute inset-y-0 right-0 pr-3 flex items-center"
             >
-              <svg v-if="showConfirmPassword" class="h-5 w-5 text-gray-400 hover:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21" />
-              </svg>
-              <svg v-else class="h-5 w-5 text-gray-400 hover:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-              </svg>
+              <Eye v-if="!showConfirmPassword" class="w-5 h-5 text-gray-400" />
+              <EyeOff v-else class="w-5 h-5 text-gray-400" />
             </button>
           </div>
+          <p v-if="confirmPasswordError" class="text-red-500 text-sm mt-1">{{ confirmPasswordError }}</p>
         </div>
-  
-        <!-- Password Match Validation -->
-        <div v-if="form.password && form.password_confirmation && form.password !== form.password_confirmation" class="bg-red-50 border border-red-200 rounded-xl p-4">
-          <div class="flex items-center">
-            <svg class="w-5 h-5 text-red-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            <p class="text-sm text-red-700">Passwords do not match</p>
-          </div>
+
+        <div v-if="resetError" class="bg-red-50 border border-red-200 rounded-lg p-4">
+          <p class="text-red-600 text-sm">{{ resetError }}</p>
         </div>
-  
-        <!-- Error Message -->
-        <div v-if="error" class="bg-red-50 border border-red-200 rounded-xl p-4">
-          <div class="flex items-center">
-            <svg class="w-5 h-5 text-red-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            <p class="text-sm text-red-700">{{ error }}</p>
-          </div>
-        </div>
-  
-        <!-- Submit Button -->
-        <button
+
+        <button 
           type="submit"
-          :disabled="loading || !form.password || !form.password_confirmation || form.password !== form.password_confirmation"
-          class="w-full bg-gradient-to-r from-green-600 to-blue-600 text-white py-3 px-4 rounded-xl font-medium hover:from-green-700 hover:to-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 transform hover:scale-[1.02] disabled:hover:scale-100 flex items-center justify-center"
+          :disabled="isLoading || !passwordValidation.isValid || !!confirmPasswordError"
+          class="w-full bg-[#2970FF] text-white py-3 px-4 rounded-lg font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
         >
-          <svg v-if="loading" class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
-            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-          </svg>
-          {{ loading ? 'Resetting Password...' : 'Reset Password' }}
+          {{ isLoading ? 'Saving Password...' : 'Save Password' }}
         </button>
       </form>
-  
-      <!-- Footer Links -->
-      <div v-if="!success" class="mt-6 text-center">
-        <p class="text-sm text-gray-600">
-          Remember your password? 
-          <NuxtLink to="/" class="text-blue-600 hover:text-blue-700 font-medium transition-colors duration-200">
-            Sign In
-          </NuxtLink>
-        </p>
-      </div>
-    </div>
-  </template>
-  
-  <script setup lang="ts">
-  import { ref, reactive, computed } from 'vue'
-  import { useRoute } from 'vue-router'
-  import { useResetPassword } from '@/composables/modules/auth/useResetPassword'
-  import { definePageMeta } from '#imports'
-  
+    </NuxtLayout>
+  </div>
+</template>
 
-  // Route and composable
-  const route = useRoute()
-  const token = computed(() => route.query.token as string)
-  const { loading, error, success, resetPassword } = useResetPassword()
+<script setup lang="ts">
+import { Home, Lock, Eye, EyeOff, CheckCircle, Circle } from 'lucide-vue-next'
+
+definePageMeta({
+  layout: false
+})
+
+const { resetPassword, isLoading } = useAuth()
+const { validatePassword } = useValidation()
+
+const newPassword = ref('')
+const confirmPassword = ref('')
+const showNewPassword = ref(false)
+const showConfirmPassword = ref(false)
+const resetError = ref('')
+
+const passwordValidation = computed(() => validatePassword(newPassword.value))
+const passwordStrength = computed(() => {
+  const validation = passwordValidation.value
+  let strength = 0
+  if (validation.hasMinLength) strength++
+  if (validation.hasUppercase) strength++
+  if (validation.hasNumber) strength++
+  return strength
+})
+
+const passwordErrors = computed(() => {
+  const errors = []
+  const validation = passwordValidation.value
   
-  // Form data
-  const form = reactive({
-    password: '',
-    password_confirmation: ''
-  })
+  if (newPassword.value && !validation.hasMinLength) {
+    errors.push('Password must be at least 8 characters long')
+  }
+  if (newPassword.value && !validation.hasUppercase) {
+    errors.push('Password must contain at least 1 uppercase letter')
+  }
+  if (newPassword.value && !validation.hasNumber) {
+    errors.push('Password must contain at least 1 number')
+  }
   
-  // UI state
-  const showPassword = ref(false)
-  const showConfirmPassword = ref(false)
-  
-  // Methods
-  const handleSubmit = async () => {
-    if (!token.value) return
-    
-    try {
-      await resetPassword(token.value, {
-        password: form.password,
-        password_confirmation: form.password_confirmation
-      })
-    } catch (err) {
-      // Error is handled by the composable
-    }
+  return errors
+})
+
+const confirmPasswordError = computed(() => {
+  if (confirmPassword.value && newPassword.value !== confirmPassword.value) {
+    return 'Passwords do not match'
+  }
+  return ''
+})
+
+const handleResetPassword = async () => {
+  resetError.value = ''
+
+  if (!passwordValidation.value.isValid) {
+    resetError.value = 'Please ensure your password meets all requirements'
+    return
   }
 
-    
-  // Meta
-  definePageMeta({
-    layout: false,
-    auth: false
-  })
-  </script>
+  if (newPassword.value !== confirmPassword.value) {
+    resetError.value = 'Passwords do not match'
+    return
+  }
+
+  const result = await resetPassword(newPassword.value, confirmPassword.value)
   
+  if (result.success) {
+    await navigateTo('/auth/login')
+  } else {
+    resetError.value = result.error || 'Password reset failed'
+  }
+}
+</script>
