@@ -8,7 +8,7 @@
           </svg>
         </div>
         <div>
-          <h1 class="font-bold text-gray-900">Horizon</h1>
+          <h1 class="font-bold text-[#0C111D]">Horizon</h1>
           <p class="text-xs text-gray-500">Properties</p>
         </div>
       </div>
@@ -21,8 +21,8 @@
           :class="[
             'flex items-center space-x-3 px-3 py-2 rounded-lg text-sm font-medium',
             $route.path === item.href
-              ? 'bg-gray-100 text-gray-900'
-              : 'text-[#525866] hover:bg-gray-50 hover:text-gray-900'
+              ? 'bg-gray-100 text-[#0C111D]'
+              : 'text-[#525866] hover:bg-gray-50 hover:text-[#0C111D]'
           ]"
         >
           <component :is="item.icon" class="w-5 h-5" />
@@ -34,7 +34,7 @@
     <!-- Upgrade Banner -->
     <div class="absolute bottom-4 left-4 right-4">
       <div class="bg-gray-50 rounded-lg p-4">
-        <h3 class="font-semibold text-sm text-gray-900 mb-1">Get horizon pro</h3>
+        <h3 class="font-semibold text-sm text-[#0C111D] mb-1">Get horizon pro</h3>
         <p class="text-xs text-[#525866] mb-3">
           For as low as $15/month. You get a access a whole new features
         </p>

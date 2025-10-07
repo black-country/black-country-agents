@@ -11,6 +11,11 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
+    runtimeConfig: {
+    public: {
+      googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY || "",
+    },
+  },
 
   app: {
     head: {

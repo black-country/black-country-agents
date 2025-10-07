@@ -39,7 +39,7 @@ import { useRouter } from "next/navigation"
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
             </svg>
           </button>
-          <h1 class="text-2xl font-semibold text-gray-900">Application Details</h1>
+          <h1 class="text-2xl font-semibold text-[#0C111D]">Application Details</h1>
         </div>
         <div class="flex gap-3">
           <button class="px-4 py-2 text-sm font-medium text-red-600 border border-red-300 rounded-lg hover:bg-red-50">
@@ -59,7 +59,7 @@ import { useRouter } from "next/navigation"
           <img :src="application.property.image" :alt="application.property.name" class="w-20 h-20 rounded-lg mr-4" />
           <div>
             <p class="text-sm text-blue-600 font-medium">{{ application.property.price }}</p>
-            <h2 class="text-xl font-semibold text-gray-900 mb-2">{{ application.property.name }}</h2>
+            <h2 class="text-xl font-semibold text-[#0C111D] mb-2">{{ application.property.name }}</h2>
             <div class="flex items-center text-sm text-gray-600 space-x-4">
               <span class="flex items-center">
                 <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -99,7 +99,7 @@ import { useRouter } from "next/navigation"
         </div>
         <div class="text-right">
           <p class="text-sm text-gray-600 mb-1">Offer Price</p>
-          <p class="text-2xl font-bold text-gray-900">{{ application.offerPrice }}</p>
+          <p class="text-2xl font-bold text-[#0C111D]">{{ application.offerPrice }}</p>
           <p class="text-sm text-green-600">↓ 20%</p>
         </div>
       </div>
@@ -107,7 +107,7 @@ import { useRouter } from "next/navigation"
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <!-- Personal Details -->
         <div>
-          <h3 class="text-lg font-semibold text-gray-900 mb-4">Personal Details</h3>
+          <h3 class="text-lg font-semibold text-[#0C111D] mb-4">Personal Details</h3>
           <div class="space-y-4">
             <div class="grid grid-cols-2 gap-4">
               <div>
@@ -136,7 +136,7 @@ import { useRouter } from "next/navigation"
           </div>
 
           <!-- Documents -->
-          <h3 class="text-lg font-semibold text-gray-900 mt-8 mb-4">Documents</h3>
+          <h3 class="text-lg font-semibold text-[#0C111D] mt-8 mb-4">Documents</h3>
           <div class="space-y-4">
             <div class="grid grid-cols-2 gap-4">
               <div>
@@ -167,7 +167,7 @@ import { useRouter } from "next/navigation"
 
         <!-- Location Details -->
         <div>
-          <h3 class="text-lg font-semibold text-gray-900 mb-4">Location Details</h3>
+          <h3 class="text-lg font-semibold text-[#0C111D] mb-4">Location Details</h3>
           <div class="space-y-4">
             <div>
               <p class="text-sm text-gray-600">Current Address</p>
@@ -203,11 +203,11 @@ import { useRouter } from "next/navigation"
           </div>
 
           <!-- Meet the owner -->
-          <h3 class="text-lg font-semibold text-gray-900 mt-8 mb-4">Meet the owner</h3>
+          <h3 class="text-lg font-semibold text-[#0C111D] mt-8 mb-4">Meet the owner</h3>
           <div class="flex items-center">
             <img :src="application.owner.avatar" :alt="application.owner.name" class="w-12 h-12 rounded-full mr-3" />
             <div>
-              <p class="font-medium text-gray-900">{{ application.owner.name }}</p>
+              <p class="font-medium text-[#0C111D]">{{ application.owner.name }}</p>
               <p class="text-sm text-gray-600">Joined on {{ application.owner.joinedDate }}</p>
             </div>
           </div>
@@ -216,7 +216,7 @@ import { useRouter } from "next/navigation"
 
       <!-- Letter of Intent -->
       <div class="mt-8">
-        <h3 class="text-lg font-semibold text-gray-900 mb-4">Letter of Intent</h3>
+        <h3 class="text-lg font-semibold text-[#0C111D] mb-4">Letter of Intent</h3>
         <div class="bg-gray-50 rounded-lg p-4">
           <p class="text-sm text-gray-700 leading-relaxed">{{ application.letterOfIntent }}</p>
         </div>

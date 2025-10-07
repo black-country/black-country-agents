@@ -7,20 +7,20 @@
     <td class="px-6 py-4 whitespace-nowrap">
       <div class="flex items-center space-x-2">
         <img :src="application.avatar" :alt="application.applicantName" class="w-8 h-8 rounded-full" />
-        <span class="font-medium text-gray-900">{{ application.applicantName }}</span>
+        <span class="font-medium text-[#0C111D]">{{ application.applicantName }}</span>
       </div>
     </td>
     
     <td class="px-6 py-4 whitespace-nowrap">
-      <span class="text-sm text-gray-900">{{ application.applicantEmail }}</span>
+      <span class="text-sm text-[#0C111D]">{{ application.applicantEmail }}</span>
     </td>
     
     <td class="px-6 py-4 whitespace-nowrap">
-      <span class="text-sm text-gray-900">{{ application.dateApplied }}</span>
+      <span class="text-sm text-[#0C111D]">{{ application.dateApplied }}</span>
     </td>
     
     <td class="px-6 py-4 whitespace-nowrap">
-      <span class="text-sm text-gray-900">{{ application.applicantPhone }}</span>
+      <span class="text-sm text-[#0C111D]">{{ application.applicantPhone }}</span>
     </td>
     
     <td class="px-6 py-4 whitespace-nowrap">

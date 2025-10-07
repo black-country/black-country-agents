@@ -10,6 +10,7 @@ export const useForgotPassword = () => {
     loading.value = true
     try {
       const res = await auth_api.$_forgot_password(payload)
+      console.log(res, 'res here')
       if ([200, 201].includes(res.status)) {
         showToast({ 
           title: "Success", 
@@ -17,7 +18,7 @@ export const useForgotPassword = () => {
           toastType: "success", 
           duration: 3000 
         })
-        return res.data
+        return res
       } else {
         showToast({ 
           title: "Error", 

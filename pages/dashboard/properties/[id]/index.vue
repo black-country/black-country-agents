@@ -10,7 +10,7 @@
           <span>Back</span>
         </button>
         
-        <h1 class="text-2xl font-bold text-gray-900">Property Details</h1>
+        <h1 class="text-2xl font-bold text-[#0C111D]">Property Details</h1>
       </div>
 
       <!-- Tabs -->
@@ -43,7 +43,7 @@
             <div class="flex items-center justify-center w-12 h-12 bg-blue-100 rounded-lg mb-4">
               <DocumentTextIcon class="w-6 h-6 text-blue-600" />
             </div>
-            <div class="text-2xl font-bold text-gray-900">50,000</div>
+            <div class="text-2xl font-bold text-[#0C111D]">50,000</div>
             <div class="text-sm text-gray-500">Total Application</div>
           </div>
           
@@ -51,7 +51,7 @@
             <div class="flex items-center justify-center w-12 h-12 bg-gray-100 rounded-lg mb-4">
               <EyeIcon class="w-6 h-6 text-[#525866]" />
             </div>
-            <div class="text-2xl font-bold text-gray-900">50,000</div>
+            <div class="text-2xl font-bold text-[#0C111D]">50,000</div>
             <div class="text-sm text-gray-500">Seen by</div>
           </div>
           
@@ -59,7 +59,7 @@
             <div class="flex items-center justify-center w-12 h-12 bg-green-100 rounded-lg mb-4">
               <CursorArrowRippleIcon class="w-6 h-6 text-green-600" />
             </div>
-            <div class="text-2xl font-bold text-gray-900">200</div>
+            <div class="text-2xl font-bold text-[#0C111D]">200</div>
             <div class="text-sm text-gray-500">User Clicked</div>
           </div>
           
@@ -67,7 +67,7 @@
             <div class="flex items-center justify-center w-12 h-12 bg-purple-100 rounded-lg mb-4">
               <ClockIcon class="w-6 h-6 text-purple-600" />
             </div>
-            <div class="text-2xl font-bold text-gray-900">50,000</div>
+            <div class="text-2xl font-bold text-[#0C111D]">50,000</div>
             <div class="text-sm text-gray-500">Total Time Spent</div>
           </div>
         </div>
@@ -76,7 +76,7 @@
         <div class="bg-white rounded-lg shadow overflow-hidden">
           <div class="px-6 py-4 border-b border-gray-200">
             <div class="flex items-center justify-between">
-              <h2 class="text-lg font-medium text-gray-900">Applications</h2>
+              <h2 class="text-lg font-medium text-[#0C111D]">Applications</h2>
               <div class="flex space-x-4">
                 <button
                   v-for="status in applicationStatuses"

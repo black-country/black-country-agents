@@ -6,7 +6,7 @@
       </div>
     </div>
     <div class="flex-1 min-w-0">
-      <p class="text-sm font-medium text-gray-900">{{ activity.title }}</p>
+      <p class="text-sm font-medium text-[#0C111D]">{{ activity.title }}</p>
       <p class="text-xs text-gray-500 mt-1">{{ activity.time }}</p>
       <div class="flex items-center mt-2 space-x-1">
         <img

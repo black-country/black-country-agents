@@ -1,7 +1,7 @@
 <template>
   <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
     <div class="flex items-center justify-between mb-6">
-      <h3 class="text-lg font-semibold text-gray-900">Rent Rate</h3>
+      <h3 class="text-lg font-semibold text-[#0C111D]">Rent Rate</h3>
       <div class="flex items-center space-x-4">
         <select v-model="selectedYear" class="px-3 py-1 border border-gray-300 rounded text-sm">
           <option value="2024">2024</option>

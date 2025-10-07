@@ -10,7 +10,7 @@
           <img src="@/assets/img/success.png" alt="Success" class="w-full h-full" />
         </div>
         
-        <h3 class="text-lg font-semibold text-gray-900 mb-2">
+        <h3 class="text-lg font-semibold text-[#0C111D] mb-2">
           {{ modalContent.title }}
         </h3>
         <p class="text-gray-600 mb-6">

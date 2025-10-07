@@ -3,7 +3,7 @@
     <div class="space-y-8">
       <!-- Photos Section -->
       <div>
-        <h3 class="text-lg font-medium text-gray-900 mb-4">Photos</h3>
+        <h3 class="text-lg font-medium text-[#0C111D] mb-4">Photos</h3>
         
         <div class="grid grid-cols-3 gap-4 mb-4">
           <!-- Cover Photo -->
@@ -101,7 +101,7 @@
       <!-- Video Section -->
       <div>
         <div class="flex items-center justify-between mb-4">
-          <h3 class="text-lg font-medium text-gray-900">Video</h3>
+          <h3 class="text-lg font-medium text-[#0C111D]">Video</h3>
           <button class="flex items-center space-x-2 text-blue-600 hover:text-blue-800">
             <PlusIcon class="w-4 h-4" />
             <span class="text-sm">New Video</span>
@@ -122,7 +122,7 @@
 
       <!-- House Plan Section -->
       <div>
-        <h3 class="text-lg font-medium text-gray-900 mb-4">House Plan</h3>
+        <h3 class="text-lg font-medium text-[#0C111D] mb-4">House Plan</h3>
         
         <div class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
           <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -139,7 +139,7 @@
       <!-- 3D Plan Section -->
       <div>
         <div class="flex items-center justify-between mb-4">
-          <h3 class="text-lg font-medium text-gray-900">3D Plan</h3>
+          <h3 class="text-lg font-medium text-[#0C111D]">3D Plan</h3>
           <button class="flex items-center space-x-2 text-blue-600 hover:text-blue-800">
             <PlusIcon class="w-4 h-4" />
             <span class="text-sm">3D Plan</span>

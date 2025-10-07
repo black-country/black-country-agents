@@ -2,18 +2,18 @@
   <div>
     <NuxtLayout name="auth">
       <div class="text-center mb-8">
-        <h2 class="text-2xl font-bold text-gray-900 mb-2">Sign In</h2>
+        <h2 class="text-2xl font-bold text-[#0C111D] mb-2">Sign In</h2>
         <p class="text-[#525866]">Continue to your horizon homes account</p>
       </div>
 
       <form @submit.prevent="handleLogin" class="space-y-6">
         <div>
-          <label class="block text-sm font-medium text-gray-900 mb-2">Email Address</label>
+          <label class="block text-sm font-medium text-[#0C111D] mb-2">Email Address</label>
           <input 
             v-model="email"
             type="email" 
             placeholder="Placeholder text..."
-            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            class="custom-input"
             :class="{ 'border-red-500': emailError }"
             required
           />
@@ -21,13 +21,13 @@
         </div>
 
         <div>
-          <label class="block text-sm font-medium text-gray-900 mb-2">Password</label>
+          <label class="block text-sm font-medium text-[#0C111D] mb-2">Password</label>
           <div class="relative">
             <input 
               v-model="password"
               :type="showPassword ? 'text' : 'password'"
               placeholder="••••••••••"
-              class="w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+             class="custom-input"
               :class="{ 'border-red-500': passwordError }"
               required
             />
@@ -50,7 +50,7 @@
         <button 
           type="submit"
           :disabled="isLoading"
-          class="w-full bg-[#2970FF] text-white py-3 px-4 rounded-lg font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          class="w-full text-sm bg-[#2970FF] text-white py-3 px-4 rounded-xl font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
         >
           {{ isLoading ? 'Signing In...' : 'Sign In' }}
         </button>

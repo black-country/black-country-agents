@@ -12,7 +12,7 @@
               </svg>
               Back
             </button>
-            <h1 class="ml-4 text-2xl font-semibold text-gray-900">Owner Details</h1>
+            <h1 class="ml-4 text-2xl font-semibold text-[#0C111D]">Owner Details</h1>
           </div>
 
           <!-- Tabs -->
@@ -50,7 +50,7 @@
           <div v-if="activeTab === 'personal'" class="bg-white rounded-lg shadow-sm">
             <!-- Personal Information Section -->
             <div class="p-6 border-b border-gray-200">
-              <h2 class="text-lg font-medium text-gray-900 mb-6">Personal Information</h2>
+              <h2 class="text-lg font-medium text-[#0C111D] mb-6">Personal Information</h2>
               
               <div class="flex items-start space-x-6">
                 <div class="relative">
@@ -83,35 +83,35 @@
 
             <!-- Other Information Section -->
             <div class="p-6 border-b border-gray-200">
-              <h3 class="text-base font-medium text-gray-900 mb-4">Other Information</h3>
+              <h3 class="text-base font-medium text-[#0C111D] mb-4">Other Information</h3>
               <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label class="block text-sm font-medium text-gray-700 mb-1">NIN Number</label>
-                  <div class="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-50 text-sm text-gray-900">
+                  <div class="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-50 text-sm text-[#0C111D]">
                     {{ ownerData.ninNumber }}
                   </div>
                 </div>
                 <div>
                   <label class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
-                  <div class="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-50 text-sm text-gray-900">
+                  <div class="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-50 text-sm text-[#0C111D]">
                     {{ ownerData.phone }}
                   </div>
                 </div>
                 <div>
                   <label class="block text-sm font-medium text-gray-700 mb-1">Legal Name</label>
-                  <div class="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-50 text-sm text-gray-900">
+                  <div class="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-50 text-sm text-[#0C111D]">
                     {{ ownerData.name }}
                   </div>
                 </div>
                 <div>
                   <label class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
-                  <div class="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-50 text-sm text-gray-900">
+                  <div class="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-50 text-sm text-[#0C111D]">
                     {{ ownerData.email }}
                   </div>
                 </div>
                 <div class="md:col-span-2">
                   <label class="block text-sm font-medium text-gray-700 mb-1">Current residential address</label>
-                  <div class="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-50 text-sm text-gray-900">
+                  <div class="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-50 text-sm text-[#0C111D]">
                     {{ ownerData.address }}
                   </div>
                 </div>
@@ -120,10 +120,10 @@
 
             <!-- Signature Section -->
             <div class="p-6 border-b border-gray-200">
-              <h3 class="text-base font-medium text-gray-900 mb-4">Signature</h3>
+              <h3 class="text-base font-medium text-[#0C111D] mb-4">Signature</h3>
               <div class="mb-4">
                 <label class="block text-sm font-medium text-gray-700 mb-1">Name</label>
-                <div class="w-full max-w-sm px-3 py-2 border border-gray-300 rounded-md bg-gray-50 text-sm text-gray-900">
+                <div class="w-full max-w-sm px-3 py-2 border border-gray-300 rounded-md bg-gray-50 text-sm text-[#0C111D]">
                   {{ ownerData.name }}
                 </div>
               </div>
@@ -143,13 +143,13 @@
 
             <!-- KYC Information Section -->
             <div class="p-6">
-              <h3 class="text-base font-medium text-gray-900 mb-4">KYC Information</h3>
+              <h3 class="text-base font-medium text-[#0C111D] mb-4">KYC Information</h3>
               <div class="flex items-center space-x-3">
                 <div class="w-12 h-12 bg-purple-100 rounded flex items-center justify-center">
                   <span class="text-purple-600 font-medium text-sm">JPG</span>
                 </div>
                 <div class="flex-1">
-                  <p class="text-sm font-medium text-gray-900">John Doe Passport</p>
+                  <p class="text-sm font-medium text-[#0C111D]">John Doe Passport</p>
                   <p class="text-sm text-gray-500">200kb - Uploaded</p>
                 </div>
                 <div class="flex space-x-2">
@@ -200,7 +200,7 @@
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
                       <div class="flex items-center">
-                        <span class="text-sm font-medium text-gray-900">{{ property.name }}</span>
+                        <span class="text-sm font-medium text-[#0C111D]">{{ property.name }}</span>
                         <span v-if="property.applications" class="ml-2 bg-gray-900 text-white text-xs px-2 py-1 rounded">
                           {{ property.applications }} Applications
                         </span>
@@ -216,14 +216,14 @@
                         {{ property.status }}
                       </span>
                     </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ property.type }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-[#0C111D]">{{ property.type }}</td>
                     <td class="px-6 py-4 whitespace-nowrap">
-                      <div class="flex items-center text-sm text-gray-900">
+                      <div class="flex items-center text-sm text-[#0C111D]">
                         <img :src="property.flag" :alt="property.location" class="w-4 h-3 mr-2 rounded-sm" />
                         {{ property.location }}
                       </div>
                     </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-[#0C111D]">
                       <div class="flex items-center space-x-4">
                         <span class="flex items-center">
                           <svg class="h-4 w-4 mr-1 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">

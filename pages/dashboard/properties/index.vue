@@ -4,7 +4,7 @@
     
     <main class="p-6">
       <div class="flex items-center justify-between mb-6">
-        <h1 class="text-2xl font-bold text-gray-900">Properties</h1>
+        <h1 class="text-2xl font-bold text-[#0C111D]">Properties</h1>
         <div class="flex items-center space-x-3">
           <button
             @click="showFilters = true"

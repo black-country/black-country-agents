@@ -1,6 +1,6 @@
 <template>
   <div class="bg-white rounded-lg shadow p-6">
-    <h2 class="text-xl font-semibold text-gray-900 mb-6">Business Information</h2>
+    <h2 class="text-xl font-semibold text-[#0C111D] mb-6">Business Information</h2>
     
     <!-- Profile Photo -->
     <div class="mb-8">
@@ -11,7 +11,7 @@
           </svg>
         </div>
         <div>
-          <h3 class="font-medium text-gray-900 mb-1">PROFILE PHOTO</h3>
+          <h3 class="font-medium text-[#0C111D] mb-1">PROFILE PHOTO</h3>
           <p class="text-sm text-gray-500 mb-3">
             Change profile picture to a size<br />
             of 148 x 148 jpg or png

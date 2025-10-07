@@ -12,7 +12,7 @@
           </svg>
         </div>
         
-        <h3 class="text-lg font-semibold text-gray-900 mb-2">Block User</h3>
+        <h3 class="text-lg font-semibold text-[#0C111D] mb-2">Block User</h3>
         <p class="text-gray-600 mb-6">
           Are you sure you want to proceed with this action
         </p>

@@ -2,7 +2,7 @@
   <div class="space-y-6 container mx-auto p-6">
     <!-- Page Header -->
     <div class="flex items-center justify-between">
-      <h1 class="text-2xl font-semibold text-gray-900">Dashboard</h1>
+      <h1 class="text-2xl font-semibold text-[#0C111D]">Dashboard</h1>
       <div class="flex items-center space-x-4">
         <select class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
           <option>All Product</option>

@@ -4,7 +4,7 @@
       <div class="fixed inset-0 bg-black bg-opacity-50" @click="$emit('close')"></div>
       <div class="relative bg-white rounded-lg shadow-xl max-w-md w-full p-6">
         <div class="flex items-center justify-between mb-4">
-          <h3 class="text-lg font-medium text-gray-900">
+          <h3 class="text-lg font-medium text-[#0C111D]">
             Upload {{ uploadType === 'photo' ? 'Photos' : uploadType === 'video' ? 'Video' : uploadType === '3d' ? '3D Plan' : 'File' }}
           </h3>
           <button @click="$emit('close')" class="text-gray-400 hover:text-[#525866]">
@@ -40,7 +40,7 @@
         </div>
 
         <div v-if="selectedFiles.length > 0" class="mt-4">
-          <h4 class="text-sm font-medium text-gray-900 mb-2">Selected Files:</h4>
+          <h4 class="text-sm font-medium text-[#0C111D] mb-2">Selected Files:</h4>
           <div class="space-y-2">
             <div
               v-for="(file, index) in selectedFiles"

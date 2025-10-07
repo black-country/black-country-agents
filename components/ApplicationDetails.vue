@@ -1,12 +1,12 @@
 <template>
   <div v-if="application">
     <!-- Back Button -->
-    <button @click="$router.back()" class="flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-6">
+    <button @click="$router.back()" class="flex items-center gap-2 text-gray-600 hover:text-[#0C111D] mb-6">
       <ArrowLeft class="w-4 h-4" />
       Back
     </button>
 
-    <h1 class="text-2xl font-semibold text-gray-900 mb-6">Application Details</h1>
+    <h1 class="text-2xl font-semibold text-[#0C111D] mb-6">Application Details</h1>
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
       <!-- Main Content -->
@@ -22,11 +22,11 @@
             <div class="flex-1">
               <div class="flex items-center gap-2 mb-2">
                 <span class="text-blue-600 font-medium">₦350,000/night</span>
-                <button class="flex items-center gap-1 text-gray-600 hover:text-gray-900">
+                <button class="flex items-center gap-1 text-gray-600 hover:text-[#0C111D]">
                   <Share class="w-4 h-4" />
                   Share
                 </button>
-                <button class="flex items-center gap-1 text-gray-600 hover:text-gray-900">
+                <button class="flex items-center gap-1 text-gray-600 hover:text-[#0C111D]">
                   <ExternalLink class="w-4 h-4" />
                   View Property
                 </button>
@@ -132,7 +132,7 @@
         <!-- Offer Price -->
         <div class="bg-white p-6 rounded-lg shadow">
           <h3 class="text-lg font-semibold mb-2">Offer Price</h3>
-          <div class="text-2xl font-bold text-gray-900">₦{{ application?.offerPrice?.toLocaleString() }}</div>
+          <div class="text-2xl font-bold text-[#0C111D]">₦{{ application?.offerPrice?.toLocaleString() }}</div>
           <div class="text-sm text-gray-600 flex items-center gap-1">
             <TrendingUp class="w-4 h-4" />
             20%

@@ -1,12 +1,12 @@
 <template>
   <div class="bg-white rounded-lg shadow p-6">
-    <h2 class="text-xl font-bold text-gray-900 mb-6">Amenities</h2>
+    <h2 class="text-xl font-bold text-[#0C111D] mb-6">Amenities</h2>
     
     <div class="space-y-8">
       <!-- Basics -->
       <div>
         <div class="flex items-center justify-between mb-4">
-          <h3 class="text-lg font-medium text-gray-900">Basics</h3>
+          <h3 class="text-lg font-medium text-[#0C111D]">Basics</h3>
           <button class="flex items-center space-x-1 text-blue-600 hover:text-blue-800">
             <PlusIcon class="w-4 h-4" />
             <span class="text-sm">New Amenity</span>
@@ -31,7 +31,7 @@
       <!-- Bathroom -->
       <div>
         <div class="flex items-center justify-between mb-4">
-          <h3 class="text-lg font-medium text-gray-900">Bathroom</h3>
+          <h3 class="text-lg font-medium text-[#0C111D]">Bathroom</h3>
           <button class="flex items-center space-x-1 text-blue-600 hover:text-blue-800">
             <PlusIcon class="w-4 h-4" />
             <span class="text-sm">New Amenity</span>
@@ -60,7 +60,7 @@
       <!-- Bedroom and Laundry -->
       <div>
         <div class="flex items-center justify-between mb-4">
-          <h3 class="text-lg font-medium text-gray-900">Bedroom and Laundry</h3>
+          <h3 class="text-lg font-medium text-[#0C111D]">Bedroom and Laundry</h3>
           <button class="flex items-center space-x-1 text-blue-600 hover:text-blue-800">
             <PlusIcon class="w-4 h-4" />
             <span class="text-sm">New Amenity</span>
@@ -89,7 +89,7 @@
       <!-- Entertainment -->
       <div>
         <div class="flex items-center justify-between mb-4">
-          <h3 class="text-lg font-medium text-gray-900">Entertainment</h3>
+          <h3 class="text-lg font-medium text-[#0C111D]">Entertainment</h3>
           <button class="flex items-center space-x-1 text-blue-600 hover:text-blue-800">
             <PlusIcon class="w-4 h-4" />
             <span class="text-sm">New Amenity</span>
@@ -118,7 +118,7 @@
       <!-- Internet and Office -->
       <div>
         <div class="flex items-center justify-between mb-4">
-          <h3 class="text-lg font-medium text-gray-900">Internet and Office</h3>
+          <h3 class="text-lg font-medium text-[#0C111D]">Internet and Office</h3>
           <button class="flex items-center space-x-1 text-blue-600 hover:text-blue-800">
             <PlusIcon class="w-4 h-4" />
             <span class="text-sm">New Amenity</span>
@@ -143,7 +143,7 @@
       <!-- Parking and Facilities -->
       <div>
         <div class="flex items-center justify-between mb-4">
-          <h3 class="text-lg font-medium text-gray-900">Parking and Facilities</h3>
+          <h3 class="text-lg font-medium text-[#0C111D]">Parking and Facilities</h3>
           <button class="flex items-center space-x-1 text-blue-600 hover:text-blue-800">
             <PlusIcon class="w-4 h-4" />
             <span class="text-sm">New Amenity</span>
@@ -164,7 +164,7 @@
       <!-- Services -->
       <div>
         <div class="flex items-center justify-between mb-4">
-          <h3 class="text-lg font-medium text-gray-900">Services</h3>
+          <h3 class="text-lg font-medium text-[#0C111D]">Services</h3>
           <button class="flex items-center space-x-1 text-blue-600 hover:text-blue-800">
             <PlusIcon class="w-4 h-4" />
             <span class="text-sm">New Amenity</span>

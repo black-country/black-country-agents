@@ -24,7 +24,7 @@
             <td class="px-6 py-4 whitespace-nowrap">
               <div class="flex items-center">
                 <span 
-                  class="text-sm font-medium text-gray-900 relative cursor-pointer"
+                  class="text-sm font-medium text-[#0C111D] relative cursor-pointer"
                   @mouseenter="showTooltip(property.id)"
                   @mouseleave="hideTooltip"
                 >
@@ -53,14 +53,14 @@
                 {{ property.status }}
               </span>
             </td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ property.type }}</td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-[#0C111D]">{{ property.type }}</td>
             <td class="px-6 py-4 whitespace-nowrap">
-              <div class="flex items-center text-sm text-gray-900">
+              <div class="flex items-center text-sm text-[#0C111D]">
                 <img :src="property.flag" :alt="property.location" class="w-4 h-3 mr-2 rounded-sm" />
                 {{ property.location }}
               </div>
             </td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-[#0C111D]">
               <div class="flex items-center space-x-4">
                 <span class="flex items-center">
                   <svg class="h-4 w-4 mr-1 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">

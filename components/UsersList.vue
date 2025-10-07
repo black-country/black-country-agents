@@ -29,7 +29,7 @@
           <thead class="bg-gray-50">
             <tr>
               <th class="px-6 py-3 text-left">
-                <input type="checkbox" class="rounded border-gray-300" />
+                <input type="checkbox" class="custom-checkbox" />
               </th>
               <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
               <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email Address</th>
@@ -42,12 +42,12 @@
           <tbody class="bg-white divide-y divide-gray-200">
             <tr v-for="user in users" :key="user.id" class="hover:bg-gray-50">
               <td class="px-6 py-4">
-                <input type="checkbox" class="rounded border-gray-300" />
+                <input type="checkbox" class="custom-checkbox" />
               </td>
               <td class="px-6 py-4 whitespace-nowrap">
                 <div class="flex items-center gap-3">
                   <img :src="user.avatar" :alt="user.name" class="w-8 h-8 rounded-full" />
-                  <span class="font-medium text-gray-900">{{ user.name }}</span>
+                  <span class="font-medium text-[#0C111D]">{{ user.name }}</span>
                 </div>
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-gray-600">{{ user.email }}</td>

@@ -5,7 +5,7 @@
     @click.self="$emit('close')"
   >
     <div class="bg-white rounded-lg p-6 w-full max-w-md mx-4">
-      <h3 class="text-lg font-semibold text-gray-900 mb-4">Invite Member</h3>
+      <h3 class="text-lg font-semibold text-[#0C111D] mb-4">Invite Member</h3>
       
       <div class="space-y-4">
         <div>

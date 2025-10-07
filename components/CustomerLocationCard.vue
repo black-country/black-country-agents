@@ -1,7 +1,7 @@
 <template>
   <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
     <div class="flex items-center justify-between mb-6">
-      <h3 class="text-lg font-semibold text-gray-900">Customer Location</h3>
+      <h3 class="text-lg font-semibold text-[#0C111D]">Customer Location</h3>
       <div class="flex items-center space-x-4">
         <select class="px-3 py-1 border border-gray-300 rounded text-sm">
           <option>All Time</option>
@@ -15,10 +15,10 @@
         <div class="flex items-center space-x-3">
           <span class="text-sm font-medium text-gray-500">{{ index + 1 }}</span>
           <img :src="location.flag" :alt="location.country" class="w-6 h-4 rounded" />
-          <span class="text-sm font-medium text-gray-900">{{ location.country }}</span>
+          <span class="text-sm font-medium text-[#0C111D]">{{ location.country }}</span>
         </div>
         <div class="flex items-center space-x-2">
-          <span class="text-sm font-semibold text-gray-900">240</span>
+          <span class="text-sm font-semibold text-[#0C111D]">240</span>
           <ChevronUp class="w-4 h-4 text-green-600" />
         </div>
       </div>

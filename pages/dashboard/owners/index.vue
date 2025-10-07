@@ -8,7 +8,7 @@
         <div class="max-w-7xl mx-auto">
           <!-- Page Header -->
           <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6">
-            <h1 class="text-2xl font-semibold text-gray-900">Property Owners</h1>
+            <h1 class="text-2xl font-semibold text-[#0C111D]">Property Owners</h1>
             <div class="mt-4 sm:mt-0 flex space-x-3">
               <button
                 @click="showFilterDrawer = true"
@@ -113,11 +113,11 @@
                     <td class="px-6 py-4 whitespace-nowrap">
                       <div class="flex items-center">
                         <img :src="owner.avatar" :alt="owner.name" class="h-8 w-8 rounded-full mr-3" />
-                        <span class="text-sm font-medium text-gray-900">{{ owner.name }}</span>
+                        <span class="text-sm font-medium text-[#0C111D]">{{ owner.name }}</span>
                       </div>
                     </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ owner.email }}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ owner.phone }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-[#0C111D]">{{ owner.email }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-[#0C111D]">{{ owner.phone }}</td>
                     <td class="px-6 py-4 whitespace-nowrap">
                       <span :class="[
                         owner.userType === 'Individual' 
@@ -134,7 +134,7 @@
                         {{ owner.userType }}
                       </span>
                     </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ owner.dateAdded }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-[#0C111D]">{{ owner.dateAdded }}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                       <div class="relative">
                         <button 
@@ -221,7 +221,7 @@
         <div class="absolute inset-0 bg-black bg-opacity-50" @click="showFilterDrawer = false"></div>
         <section class="absolute right-0 top-0 h-full w-full max-w-md flex flex-col bg-white shadow-xl">
           <div class="flex items-center justify-between px-6 py-4 border-b border-gray-200">
-            <h2 class="text-lg font-medium text-gray-900">Filter By</h2>
+            <h2 class="text-lg font-medium text-[#0C111D]">Filter By</h2>
             <button @click="showFilterDrawer = false" class="text-gray-400 hover:text-gray-600">
               <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />

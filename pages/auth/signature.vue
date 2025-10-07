@@ -7,7 +7,7 @@
       <div class="space-y-6">
         <div class="text-center">
           <div class="text-xs text-gray-500 mb-2">STEP 4 OF 4</div>
-          <h1 class="text-2xl font-semibold text-gray-900 mb-2">Signature</h1>
+          <h1 class="text-2xl font-semibold text-[#0C111D] mb-2">Signature</h1>
           <p class="text-sm text-[#525866]">Set up signature that would attached to document</p>
         </div>
 

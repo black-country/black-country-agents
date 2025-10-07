@@ -1,7 +1,7 @@
 <template>
   <div class="min-h-screen">
-    <AppSidebar />
-  <AppHeader />
+      <AppSidebar />
+      <AppHeader />
     
     <main class="ml-64">
       <slot />

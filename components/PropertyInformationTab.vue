@@ -3,7 +3,7 @@
     <div class="space-y-8">
       <!-- About Property -->
       <div>
-        <h3 class="text-lg font-medium text-gray-900 mb-4">About Property</h3>
+        <h3 class="text-lg font-medium text-[#0C111D] mb-4">About Property</h3>
         <div class="grid grid-cols-2 gap-6">
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-2">Property Name</label>
@@ -48,7 +48,7 @@
 
       <!-- Set up Location -->
       <div>
-        <h3 class="text-lg font-medium text-gray-900 mb-4">Set up Location</h3>
+        <h3 class="text-lg font-medium text-[#0C111D] mb-4">Set up Location</h3>
         <div class="grid grid-cols-2 gap-6">
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-2">Country</label>
@@ -96,7 +96,7 @@
 
       <!-- Owner Details -->
       <div>
-        <h3 class="text-lg font-medium text-gray-900 mb-4">Owner Details</h3>
+        <h3 class="text-lg font-medium text-[#0C111D] mb-4">Owner Details</h3>
         <div>
           <label class="block text-sm font-medium text-gray-700 mb-2">Property Owner</label>
           <div class="relative">
@@ -127,7 +127,7 @@
 
       <!-- Specific Details -->
       <div>
-        <h3 class="text-lg font-medium text-gray-900 mb-4">Specific Details</h3>
+        <h3 class="text-lg font-medium text-[#0C111D] mb-4">Specific Details</h3>
         <div class="grid grid-cols-2 gap-6">
           <div class="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
             <div class="flex items-center space-x-2">

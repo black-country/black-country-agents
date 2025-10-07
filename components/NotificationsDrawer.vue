@@ -3,7 +3,7 @@
     <div class="absolute inset-0 bg-black bg-opacity-50" @click="$emit('update:open', false)"></div>
     <div class="absolute right-0 top-0 h-full w-96 bg-white shadow-xl transform transition-transform duration-300">
       <div class="flex items-center justify-between p-6 border-b border-gray-200">
-        <h2 class="text-lg font-semibold text-gray-900">Notifications</h2>
+        <h2 class="text-lg font-semibold text-[#0C111D]">Notifications</h2>
         <div class="flex items-center space-x-4">
           <button class="text-sm text-blue-600 hover:text-blue-700">Mark all as read</button>
           <button @click="$emit('update:open', false)" class="text-gray-400 hover:text-gray-600">
@@ -17,7 +17,7 @@
           <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-4">
             <span class="text-2xl">😴</span>
           </div>
-          <h3 class="text-lg font-medium text-gray-900 mb-2">No Notifications</h3>
+          <h3 class="text-lg font-medium text-[#0C111D] mb-2">No Notifications</h3>
           <p class="text-sm text-gray-500">Check back later</p>
         </div>
         

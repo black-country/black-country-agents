@@ -1,6 +1,6 @@
 <template>
   <div class="bg-white rounded-lg shadow p-6">
-    <h2 class="text-xl font-semibold text-gray-900 mb-6">Reset Password</h2>
+    <h2 class="text-xl font-semibold text-[#0C111D] mb-6">Reset Password</h2>
     
     <div class="max-w-md space-y-6">
       <!-- Old Password -->

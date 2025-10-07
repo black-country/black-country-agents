@@ -20,7 +20,7 @@
       <div class="p-6 space-y-6 overflow-y-auto h-full pb-32">
         <!-- Category -->
         <div>
-          <h3 class="text-sm font-medium text-gray-900 mb-3">Category</h3>
+          <h3 class="text-sm font-medium text-[#0C111D] mb-3">Category</h3>
           <div class="space-y-2">
             <label class="flex items-center">
               <input
@@ -45,7 +45,7 @@
 
         <!-- Property Type -->
         <div>
-          <h3 class="text-sm font-medium text-gray-900 mb-3">Property Type</h3>
+          <h3 class="text-sm font-medium text-[#0C111D] mb-3">Property Type</h3>
           <div class="space-y-2">
             <label class="flex items-center">
               <input
@@ -79,7 +79,7 @@
 
         <!-- Property Owner -->
         <div>
-          <h3 class="text-sm font-medium text-gray-900 mb-3">Property Owner</h3>
+          <h3 class="text-sm font-medium text-[#0C111D] mb-3">Property Owner</h3>
           <select
             v-model="localFilters.propertyOwner"
             class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -93,7 +93,7 @@
 
         <!-- Location Fields -->
         <div>
-          <h3 class="text-sm font-medium text-gray-900 mb-3">Country</h3>
+          <h3 class="text-sm font-medium text-[#0C111D] mb-3">Country</h3>
           <select
             v-model="localFilters.country"
             class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -106,7 +106,7 @@
         </div>
 
         <div>
-          <h3 class="text-sm font-medium text-gray-900 mb-3">State</h3>
+          <h3 class="text-sm font-medium text-[#0C111D] mb-3">State</h3>
           <input
             v-model="localFilters.state"
             type="text"
@@ -116,7 +116,7 @@
         </div>
 
         <div>
-          <h3 class="text-sm font-medium text-gray-900 mb-3">City</h3>
+          <h3 class="text-sm font-medium text-[#0C111D] mb-3">City</h3>
           <input
             v-model="localFilters.city"
             type="text"
@@ -126,7 +126,7 @@
         </div>
 
         <div>
-          <h3 class="text-sm font-medium text-gray-900 mb-3">Local Government</h3>
+          <h3 class="text-sm font-medium text-[#0C111D] mb-3">Local Government</h3>
           <input
             v-model="localFilters.localGovernment"
             type="text"
@@ -136,7 +136,7 @@
         </div>
 
         <div>
-          <h3 class="text-sm font-medium text-gray-900 mb-3">Zipcode</h3>
+          <h3 class="text-sm font-medium text-[#0C111D] mb-3">Zipcode</h3>
           <input
             v-model="localFilters.zipcode"
             type="text"

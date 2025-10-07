@@ -18,11 +18,11 @@
         <tbody class="bg-white divide-y divide-gray-200">
           <tr v-for="property in properties" :key="property.id" class="hover:bg-gray-50">
             <td class="px-6 py-4">
-              <input type="checkbox" class="rounded border-gray-300" />
+              <input type="checkbox" class="custom-checkbox" />
             </td>
             <td class="px-6 py-4 whitespace-nowrap">
               <div class="flex items-center gap-2">
-                <span class="font-medium text-gray-900">{{ property.name }}</span>
+                <span class="font-medium text-[#0C111D]">{{ property.name }}</span>
                 <span v-if="property.id === '1'" class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs">12</span>
               </div>
             </td>

@@ -8,7 +8,7 @@
     </div>
     
     <div class="mt-4">
-      <div class="text-2xl font-bold text-gray-900">{{ value }}</div>
+      <div class="text-2xl font-bold text-[#0C111D]">{{ value }}</div>
       <div class="flex items-center mt-2">
         <component :is="trendIcon" class="w-4 h-4 mr-1" :class="trendColor" />
         <span class="text-sm font-medium" :class="trendColor">{{ change }}</span>

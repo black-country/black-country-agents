@@ -9,7 +9,7 @@
         </svg>
         <span class="ml-2 text-sm">Close</span>
       </button>
-      <h1 class="text-lg font-medium text-gray-900">New Owner</h1>
+      <h1 class="text-lg font-medium text-[#0C111D]">New Owner</h1>
       <div class="w-8 h-8 bg-gray-300 rounded-full"></div>
     </div>
 
@@ -67,7 +67,7 @@
       <!-- Personal Information Step -->
       <div v-if="currentStep === 1" class="max-w-2xl mx-auto px-6 py-8">
         <div class="text-center mb-8">
-          <h2 class="text-xl font-medium text-gray-900 mb-2">Personal Information</h2>
+          <h2 class="text-xl font-medium text-[#0C111D] mb-2">Personal Information</h2>
           <p class="text-sm text-gray-600">Add a new property owner to the database</p>
         </div>
 
@@ -156,7 +156,7 @@
       <!-- KYC Information Step -->
       <div v-else-if="currentStep === 2" class="max-w-2xl mx-auto px-6 py-8">
         <div class="text-center mb-8">
-          <h2 class="text-xl font-medium text-gray-900 mb-2">KYC Information</h2>
+          <h2 class="text-xl font-medium text-[#0C111D] mb-2">KYC Information</h2>
           <p class="text-sm text-gray-600">Add a new property owner to the database</p>
         </div>
 
@@ -201,7 +201,7 @@
                     <span class="text-purple-600 font-medium text-xs">JPG</span>
                   </div>
                   <div class="ml-3">
-                    <p class="text-sm font-medium text-gray-900">{{ uploadedFile.name }}</p>
+                    <p class="text-sm font-medium text-[#0C111D]">{{ uploadedFile.name }}</p>
                     <p class="text-sm text-gray-500">{{ uploadedFile.size }} - {{ uploadProgress }}% Uploaded</p>
                   </div>
                 </div>
@@ -267,7 +267,7 @@
                     <span class="text-purple-600 font-medium text-xs">JPG</span>
                   </div>
                   <div class="ml-3">
-                    <p class="text-sm font-medium text-gray-900">{{ uploadedFile.name }}</p>
+                    <p class="text-sm font-medium text-[#0C111D]">{{ uploadedFile.name }}</p>
                     <p class="text-sm text-gray-500">{{ uploadedFile.size }} - {{ uploadProgress }}% Uploaded</p>
                   </div>
                 </div>
@@ -331,7 +331,7 @@
           <div class="flex items-center justify-center mx-auto mb-4">
              <img src="@/assets/img/success.png" class="h-32 w-32" />
           </div>
-          <h3 class="text-lg font-medium text-gray-900 mb-2">Successfully Published</h3>
+          <h3 class="text-lg font-medium text-[#0C111D] mb-2">Successfully Published</h3>
           <p class="text-sm text-gray-600 mb-6">Configure 3d view so user can see what it looks like</p>
           <button
             @click="handleSuccess"

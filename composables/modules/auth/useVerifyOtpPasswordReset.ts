@@ -24,7 +24,7 @@ export const useVerifyOtpPasswordReset = () => {
           toastType: "success", 
           duration: 3000 
         })
-        return res.data
+        return res
       } else {
         showToast({ 
           title: "Error", 
@@ -32,7 +32,7 @@ export const useVerifyOtpPasswordReset = () => {
           toastType: "error", 
           duration: 3000 
         })
-        return null
+        return res
       }
     } catch (err: any) {
       showToast({ 

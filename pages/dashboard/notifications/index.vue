@@ -1,7 +1,7 @@
 <template>
   <div class="max-w-4xl p-6">
     <div class="flex items-center justify-between mb-6">
-      <h1 class="text-2xl font-semibold text-gray-900">Notifications</h1>
+      <h1 class="text-2xl font-semibold text-[#0C111D]">Notifications</h1>
       <button class="text-sm text-blue-600 hover:text-blue-700">Mark all as read</button>
     </div>
     
@@ -10,7 +10,7 @@
         <div class="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mb-6">
           <span class="text-4xl">😴</span>
         </div>
-        <h3 class="text-xl font-medium text-gray-900 mb-2">No Notifications</h3>
+        <h3 class="text-xl font-medium text-[#0C111D] mb-2">No Notifications</h3>
         <p class="text-gray-500">Check back later</p>
       </div>
     </div>
@@ -31,7 +31,7 @@
             <div class="text-xs font-medium text-gray-500 uppercase tracking-wide mb-1">
               {{ notification.type }}
             </div>
-            <p class="text-sm font-medium text-gray-900 mb-2">{{ notification.title }}</p>
+            <p class="text-sm font-medium text-[#0C111D] mb-2">{{ notification.title }}</p>
             <p class="text-xs text-gray-500">{{ notification.time }}</p>
           </div>
           <div class="flex-shrink-0">

@@ -12,7 +12,7 @@
             </svg>
             Back
           </button>
-          <h1 class="ml-4 text-2xl font-semibold text-gray-900">Owner Details</h1>
+          <h1 class="ml-4 text-2xl font-semibold text-[#0C111D]">Owner Details</h1>
         </div>
 
         <!-- Tabs -->

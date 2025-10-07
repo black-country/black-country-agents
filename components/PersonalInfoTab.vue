@@ -3,7 +3,7 @@
   <div class="bg-white rounded-lg shadow-sm">
     <!-- Personal Information Section -->
     <div class="p-6 border-b border-gray-200">
-      <h2 class="text-lg font-medium text-gray-900 mb-6">Personal Information</h2>
+      <h2 class="text-lg font-medium text-[#0C111D] mb-6">Personal Information</h2>
       
       <div class="flex items-start space-x-6">
         <div class="relative">
@@ -36,14 +36,14 @@
 
     <!-- Other Information Section -->
     <div class="p-6 border-b border-gray-200">
-      <h3 class="text-base font-medium text-gray-900 mb-4">Other Information</h3>
+      <h3 class="text-base font-medium text-[#0C111D] mb-4">Other Information</h3>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
           <label class="block text-sm font-medium text-gray-700 mb-1">NIN Number</label>
           <input 
             v-model="localOwnerData.ninNumber"
             type="text"
-            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm text-gray-900"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm text-[#0C111D]"
           />
         </div>
         <div>
@@ -51,7 +51,7 @@
           <input 
             v-model="localOwnerData.phone"
             type="text"
-            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm text-gray-900"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm text-[#0C111D]"
           />
         </div>
         <div>
@@ -59,7 +59,7 @@
           <input 
             v-model="localOwnerData.name"
             type="text"
-            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm text-gray-900"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm text-[#0C111D]"
           />
         </div>
         <div>
@@ -67,7 +67,7 @@
           <input 
             v-model="localOwnerData.email"
             type="email"
-            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm text-gray-900"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm text-[#0C111D]"
           />
         </div>
         <div class="md:col-span-2">
@@ -75,7 +75,7 @@
           <textarea 
             v-model="localOwnerData.address"
             rows="2"
-            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm text-gray-900 resize-none"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm text-[#0C111D] resize-none"
           />
         </div>
       </div>
@@ -83,13 +83,13 @@
 
     <!-- Signature Section -->
     <div class="p-6 border-b border-gray-200">
-      <h3 class="text-base font-medium text-gray-900 mb-4">Signature</h3>
+      <h3 class="text-base font-medium text-[#0C111D] mb-4">Signature</h3>
       <div class="mb-4">
         <label class="block text-sm font-medium text-gray-700 mb-1">Name</label>
         <input 
           :value="localOwnerData.name"
           readonly
-          class="w-full max-w-sm px-3 py-2 border border-gray-300 rounded-md bg-gray-50 text-sm text-gray-900"
+          class="w-full max-w-sm px-3 py-2 border border-gray-300 rounded-md bg-gray-50 text-sm text-[#0C111D]"
         />
       </div>
       <div class="relative inline-block">
@@ -108,13 +108,13 @@
 
     <!-- KYC Information Section -->
     <div class="p-6 border-b border-gray-200">
-      <h3 class="text-base font-medium text-gray-900 mb-4">KYC Information</h3>
+      <h3 class="text-base font-medium text-[#0C111D] mb-4">KYC Information</h3>
       <div class="flex items-center space-x-3">
         <div class="w-12 h-12 bg-purple-100 rounded flex items-center justify-center">
           <span class="text-purple-600 font-medium text-sm">JPG</span>
         </div>
         <div class="flex-1">
-          <p class="text-sm font-medium text-gray-900">John Doe Passport</p>
+          <p class="text-sm font-medium text-[#0C111D]">John Doe Passport</p>
           <p class="text-sm text-gray-500">200kb - Uploaded</p>
         </div>
         <div class="flex space-x-2">

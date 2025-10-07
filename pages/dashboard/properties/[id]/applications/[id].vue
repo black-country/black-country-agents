@@ -10,7 +10,7 @@
           <span>Back</span>
         </button>
         
-        <h1 class="text-2xl font-bold text-gray-900">Application Details</h1>
+        <h1 class="text-2xl font-bold text-[#0C111D]">Application Details</h1>
       </div>
 
       <div class="grid grid-cols-3 gap-8">
@@ -27,7 +27,7 @@
               <div class="flex-1">
                 <div class="flex items-center justify-between">
                   <div>
-                    <h3 class="font-semibold text-gray-900">Luxury Home in Bali</h3>
+                    <h3 class="font-semibold text-[#0C111D]">Luxury Home in Bali</h3>
                     <p class="text-blue-600 font-medium">₦350,000/night</p>
                     <div class="flex items-center space-x-4 mt-2 text-sm text-[#525866]">
                       <span class="flex items-center space-x-1">
@@ -61,18 +61,18 @@
 
           <!-- Personal Details -->
           <div class="bg-white rounded-lg shadow p-6">
-            <h3 class="text-lg font-medium text-gray-900 mb-4">Personal Details</h3>
+            <h3 class="text-lg font-medium text-[#0C111D] mb-4">Personal Details</h3>
             <div class="grid grid-cols-2 gap-6">
               <div>
                 <label class="block text-sm font-medium text-gray-700">Zip code</label>
-                <p class="text-sm text-gray-900">{{ application?.personalDetails.zipCode }}</p>
+                <p class="text-sm text-[#0C111D]">{{ application?.personalDetails.zipCode }}</p>
               </div>
             </div>
           </div>
 
           <!-- Meet the owner -->
           <div class="bg-white rounded-lg shadow p-6">
-            <h3 class="text-lg font-medium text-gray-900 mb-4">Meet the owner</h3>
+            <h3 class="text-lg font-medium text-[#0C111D] mb-4">Meet the owner</h3>
             <div class="flex items-center space-x-3">
               <img 
                 src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
@@ -80,7 +80,7 @@
                 class="w-10 h-10 rounded-full"
               />
               <div>
-                <p class="font-medium text-gray-900">John Doe</p>
+                <p class="font-medium text-[#0C111D]">John Doe</p>
                 <p class="text-sm text-gray-500">Joined on Jul 2, 2024</p>
               </div>
             </div>

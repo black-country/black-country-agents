@@ -1,7 +1,7 @@
 <template>
   <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
     <div class="flex items-center justify-between mb-6">
-      <h3 class="text-lg font-semibold text-gray-900">Recent Activity</h3>
+      <h3 class="text-lg font-semibold text-[#0C111D]">Recent Activity</h3>
       <button @click="$emit('view-all')" class="text-sm text-blue-600 hover:text-blue-700">View All</button>
     </div>
     
@@ -13,7 +13,7 @@
           </div>
         </div>
         <div class="flex-1 min-w-0">
-          <p class="text-sm font-medium text-gray-900">{{ activity.title }}</p>
+          <p class="text-sm font-medium text-[#0C111D]">{{ activity.title }}</p>
           <p class="text-xs text-gray-500 mt-1">{{ activity.time }}</p>
         </div>
       </div>

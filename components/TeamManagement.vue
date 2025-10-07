@@ -2,7 +2,7 @@
   <div class="bg-white rounded-lg shadow">
     <!-- Header -->
     <div class="px-6 py-4 border-b border-gray-200 flex items-center justify-between">
-      <h2 class="text-xl font-semibold text-gray-900">Team management</h2>
+      <h2 class="text-xl font-semibold text-[#0C111D]">Team management</h2>
       <button 
         @click="modals.showInviteModal.value = true"
         class="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 flex items-center"
@@ -20,7 +20,7 @@
         <thead class="bg-gray-50">
           <tr>
             <th class="px-6 py-3 text-left">
-              <input type="checkbox" class="rounded border-gray-300" />
+              <input type="checkbox" class="custom-checkbox" />
             </th>
             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
               Member
@@ -42,15 +42,15 @@
         <tbody class="bg-white divide-y divide-gray-200">
           <tr v-for="member in members" :key="member.id" class="hover:bg-gray-50">
             <td class="px-6 py-4">
-              <input type="checkbox" class="rounded border-gray-300" />
+              <input type="checkbox" class="custom-checkbox" />
             </td>
             <td class="px-6 py-4">
               <div class="flex items-center">
                 <img :src="member.avatar" :alt="member.name" class="w-8 h-8 rounded-full mr-3" />
-                <span class="text-sm font-medium text-gray-900">{{ member.name }}</span>
+                <span class="text-sm font-medium text-[#0C111D]">{{ member.name }}</span>
               </div>
             </td>
-            <td class="px-6 py-4 text-sm text-gray-900">
+            <td class="px-6 py-4 text-sm text-[#0C111D]">
               {{ member.email }}
             </td>
             <td class="px-6 py-4">

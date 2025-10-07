@@ -3,7 +3,7 @@
     <div class="absolute inset-0 bg-black bg-opacity-50" @click="$emit('update:open', false)"></div>
     <div class="absolute right-0 top-0 h-full w-96 bg-white shadow-xl transform transition-transform duration-300">
       <div class="flex items-center justify-between p-6 border-b border-gray-200">
-        <h2 class="text-lg font-semibold text-gray-900">All Activities</h2>
+        <h2 class="text-lg font-semibold text-[#0C111D]">All Activities</h2>
         <div class="flex items-center space-x-4">
           <select class="px-3 py-1 border border-gray-300 rounded text-sm">
             <option>Select Admin</option>
@@ -23,7 +23,7 @@
       <div class="p-6 overflow-y-auto h-full">
         <!-- Today Section -->
         <div class="mb-6">
-          <h3 class="text-sm font-medium text-gray-900 mb-4">Today</h3>
+          <h3 class="text-sm font-medium text-[#0C111D] mb-4">Today</h3>
           <div class="space-y-4">
             <ActivityItem
               v-for="activity in todayActivities"
@@ -35,7 +35,7 @@
         
         <!-- Yesterday Section -->
         <div class="mb-6">
-          <h3 class="text-sm font-medium text-gray-900 mb-4">Yesterday</h3>
+          <h3 class="text-sm font-medium text-[#0C111D] mb-4">Yesterday</h3>
           <div class="space-y-4">
             <ActivityItem
               v-for="activity in yesterdayActivities"

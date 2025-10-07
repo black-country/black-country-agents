@@ -10,7 +10,7 @@
           <span>Back</span>
         </button>
         
-        <h1 class="text-2xl font-bold text-gray-900">Property Details</h1>
+        <h1 class="text-2xl font-bold text-[#0C111D]">Property Details</h1>
       </div>
 
       <!-- Tabs -->
@@ -82,7 +82,7 @@
           <InformationCircleIcon class="w-6 h-6 text-blue-600" />
         </div>
         
-        <h3 class="text-lg font-medium text-gray-900 text-center mb-2">Save Changes</h3>
+        <h3 class="text-lg font-medium text-[#0C111D] text-center mb-2">Save Changes</h3>
         <p class="text-sm text-[#525866] text-center mb-6">
           Are your sure you want to proceed with this action
         </p>

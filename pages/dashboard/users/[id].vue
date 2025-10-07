@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- Back Button -->
-    <button @click="$router.back()" class="flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-6">
+    <button @click="$router.back()" class="flex items-center gap-2 text-gray-600 hover:text-[#0C111D] mb-6">
       <ArrowLeft class="w-4 h-4" />
       Back
     </button>
@@ -13,7 +13,7 @@
              :alt="user?.name" 
              class="w-16 h-16 rounded-full" />
         <div>
-          <h1 class="text-2xl font-semibold text-gray-900">{{ user?.name }}</h1>
+          <h1 class="text-2xl font-semibold text-[#0C111D]">{{ user?.name }}</h1>
           <p class="text-gray-600">{{ user?.email }}</p>
         </div>
       </div>

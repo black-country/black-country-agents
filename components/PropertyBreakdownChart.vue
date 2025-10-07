@@ -1,6 +1,6 @@
 <template>
   <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-    <h3 class="text-lg font-semibold text-gray-900 mb-6">Property Breakdown</h3>
+    <h3 class="text-lg font-semibold text-[#0C111D] mb-6">Property Breakdown</h3>
     
     <div class="flex items-center justify-center mb-6">
       <div class="relative w-48 h-48">
@@ -8,7 +8,7 @@
         <div class="absolute inset-0 flex items-center justify-center">
           <div class="text-center">
             <div class="text-sm text-gray-500">Total Property</div>
-            <div class="text-2xl font-bold text-gray-900">548</div>
+            <div class="text-2xl font-bold text-[#0C111D]">548</div>
           </div>
         </div>
       </div>
