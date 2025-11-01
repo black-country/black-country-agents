@@ -5,16 +5,12 @@ const user = ref(null);
 const runtimeData = {
   auth: ref(),
   user: ref({} as any),
-  expiresIn: ref(""),
   token: ref(""),
-  // tempOtp: ref(''),
 };
 const localStorageData = {
   auth: ref(),
   user: useStorage("user", {} as any),
   token: useStorage("token", ""),
-  expiresIn: useStorage("expiresIn", ""),
-  // tempOtp: useStorage('tempOtp', '')
 };
 
 const error = ref<string | null>(null);
@@ -36,7 +32,6 @@ watch(
   runtimeData.auth.value = localStorageData.auth.value;
   runtimeData.user.value = localStorageData.user.value;
   runtimeData.token.value = localStorageData.token.value;
-  runtimeData.expiresIn.value = localStorageData.expiresIn.value;
 })();
 
 export const REDIRECT_URL = import.meta.env.VITE_REDIRECT_URL as string;
@@ -73,14 +68,12 @@ export const useUser = () => {
     runtimeData.token.value = token;
     localStorageData.token.value = token;
   };
-  const createUser = (user: any) => {
-    localStorageData.token.value = user?.accessToken;
-    localStorageData.user.value = user?.user;
-    localStorageData.expiresIn.value = user?.expiresIn;
+  const createUser = (data: any) => {
+    localStorageData.token.value = data?.access_token;
+    localStorageData.user.value = data?.user;
 
-    runtimeData.user.value = user?.user;
-    runtimeData.token.value = user?.accessToken;
-    runtimeData.expiresIn.value = user?.expiresIn;
+    runtimeData.user.value = data?.user;
+    runtimeData.token.value = data?.access_token;
   };
 
   const updateUser = (newUser: any) => {

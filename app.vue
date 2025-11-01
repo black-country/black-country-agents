@@ -16,7 +16,7 @@ body {
 <script setup lang="ts">
 // Global app configuration
 useHead({
-  title: 'Horizon Properties Admin',
+  title: 'Dr Connect | Book Trusted Doctors & Medical Consultations Online',
   meta: [
     { charset: 'utf-8' },
     { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -34,34 +34,15 @@ useHead({
 })
 
 useSeoMeta({
-  title: 'Horizon Properties Admin - Find Your Perfect Property in Nigeria',
-  ogTitle: 'Horizon Properties - Find Your Perfect Property in Nigeria',
-  description: 'Buy, rent, or short-let your dream property with Horizon Properties. Discover premium properties across Nigeria with detailed listings and advanced search filters.',
-  ogDescription: 'Buy, rent, or short-let your dream property with Horizon Properties. Discover premium properties across Nigeria with detailed listings and advanced search filters.',
+  title: 'Dr Connect — Book Doctors & Medical Consultations Online in Seconds',
+  ogTitle: 'Dr Connect — Find & Book Verified Doctors in Minutes',
+  description: 'Dr Connect is the easiest way to find verified doctors, book medical consultations, and access healthcare conveniently from anywhere. Secure, fast, and reliable telehealth.',
+  ogDescription: 'Book verified doctors and medical consultations instantly with Dr Connect. Secure telehealth services, appointment scheduling, and digital healthcare access.',
   ogImage: '/images/og-image.jpg',
-  ogUrl: 'https://horizonproperties.ng',
-  twitterTitle: 'Horizon Properties - Find Your Perfect Property in Nigeria',
-  twitterDescription: 'Buy, rent, or short-let your dream property with Horizon Properties. Discover premium properties across Nigeria.',
+  ogUrl: 'https://drconnect.ng',
+  twitterTitle: 'Dr Connect — Your Digital Doctor Appointment Platform',
+  twitterDescription: 'Find trusted doctors, schedule medical visits, and access telehealth services online with Dr Connect.',
   twitterImage: '/images/og-image.jpg',
   twitterCard: 'summary_large_image'
 })
-
-// useSchemaOrg([
-//   defineOrganization({
-//     name: 'Horizon Properties',
-//     logo: 'https://horizonproperties.ng/images/logo.png',
-//     url: 'https://horizonproperties.ng',
-//     contactPoint: [
-//       {
-//         telephone: '+234-123-456-7890',
-//         contactType: 'customer service',
-//         availableLanguage: 'English'
-//       }
-//     ],
-//     address: {
-//       addressCountry: 'Nigeria',
-//       addressLocality: 'Lagos'
-//     }
-//   })
-// ])
 </script>

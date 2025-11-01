@@ -1,49 +1,60 @@
 import { ref } from "vue"
+import { useRouter } from "vue-router"
 import { auth_api } from "@/api_factory/modules/auth"
-import { useCustomToast } from "@/composables/core/useCustomToast"
 import { useUser } from "@/composables/modules/auth/user"
+import { useCustomToast } from "@/composables/core/useCustomToast"
 
-// ===== LOGIN =====
 export const useLogin = () => {
   const loading = ref(false)
-  const { createUser, user, token } = useUser()
+  const error = ref<string | null>(null)
+  const router = useRouter()
+  const { createUser } = useUser()
   const { showToast } = useCustomToast()
 
-  const login = async (payload: { email: string; password: string; app: 'admin' | 'customer' | 'property-owner' }) => {
-    loading.value = true
-    try {
-      const res = await auth_api.$_login(payload)
-      console.log(res, 'rse here')
-      if ([200, 201].includes(res.status)) {
-        showToast({ 
-          title: "Success", 
-          message: "Login successful!", 
-          toastType: "success", 
-          duration: 3000 
+
+        const form = ref({
+        email: '',
+        password: '',
         })
+
+  const login = async (paylaod: any) => {
+    loading.value = true
+    error.value = null
+    try {
+      const res = (await auth_api.login(paylaod)) as any
+      if (res.type !== "ERROR") {
         createUser(res.data)
+        showToast({
+          title: "Success",
+          message: "Login successful",
+          toastType: "success",
+          duration: 3000,
+        })
+        router.push('/appointments')
         return res.data
       } else {
-        showToast({ 
-          title: "Error", 
-          message: res?.data?.error || "Login failed", 
-          toastType: "error", 
-          duration: 3000 
+        error.value = res.message
+        showToast({
+          title: "Error",
+          message: res.message || "Login failed",
+          toastType: "error",
+          duration: 3000,
         })
-        return null
+        throw new Error(res.message)
       }
     } catch (err: any) {
-      showToast({ 
-        title: "Error", 
-        message: err?.response?.data?.message || err?.message || "Invalid credentials", 
-        toastType: "error", 
-        duration: 3000 
+      error.value = err.message
+      showToast({
+        title: "Error",
+        message: err.message || "Login failed",
+        toastType: "error",
+        duration: 3000,
       })
-      return null
+      throw err
     } finally {
       loading.value = false
     }
   }
 
-  return { loading, login }
+  return { loading, error, login, form }
 }

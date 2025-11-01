@@ -11,54 +11,60 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
-    runtimeConfig: {
+
+  runtimeConfig: {
     public: {
-      googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY || "",
+      apiBase: process.env.NUXT_PUBLIC_API_BASE || 'http://localhost:3000',
+      googleClientId: process.env.NUXT_PUBLIC_GOOGLE_CLIENT_ID,
+      paystackPublicKey: process.env.NUXT_PUBLIC_PAYSTACK_PUBLIC_KEY,
     },
   },
 
   app: {
     head: {
-      title: "medlabconvo | Admin",
+      title: "Dr Connect | Admin Dashboard",
       htmlAttrs: { lang: "en" },
       meta: [
         { charset: "utf-8" },
         { name: "viewport", content: "width=device-width, initial-scale=1" },
         { name: "format-detection", content: "telephone=no" },
+
+        // ✅ SEO meta
         {
           name: "description",
           content:
-            "medlabconvo - Health research publications and resources for healthcare professionals in Africa",
+            "Dr Connect — Book verified doctors, schedule medical appointments, and access secure telehealth and in-clinic consultations. Seamless healthcare access in Nigeria.",
         },
         {
           name: "keywords",
           content:
-            "health research, publications, Africa, healthcare, medical research",
+            "doctor booking, medical appointments, telehealth, online consultation, Nigeria healthcare, book doctors online, telemedicine, Dr Connect",
         },
-        { name: "author", content: "medlabconvo" },
-        { property: "og:title", content: "medlabconvo" },
+        { name: "author", content: "Dr Connect" },
+
+        // ✅ Open Graph (for social previews)
+        { property: "og:title", content: "Dr Connect — Book Doctors & Medical Consultations" },
         {
           property: "og:description",
           content:
-            "Health research publications and resources for healthcare professionals in Africa",
+            "Find trusted medical professionals and book appointments instantly with Dr Connect. Access telemedicine and in-person care securely.",
         },
         { property: "og:type", content: "website" },
-        { property: "og:url", content: "https://medlabconvo.com" },
-        { property: "og:image", content: "https://medlabconvo.com/icon.jpg" },
+        { property: "og:url", content: "https://drconnect.ng" },
+        { property: "og:image", content: "https://drconnect.ng/og-image.jpg" },
 
+        // ✅ Twitter meta
         { name: "twitter:card", content: "summary_large_image" },
-        { property: "twitter:url", content: "https://medlabconvo.com" },
-        { name: "twitter:title", content: "medlabconvo" },
+        { property: "twitter:url", content: "https://drconnect.ng" },
+        { name: "twitter:title", content: "Dr Connect — Online Doctor Booking & Telehealth" },
         {
           name: "twitter:description",
           content:
-            "Health research publications and resources for healthcare professionals in Africa",
+            "Book verified doctors online and access secure telehealth services with Dr Connect.",
         },
-        {
-          name: "twitter:image",
-          content: "https://medlabconvo.com/icon.jpg",
-        },
+        { name: "twitter:image", content: "https://drconnect.ng/og-image.jpg" },
       ],
+
       link: [
         { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
         { rel: "shortcut icon", href: "/favicon.ico", type: "image/x-icon" },
@@ -67,6 +73,7 @@ export default defineNuxtConfig({
         { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
         { rel: "manifest", href: "/site.webmanifest" }
       ],
+
       script: [
         {
           src: "https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js",
@@ -90,7 +97,6 @@ export default defineNuxtConfig({
 
   googleFonts: {
     families: {
-      // Add your preferred fonts here
       "Inter": [400, 500, 600, 700],
       "Poppins": [400, 500, 600, 700],
     },
@@ -98,5 +104,5 @@ export default defineNuxtConfig({
     preload: true,
   },
 
-  compatibilityDate: '2025-04-08'
+  compatibilityDate: "2025-11-01"
 });
