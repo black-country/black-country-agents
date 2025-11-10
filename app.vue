@@ -1,7 +1,8 @@
 <template>
   <main>
     <!-- Position the toast fixed to ensure it's always on top and aligned to the right -->
-    <CoreToast class="fixed top-4 right-4 z-[9999999]" />
+     <!-- <NetworkStatus /> -->
+     <UiToast class="z-[9999999]" />
 
     <div v-if="!showSplash" class="transition-opacity duration-700 ease-in-out">
     <NuxtLayout class="z-10">
@@ -14,11 +15,12 @@
 
 <script setup lang="ts">
 import { provide } from 'vue';
-import { visible, toastData, useCustomToast } from '@/composables/core/useCustomToast';
+import NetworkStatus from "@/components/Core/NetworkStatus.vue"
+// import { visible, toastData, useCustomToast } from '@/composables/core/useCustomToast';
 
-// Provide the toast state globally
-provide('toastVisible', visible);
-provide('toastData', toastData);
+// // Provide the toast state globally
+// provide('toastVisible', visible);
+// provide('toastData', toastData);
 
 const showSplash = ref(true)
 

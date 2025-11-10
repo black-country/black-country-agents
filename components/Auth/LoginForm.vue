@@ -14,8 +14,12 @@
             id="email"
             v-model="credential.email.value"
             placeholder="Enter your email"
-            class="mt-1 block w-full bg-[#E4E7EC] text-sm px-4 py-4 border-[0.5px] border-gray-100 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+            :class="[
+              'mt-1 block w-full bg-[#E4E7EC] text-sm px-4 py-4 border-[0.5px] rounded-md focus:outline-none',
+              emailError ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : 'border-gray-100 focus:ring-indigo-500 focus:border-indigo-500'
+            ]"
           />
+          <p v-if="emailError" class="mt-1 text-sm text-red-600">{{ emailError }}</p>
         </div>
 
         <div class="mb-4 relative">
@@ -152,6 +156,7 @@
 <script setup lang="ts">
 import { use_auth_login } from '@/composables/auth/login'
 import { useAuth } from '@/composables/auth/useAuth'
+
 const { credential, login, loading, isFormDisabled } = use_auth_login()
 const { signInWithGoogle, signInWithApple } = useAuth()
 
@@ -161,14 +166,31 @@ const handleSignup = () => {
   window.location.href = "/signup"
 }
 
-  const toggleShowPassword = () => {
+const toggleShowPassword = () => {
   showPassword.value = !showPassword.value;
 };
 
-  const showPassword = ref(false);
-  </script>
+const showPassword = ref(false);
+const emailError = ref('');
+
+// Email validation regex pattern
+const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+// Watcher to validate email format
+watch(() => credential.email.value, (newEmail) => {
+  if (!newEmail) {
+    emailError.value = '';
+    return;
+  }
   
-  <style scoped>
-  /* Additional styling if needed */
-  </style>
+  if (!emailPattern.test(newEmail)) {
+    emailError.value = 'Please enter a valid email address';
+  } else {
+    emailError.value = '';
+  }
+});
+</script>
   
+<style scoped>
+/* Additional styling if needed */
+</style>

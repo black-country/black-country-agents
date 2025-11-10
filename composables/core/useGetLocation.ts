@@ -1,6 +1,7 @@
 import { address_api } from "@/api_factory/core/address";
 import { ref, onMounted } from "vue";
-import { useNuxtApp } from "#app";
+import { useCustomToast } from '@/composables/core/useCustomToast'
+const { showToast } = useCustomToast();
 // import { use_create_property } from '@/composables/modules/property/create'
 
 export const useGetLocation = () => {
@@ -23,10 +24,16 @@ export const useGetLocation = () => {
         states.value = res.data;
       }
     } catch (error) {
-      useNuxtApp().$toast.error('Error Fetching states.', {
-        autoClose: 5000,
-        dangerouslyHTMLString: true,
+            showToast({
+        title: "Error",
+        message: "Error Fetching states.",
+        toastType: "error",
+        duration: 3000
       });
+      // useNuxtApp().$toast.error('Error Fetching states.', {
+      //   autoClose: 5000,
+      //   dangerouslyHTMLString: true,
+      // });
     } finally {
       loadingStates.value = false;
     }
@@ -40,10 +47,16 @@ export const useGetLocation = () => {
         cities.value = res.data;
       }
     } catch (error) {
-      useNuxtApp().$toast.error('Error Fetching cities.', {
-        autoClose: 5000,
-        dangerouslyHTMLString: true,
+                  showToast({
+        title: "Error",
+        message: "Error Fetching cities.",
+        toastType: "error",
+        duration: 3000
       });
+      // useNuxtApp().$toast.error('Error Fetching cities.', {
+      //   autoClose: 5000,
+      //   dangerouslyHTMLString: true,
+      // });
     } finally {
       loadingCities.value = false;
     }

@@ -9,12 +9,23 @@
         </div>
         
         <!-- Display chat messages -->
-        <ChatMessageBubble
+        <!-- <ChatMessageBubble
           v-else
           :message="msg"
           :isMine="msg.senderId === user.id"
           :status="msg.status"
           :messages="messages"
+        /> -->
+      <ChatMessageBubble
+          v-else
+          :message="msg"
+          :isMine="msg.senderId === user.id"
+          :status="msg.status"
+          :current-user-profile="{
+            profilePicture: user.profilePicture,
+            firstName: user.firstName,
+            lastName: user.lastName
+          }"
         />
       </div>
       <div ref="scrollAnchor"></div>

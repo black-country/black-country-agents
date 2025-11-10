@@ -361,74 +361,216 @@ export const useWebSocket = () => {
   };
 
   const sendMessage = async (payload: {
-    recipientId: string;
-    recipientType: string;
-    content: string;
-    room?: string;
-    messageType: string;
-  }) => {
-    if (!socket.value?.connected) {
-      console.error("Socket not connected");
-      return;
-    }
-    const roomId = payload.room || payload.recipientId;
+  recipientId: string;
+  recipientType: string;
+  content: string;
+  room?: string;
+  messageType: string;
+}) => {
+  if (!socket.value?.connected) {
+    console.error("Socket not connected");
+    throw new Error("Socket not connected");
+  }
 
-    const tempId = `temp-${Date.now()}-${Math.random().toString(36).substring(7)}`;
-    const tempMessage = {
-      id: tempId,
-      ...payload,
-      status: 'sending',
-      timestamp: new Date().toISOString(),
-    };
+  // Validate content
+  if (!payload.content || payload.content.trim() === '') {
+    console.error("Cannot send empty message");
+    throw new Error("Cannot send empty message");
+  }
 
-    if (!messagesByRoom.value[roomId]) {
-      messagesByRoom.value[roomId] = [];
-    }
+  const roomId = payload.room || payload.recipientId;
 
-    messagesByRoom.value = {
-      ...messagesByRoom.value,
-      [roomId]: [...messagesByRoom.value[roomId], tempMessage]
-    };
-
-    return new Promise((resolve, reject) => {
-      socket.value?.emit("message.new", payload, (response: any) => {
-        if (response.status === "success") {
-          messagesByRoom.value = {
-            ...messagesByRoom.value,
-            [roomId]: messagesByRoom.value[roomId].map(msg =>
-              msg.id === tempId
-                ? { ...response.data, status: 'sent' }
-                : msg
-            )
-          };
-
-          if (payload.room) {
-            getRoomChats(response?.data?.room?.id);
-          }
-
-          const { $emitter } = useNuxtApp();
-          $emitter.emit('messageSent', {
-            roomId: response?.data?.room?.id,
-            message: response?.data
-          });
-
-          resolve(response.data);
-        } else {
-          messagesByRoom.value = {
-            ...messagesByRoom.value,
-            [roomId]: messagesByRoom.value[roomId].map(msg =>
-              msg.id === tempId
-                ? { ...msg, status: 'error' }
-                : msg
-            )
-          };
-
-          console.error("Failed to send message:", response);
-          reject(new Error(response.message || 'Failed to send message'));
-        }
-      });
-    });
+  // Create optimistic UI update
+  const tempId = `temp-${Date.now()}-${Math.random().toString(36).substring(7)}`;
+  const tempMessage = {
+    id: tempId,
+    ...payload,
+    status: 'sending',
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+    senderId: useUser().user.value.id, // Add current user ID
   };
+
+  // Initialize room messages if needed
+  if (!messagesByRoom.value[roomId]) {
+    messagesByRoom.value[roomId] = [];
+  }
+
+  // Add temp message to UI
+  messagesByRoom.value = {
+    ...messagesByRoom.value,
+    [roomId]: [...messagesByRoom.value[roomId], tempMessage]
+  };
+
+  return new Promise((resolve, reject) => {
+    // Set timeout for socket response
+    const timeout = setTimeout(() => {
+      // Update message status to error on timeout
+      messagesByRoom.value = {
+        ...messagesByRoom.value,
+        [roomId]: messagesByRoom.value[roomId].map(msg =>
+          msg.id === tempId
+            ? { ...msg, status: 'error' }
+            : msg
+        )
+      };
+      reject(new Error('Message send timeout'));
+    }, 30000); // 30 second timeout
+
+    socket.value?.emit("message.new", payload, (response: any) => {
+      clearTimeout(timeout);
+
+      if (response.status === "success") {
+        // Replace temp message with real message from server
+        messagesByRoom.value = {
+          ...messagesByRoom.value,
+          [roomId]: messagesByRoom.value[roomId].map(msg =>
+            msg.id === tempId
+              ? { 
+                  ...response.data, 
+                  status: 'sent',
+                  // Preserve the content to ensure file messages are properly formatted
+                  content: payload.content
+                }
+              : msg
+          )
+        };
+
+        // Fetch latest messages for the room
+        if (payload.room) {
+          getRoomChats(response?.data?.room?.id);
+        }
+
+        // Emit event for other components
+        const { $emitter } = useNuxtApp();
+        $emitter.emit('messageSent', {
+          roomId: response?.data?.room?.id,
+          message: response?.data
+        });
+
+        resolve(response.data);
+      } else {
+        // Update message status to error
+        messagesByRoom.value = {
+          ...messagesByRoom.value,
+          [roomId]: messagesByRoom.value[roomId].map(msg =>
+            msg.id === tempId
+              ? { ...msg, status: 'error' }
+              : msg
+          )
+        };
+
+        console.error("Failed to send message:", response);
+        reject(new Error(response.message || 'Failed to send message'));
+      }
+    });
+  });
+};
+
+
+// Also add this helper function to retry failed messages
+const retryMessage = async (messageId: string, roomId: string) => {
+  const message = messagesByRoom.value[roomId]?.find(msg => msg.id === messageId);
+  
+  if (!message || message.status !== 'error') {
+    console.error('Message not found or not in error state');
+    return;
+  }
+
+  // Update status to sending
+  messagesByRoom.value = {
+    ...messagesByRoom.value,
+    [roomId]: messagesByRoom.value[roomId].map(msg =>
+      msg.id === messageId
+        ? { ...msg, status: 'sending' }
+        : msg
+    )
+  };
+
+  // Retry sending
+  try {
+    await sendMessage({
+      recipientId: message.recipientId,
+      recipientType: message.recipientType,
+      content: message.content,
+      room: message.room,
+      messageType: message.messageType
+    });
+  } catch (error) {
+    console.error('Failed to retry message:', error);
+    throw error;
+  }
+};
+
+  // const sendMessage = async (payload: {
+  //   recipientId: string;
+  //   recipientType: string;
+  //   content: string;
+  //   room?: string;
+  //   messageType: string;
+  // }) => {
+  //   if (!socket.value?.connected) {
+  //     console.error("Socket not connected");
+  //     return;
+  //   }
+  //   const roomId = payload.room || payload.recipientId;
+
+  //   const tempId = `temp-${Date.now()}-${Math.random().toString(36).substring(7)}`;
+  //   const tempMessage = {
+  //     id: tempId,
+  //     ...payload,
+  //     status: 'sending',
+  //     timestamp: new Date().toISOString(),
+  //   };
+
+  //   if (!messagesByRoom.value[roomId]) {
+  //     messagesByRoom.value[roomId] = [];
+  //   }
+
+  //   messagesByRoom.value = {
+  //     ...messagesByRoom.value,
+  //     [roomId]: [...messagesByRoom.value[roomId], tempMessage]
+  //   };
+
+  //   return new Promise((resolve, reject) => {
+  //     socket.value?.emit("message.new", payload, (response: any) => {
+  //       if (response.status === "success") {
+  //         messagesByRoom.value = {
+  //           ...messagesByRoom.value,
+  //           [roomId]: messagesByRoom.value[roomId].map(msg =>
+  //             msg.id === tempId
+  //               ? { ...response.data, status: 'sent' }
+  //               : msg
+  //           )
+  //         };
+
+  //         if (payload.room) {
+  //           getRoomChats(response?.data?.room?.id);
+  //         }
+
+  //         const { $emitter } = useNuxtApp();
+  //         $emitter.emit('messageSent', {
+  //           roomId: response?.data?.room?.id,
+  //           message: response?.data
+  //         });
+
+  //         resolve(response.data);
+  //       } else {
+  //         messagesByRoom.value = {
+  //           ...messagesByRoom.value,
+  //           [roomId]: messagesByRoom.value[roomId].map(msg =>
+  //             msg.id === tempId
+  //               ? { ...msg, status: 'error' }
+  //               : msg
+  //           )
+  //         };
+
+  //         console.error("Failed to send message:", response);
+  //         reject(new Error(response.message || 'Failed to send message'));
+  //       }
+  //     });
+  //   });
+  // };
 
   const markMessageAsRead = (roomId: string, recipientId: string) => {
     if (!socket.value?.connected) {
@@ -464,6 +606,7 @@ export const useWebSocket = () => {
   return {
     newMessage,
     isConnected,
+    retryMessage, // Add this
     sendMessage,
     socket: socket.value,
     messagesByRoom,

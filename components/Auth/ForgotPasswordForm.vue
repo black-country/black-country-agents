@@ -7,7 +7,7 @@
         <h2 class="text-2xl font-medium text-[#1D2739] mt-4">Forgot your password</h2>
       </div>
       <!-- Forgot Password Form -->
-      <form @submit.prevent="forgot_password">
+      <form @submit.prevent="initiatePasswordReset">
         <div class="mb-4">
           <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
           <input
@@ -26,18 +26,20 @@
   
         <button
           type="submit"
-          :disabled="disabled"
+          :disabled="disabled || loading"
           class="w-full disabled:cursor-not-allowed disabled:opacity-25 py-4 px-4 mt-10 bg-[#292929] text-white rounded-md shadow-sm font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
         >
-          Continue
+        {{  loading ? 'processing...' : 'Continue' }}
         </button>
       </form>
     </div>
   </template>
   
   <script setup lang="ts">
-  import { use_auth_forgot_password } from '@/composables/auth/forgot'
-  const { credential, forgot_password, loading, disabled } = use_auth_forgot_password()
+  import { useInitiatePasswordReset } from "@/composables/auth/useInitiatePasswordReset"
+  const { credential, initiatePasswordReset, loading, disabled } = useInitiatePasswordReset()
+  // import { use_auth_forgot_password } from '@/composables/auth/forgot'
+  // const { credential, forgot_password, loading, disabled } = use_auth_forgot_password()
   </script>
   
   <style scoped>

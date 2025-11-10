@@ -12,6 +12,10 @@ export const auth_api = {
 		const url = '/auth/login'
 		return GATEWAY_ENDPOINT.post(url, credential)
 	},
+   $_password_reset_initiate: (credential: any) => {
+		const url = '/tenants/password-reset/initiate'
+		return GATEWAY_ENDPOINT.post(url, credential)
+	},
 	$_reset_password: (credential: any) => {
 		const url = '/tenants/password-reset/verify'
 		return GATEWAY_ENDPOINT_V2.patch(url, credential)
