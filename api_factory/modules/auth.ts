@@ -1,4 +1,4 @@
-import { GATEWAY_ENDPOINT, GATEWAY_ENDPOINT_V2 } from '../axios.config'
+import { GATEWAY_ENDPOINT, GATEWAY_ENDPOINT_V2, GATEWAY_ENDPOINT_WITHOUT_VERSION } from '../axios.config'
 import { useUser } from '@/composables/auth/user'
 
 const { user } = useUser()
@@ -13,8 +13,8 @@ export const auth_api = {
 		return GATEWAY_ENDPOINT.post(url, credential)
 	},
    $_password_reset_initiate: (credential: any) => {
-		const url = '/tenants/password-reset/initiate'
-		return GATEWAY_ENDPOINT.post(url, credential)
+		const url = '/v1/property-facilitator/agents/password-reset/initiate'
+		return GATEWAY_ENDPOINT_WITHOUT_VERSION.post(url, credential)
 	},
 	$_reset_password: (credential: any) => {
 		const url = '/tenants/password-reset/verify'

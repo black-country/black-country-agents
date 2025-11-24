@@ -720,11 +720,37 @@ interface Props {
 const props = defineProps<Props>();
 
 // Parse message content
+// const parsedContent = computed<MessageContent>(() => {
+//   try {
+//     return JSON.parse(props.message.content);
+//   } catch (error) {
+//     // If parsing fails, treat as plain text message
+//     return {
+//       type: 'text',
+//       message: props.message.content
+//     };
+//   }
+// });
+
+// Check if message is a file
+// const isFileMessage = computed(() => parsedContent.value.type === 'file');
+
+
+// Update parsedContent computed to handle plain text properly:
 const parsedContent = computed<MessageContent>(() => {
   try {
-    return JSON.parse(props.message.content);
+    const parsed = JSON.parse(props.message.content);
+    // Only return as file if it explicitly has type: 'file' and a file object
+    if (parsed.type === 'file' && parsed.file) {
+      return parsed;
+    }
+    // Otherwise treat as text, even if it's JSON
+    return {
+      type: 'text',
+      message: props.message.content
+    };
   } catch (error) {
-    // If parsing fails, treat as plain text message
+    // If parsing fails, it's definitely plain text
     return {
       type: 'text',
       message: props.message.content
@@ -732,8 +758,11 @@ const parsedContent = computed<MessageContent>(() => {
   }
 });
 
-// Check if message is a file
-const isFileMessage = computed(() => parsedContent.value.type === 'file');
+// Update isFileMessage to be more strict:
+const isFileMessage = computed(() => {
+  return parsedContent.value.type === 'file' && parsedContent.value.file?.url;
+});
+
 
 // Get file extension
 const getFileExtension = (url: string): string => {
