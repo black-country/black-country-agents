@@ -87,7 +87,6 @@ const selectedUserChat = ref({})
 function selectUser(user: any) {
   // Validate user before selecting
   if (!user?.participant?.id) {
-    console.error('Invalid user data:', user);
     return;
   }
   

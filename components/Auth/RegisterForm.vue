@@ -420,12 +420,8 @@ watch(
   }
 );
 
-// Register function where credential.password is set to payload.password before submission
 const handleRegister = () => {
   const { ...data } = payload;
-  console.log(data.email.value);
-  // Ensure credential.password is set to the correct payload password before form submission
-  // credential.password.value = payload.password.value;
   const payloadObj = {
     fullName: credential.fullName.value,
     email: data.email.value,
@@ -435,7 +431,6 @@ const handleRegister = () => {
     agreement: credential.agreement.value,
   };
   populateObj(payloadObj);
-  // Then submit the form or make the API call to register
   register(); // This would trigger your API call for registration
 };
 </script>
