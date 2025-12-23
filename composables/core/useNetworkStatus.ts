@@ -14,8 +14,9 @@ export const useNetworkStatus = () => {
     if (connection) {
       connectionType.value = connection.effectiveType || 'unknown'
       
-      // Consider 'slow-2g' and '2g' as slow connections
-      isSlowConnection.value = ['slow-2g', '2g'].includes(connection.effectiveType)
+      // Only consider 'slow-2g' as truly slow (removed '2g')
+      // Many good connections are misclassified as '2g'
+      isSlowConnection.value = connection.effectiveType === 'slow-2g'
     }
   }
 
@@ -34,12 +35,15 @@ export const useNetworkStatus = () => {
       const endTime = performance.now()
       const duration = endTime - startTime
 
-      // If request takes more than 3 seconds, consider it slow
-      if (duration > 3000) {
+      // Increased threshold to 5 seconds to reduce false positives
+      // Also only set to true, never false here - let checkConnection handle that
+      if (duration > 5000) {
         isSlowConnection.value = true
-      } else {
+      } else if (duration < 2000) {
+        // If fast enough, clear the slow connection flag
         isSlowConnection.value = false
       }
+      // If between 2-5 seconds, maintain current state
 
       isOnline.value = response.ok
     } catch (error) {
@@ -51,7 +55,11 @@ export const useNetworkStatus = () => {
     checkConnection()
 
     // Listen for online/offline events
-    window.addEventListener('online', checkConnection)
+    window.addEventListener('online', () => {
+      checkConnection()
+      // Reset slow connection when coming back online
+      isSlowConnection.value = false
+    })
     window.addEventListener('offline', checkConnection)
 
     // Listen for connection changes
@@ -63,8 +71,8 @@ export const useNetworkStatus = () => {
       connection.addEventListener('change', checkConnection)
     }
 
-    // Periodically test network speed
-    const speedTestInterval = setInterval(testNetworkSpeed, 30000) // Every 30 seconds
+    // Increased interval to 60 seconds to reduce false positives
+    const speedTestInterval = setInterval(testNetworkSpeed, 60000)
 
     onUnmounted(() => {
       window.removeEventListener('online', checkConnection)
