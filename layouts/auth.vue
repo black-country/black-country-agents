@@ -3,7 +3,7 @@
     <!-- Left Side - Enhanced Carousel -->
     <div class="hidden lg:flex lg:w-1/2 relative overflow-hidden">
       <!-- Animated Background Gradient -->
-      <div class="absolute inset-0 bg-gradient-to-br from-purple-600 via-blue-600 to-indigo-900">
+      <div class="absolute inset-0 bg-gray-800">
         <div class="absolute inset-0 opacity-30">
           <div 
             v-for="i in 20" 
@@ -61,42 +61,9 @@
                   <span class="text-gradient">{{ slides[currentSlide].title }}</span>
                 </h2>
                 
-                <p class="text-lg text-blue-100 leading-relaxed max-w-xl mx-auto">
+                <p class="text-lg text-gray-100 leading-relaxed max-w-xl mx-auto">
                   {{ slides[currentSlide].description }}
                 </p>
-
-                <!-- Testimonial Card -->
-                <!-- <div class="testimonial-card">
-                  <div class="quote-icon">"</div>
-                  <p class="testimonial-text">
-                    {{ slides[currentSlide].testimonial }}
-                  </p>
-                  <div class="testimonial-author">
-                    <div class="author-avatar">
-                      <img :src="slides[currentSlide].authorAvatar" :alt="slides[currentSlide].author" />
-                    </div>
-                    <div class="author-info">
-                      <div class="author-name">{{ slides[currentSlide].author }}</div>
-                      <div class="author-role">{{ slides[currentSlide].authorRole }}</div>
-                    </div>
-                    <div class="rating">
-                      <span v-for="star in 5" :key="star" class="star">★</span>
-                    </div>
-                  </div>
-                </div> -->
-
-                <!-- Stats -->
-                <!-- <div class="stats-grid">
-                  <div 
-                    v-for="(stat, index) in slides[currentSlide].stats" 
-                    :key="index"
-                    class="stat-item"
-                    :style="{ animationDelay: `${index * 0.1}s` }"
-                  >
-                    <div class="stat-value">{{ stat.value }}</div>
-                    <div class="stat-label">{{ stat.label }}</div>
-                  </div>
-                </div> -->
               </div>
             </div>
           </transition>

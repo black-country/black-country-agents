@@ -22,7 +22,7 @@ export default defineNuxtConfig({
 
   app: {
     head: {
-      title: "Dr Connect | Admin Dashboard",
+      title: "Doctor dey consulting | Admin Dashboard",
       htmlAttrs: { lang: "en" },
       meta: [
         { charset: "utf-8" },
@@ -33,21 +33,21 @@ export default defineNuxtConfig({
         {
           name: "description",
           content:
-            "Dr Connect — Book verified doctors, schedule medical appointments, and access secure telehealth and in-clinic consultations. Seamless healthcare access in Nigeria.",
+            "Doctor dey consulting — Book verified doctors, schedule medical appointments, and access secure telehealth and in-clinic consultations. Seamless healthcare access in Nigeria.",
         },
         {
           name: "keywords",
           content:
-            "doctor booking, medical appointments, telehealth, online consultation, Nigeria healthcare, book doctors online, telemedicine, Dr Connect",
+            "doctor booking, medical appointments, telehealth, online consultation, Nigeria healthcare, book doctors online, telemedicine, Doctor dey consulting",
         },
-        { name: "author", content: "Dr Connect" },
+        { name: "author", content: "Doctor dey consulting" },
 
         // ✅ Open Graph (for social previews)
-        { property: "og:title", content: "Dr Connect — Book Doctors & Medical Consultations" },
+        { property: "og:title", content: "Doctor dey consulting — Book Doctors & Medical Consultations" },
         {
           property: "og:description",
           content:
-            "Find trusted medical professionals and book appointments instantly with Dr Connect. Access telemedicine and in-person care securely.",
+            "Find trusted medical professionals and book appointments instantly with Doctor dey consulting. Access telemedicine and in-person care securely.",
         },
         { property: "og:type", content: "website" },
         { property: "og:url", content: "https://drconnect.ng" },
@@ -56,11 +56,11 @@ export default defineNuxtConfig({
         // ✅ Twitter meta
         { name: "twitter:card", content: "summary_large_image" },
         { property: "twitter:url", content: "https://drconnect.ng" },
-        { name: "twitter:title", content: "Dr Connect — Online Doctor Booking & Telehealth" },
+        { name: "twitter:title", content: "Doctor dey consulting — Online Doctor Booking & Telehealth" },
         {
           name: "twitter:description",
           content:
-            "Book verified doctors online and access secure telehealth services with Dr Connect.",
+            "Book verified doctors online and access secure telehealth services with Doctor dey consulting.",
         },
         { name: "twitter:image", content: "https://drconnect.ng/og-image.jpg" },
       ],

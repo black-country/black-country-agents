@@ -2,7 +2,7 @@
     <div class="">
       <!-- Logo/Brand -->
       <div class="text-center mb-8">
-        <div class="inline-flex items-center justify-center w-16 h-16 bg-blue-600 rounded-full mb-4">
+        <div class="inline-flex items-center justify-center w-16 h-16 bg-gray-800 rounded-full mb-4">
           <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="#e8e8e8" viewBox="0 0 256 256"><path d="M91.82,60H92a12,12,0,0,0,0-24H60A44.05,44.05,0,0,0,16,80v8a12,12,0,0,0,12,12H48A44.06,44.06,0,0,0,91.82,60ZM48,76H40.4A20,20,0,0,1,60,60h7.6A20,20,0,0,1,48,76Zm176,3v1a44.05,44.05,0,0,1-44,44H140v72h8a12,12,0,0,0,12-12,11.87,11.87,0,0,0-4-8.95,12,12,0,1,1,16-17.88A36,36,0,0,1,148,220h-8v12a12,12,0,0,1-24,0V220H92a12,12,0,0,1,0-24h24V124H100a12,12,0,0,0-4,23.32A12,12,0,1,1,88,170,36,36,0,0,1,100,100h16V24a12,12,0,0,1,24,0v76h40a20,20,0,0,0,20-20V79a19.05,19.05,0,0,0-19-19H164a12,12,0,0,1,0-24h17a43.05,43.05,0,0,1,43,43Z"></path></svg>
           <!-- <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -73,10 +73,10 @@
         <!-- Forgot Password Link -->
         <div class="flex items-center justify-between">
           <!-- <label class="flex items-center">
-            <input type="checkbox" class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+            <input type="checkbox" class="w-4 h-4 text-gray-600 border-gray-300 rounded focus:ring-blue-500">
             <span class="ml-2 text-sm text-gray-600">Remember me</span>
           </label> -->
-          <router-link to="/forgot-password" class="text-sm text-blue-600 hover:text-blue-700 font-medium">
+          <router-link to="/forgot-password" class="text-sm text-gray-600 hover:text-gray-700 font-medium">
             Forgot password?
           </router-link>
         </div>
@@ -85,7 +85,7 @@
         <button
           type="submit"
           :disabled="loading"
-          class="w-full py-3 bg-blue-600 text-white text-sm rounded-lg font-semibold hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+          class="w-full py-3 bg-gray-800 text-white text-sm rounded-lg font-semibold hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
         >
           <svg v-if="loading" class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
@@ -100,7 +100,7 @@
       <div class="mt-6 text-center">
         <p class="text-gray-600 text-sm">
           Don't have an account?
-          <router-link to="/register" class="text-blue-600 font-semibold hover:text-blue-700 transition">
+          <router-link to="/register" class="text-gray-600 font-semibold hover:text-gray-700 transition">
             Sign Up
           </router-link>
         </p>

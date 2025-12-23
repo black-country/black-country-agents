@@ -32,25 +32,7 @@ export const useLogin = () => {
         })
         router.push('/appointments')
         return res.data
-      } else {
-        error.value = res.message
-        showToast({
-          title: "Error",
-          message: res.message || "Login failed",
-          toastType: "error",
-          duration: 3000,
-        })
-        throw new Error(res.message)
-      }
-    } catch (err: any) {
-      error.value = err.message
-      showToast({
-        title: "Error",
-        message: err.message || "Login failed",
-        toastType: "error",
-        duration: 3000,
-      })
-      throw err
+      } 
     } finally {
       loading.value = false
     }

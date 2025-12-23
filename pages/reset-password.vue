@@ -62,11 +62,11 @@
 import { ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { definePageMeta } from '#imports'
-import { useAuth } from '@/composables/modules/auth/useAuth'
+import { useResetPassword } from '@/composables/modules/auth/useResetPassword'
 
 const token = useRoute().query.token as string
 const router = useRouter()
-const { resetPassword, loading, error: authError } = useAuth()
+const { resetPassword, loading, error: authError } = useResetPassword()
 
 definePageMeta({
   layout: 'auth',

@@ -16,7 +16,7 @@ body {
 <script setup lang="ts">
 // Global app configuration
 useHead({
-  title: 'Dr Connect | Book Trusted Doctors & Medical Consultations Online',
+  title: 'Doctor dey consulting | Book Trusted Doctors & Medical Consultations Online',
   meta: [
     { charset: 'utf-8' },
     { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -34,14 +34,14 @@ useHead({
 })
 
 useSeoMeta({
-  title: 'Dr Connect — Book Doctors & Medical Consultations Online in Seconds',
-  ogTitle: 'Dr Connect — Find & Book Verified Doctors in Minutes',
-  description: 'Dr Connect is the easiest way to find verified doctors, book medical consultations, and access healthcare conveniently from anywhere. Secure, fast, and reliable telehealth.',
-  ogDescription: 'Book verified doctors and medical consultations instantly with Dr Connect. Secure telehealth services, appointment scheduling, and digital healthcare access.',
+  title: 'Doctor dey consulting — Book Doctors & Medical Consultations Online in Seconds',
+  ogTitle: 'Doctor dey consulting — Find & Book Verified Doctors in Minutes',
+  description: 'Doctor dey consulting is the easiest way to find verified doctors, book medical consultations, and access healthcare conveniently from anywhere. Secure, fast, and reliable telehealth.',
+  ogDescription: 'Book verified doctors and medical consultations instantly with Doctor dey consulting. Secure telehealth services, appointment scheduling, and digital healthcare access.',
   ogImage: '/images/og-image.jpg',
   ogUrl: 'https://drconnect.ng',
-  twitterTitle: 'Dr Connect — Your Digital Doctor Appointment Platform',
-  twitterDescription: 'Find trusted doctors, schedule medical visits, and access telehealth services online with Dr Connect.',
+  twitterTitle: 'Doctor dey consulting — Your Digital Doctor Appointment Platform',
+  twitterDescription: 'Find trusted doctors, schedule medical visits, and access telehealth services online with Doctor dey consulting.',
   twitterImage: '/images/og-image.jpg',
   twitterCard: 'summary_large_image'
 })

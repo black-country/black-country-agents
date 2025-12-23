@@ -22,7 +22,7 @@
         <p class="text-gray-600 mb-6">Your booking has been confirmed</p>
         <button
           @click="router.push('/appointments')"
-          class="w-full py-3.5 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl font-semibold hover:from-blue-700 hover:to-purple-700 transition-all"
+          class="w-full py-3 bg-gray-900 transition-all"
         >
           View My Appointments
         </button>
@@ -30,7 +30,7 @@
 
       <!-- Error State -->
       <div v-else>
-        <div class="w-20 h-20 bg-gradient-to-br from-red-400 to-red-600 rounded-full flex items-center justify-center mx-auto mb-6">
+        <div class="w-20 h-20 bg-gray-900 rounded-full flex items-center justify-center mx-auto mb-6">
           <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18L18 6M6 6l12 12"></path>
           </svg>

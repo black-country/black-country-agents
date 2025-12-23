@@ -7,6 +7,7 @@ export const useRegister = () => {
   const loading = ref(false)
   const error = ref<string | null>(null)
   const { showToast } = useCustomToast()
+  const router = useRouter()
 
   const form = ref({
   name: '',
@@ -25,9 +26,8 @@ export const useRegister = () => {
     error.value = null
     try {
       const res = (await auth_api.register(data)) as any
+      router.push('/login')
       if (res.type !== "ERROR") {
-        localStorage.setItem("auth_token", res.data.token)
-        localStorage.setItem("auth_user", JSON.stringify(res.data.user))
         showToast({
           title: "Success",
           message: "Registration successful",
@@ -35,26 +35,8 @@ export const useRegister = () => {
           duration: 3000,
         })
         return res.data
-      } else {
-        error.value = res.message
-        showToast({
-          title: "Error",
-          message: res.message || "Registration failed",
-          toastType: "error",
-          duration: 3000,
-        })
-        throw new Error(res.message)
-      }
-    } catch (err: any) {
-      error.value = err.message
-      showToast({
-        title: "Error",
-        message: err.message || "Registration failed",
-        toastType: "error",
-        duration: 3000,
-      })
-      throw err
-    } finally {
+      } 
+    }  finally {
       loading.value = false
     }
   }

@@ -1,110 +1,109 @@
 <template>
-  <div class="bg-white rounded-lg border-[0.5px] border-gray-100 p-6 hover:shadow-lg transition-shadow">
-    <div class="flex justify-between items-start mb-4">
-      <div class="flex-1">
-        <div class="flex items-center gap-2 mb-2">
-          <span class="text-xl">
+  <div class="bg-white rounded-xl border border-gray-200 hover:shadow-lg transition-all duration-300 overflow-hidden group">
+    <!-- Status Banner -->
+    <div :class="['h-1', statusBannerColor]"></div>
+    
+    <div class="p-5">
+      <!-- Header -->
+      <div class="flex justify-between items-start mb-4">
+        <div class="flex items-center gap-3">
+          <div :class="['text-3xl p-2 rounded-lg', typeBackgroundColor]">
             {{ appointmentTypeIcon }}
-          </span>
-          <h3 class="font-semibold text-base text-foreground">
-            {{ appointmentTypeLabel }}
-          </h3>
+          </div>
+          <div>
+            <h3 class="font-bold text-gray-900">
+              {{ appointmentTypeLabel }}
+            </h3>
+            <p class="text-sm text-gray-500">
+              {{ formatShortDate(appointment.date) }}
+            </p>
+          </div>
         </div>
-        <p class="text-sm text-foreground/70">
-          <span class="font-medium">📅 {{ formatDate(appointment.date) }}</span>
-          <span class="mx-2">•</span>
-          <span class="font-medium">🕐 {{ appointment.timeSlot }}</span>
-        </p>
-      </div>
-      <span
-        :class="[
-          'inline-block px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wide',
-          statusClass,
-        ]"
-      >
-        {{ appointment.status }}
-      </span>
-    </div>
-
-    <div class="space-y-3 mb-5 pt-4 border-t-[0.5px] border-gray-100">
-      <div v-if="appointment.consultationMode" class="flex items-start gap-2">
-        <span class="text-foreground/50 text-sm">Mode:</span>
-        <span class="text-sm font-medium text-foreground capitalize">
-          {{ appointment.consultationMode }}
-        </span>
-      </div>
-      
-      <div v-if="appointment.location" class="flex items-start gap-2">
-        <span class="text-foreground/50 text-sm">📍 Location:</span>
-        <span class="text-sm text-foreground">{{ appointment.location }}</span>
-      </div>
-      
-      <div v-if="appointment.googleMeetLink" class="flex items-start gap-2">
-        <span class="text-foreground/50 text-sm">🔗 Meeting:</span>
-        <a 
-          :href="appointment.googleMeetLink" 
-          target="_blank"
-          rel="noopener noreferrer" 
-          class="text-sm text-primary hover:underline font-medium"
+        <span
+          :class="[
+            'px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide',
+            statusClass,
+          ]"
         >
-          Join Google Meet
-        </a>
-      </div>
-      
-      <div class="flex items-start gap-2">
-        <span class="text-foreground/50 text-sm">💰 Price:</span>
-        <span class="text-sm font-semibold text-foreground">
-          ₦{{ appointment.price.toLocaleString() }}
-        </span>
-      </div>
-      
-      <div class="flex items-start gap-2">
-        <span class="text-foreground/50 text-sm">💳 Payment:</span>
-        <span :class="['text-sm font-medium', paymentStatusClass]">
-          {{ paymentStatusLabel }}
+          {{ appointment.status }}
         </span>
       </div>
 
-      <div v-if="appointment.userId" class="flex items-start gap-2 pt-2 border-t-[0.5px] border-gray-100">
-        <span class="text-foreground/50 text-sm">👤 Booked by:</span>
-        <span class="text-sm text-foreground">
-          {{ appointment.userId.name }}
-        </span>
+      <!-- Date & Time -->
+      <div class="bg-gray-50 rounded-lg p-3 mb-4">
+        <div class="flex items-center justify-between text-sm">
+          <div class="flex items-center gap-2">
+            <span class="text-gray-600">📅</span>
+            <span class="font-medium text-gray-900">{{ formatLongDate(appointment.date) }}</span>
+          </div>
+        </div>
+        <div class="flex items-center gap-2 mt-2 text-sm">
+          <span class="text-gray-600">🕐</span>
+          <span class="font-medium text-gray-900">{{ appointment.timeSlot }}</span>
+        </div>
       </div>
-    </div>
 
-    <div class="flex gap-3 flex-wrap">
-      <button
-        v-if="canReschedule"
-        @click="$emit('reschedule')"
-        class="flex-1 min-w-[120px] text-sm border-[0.4px] outline-none text-sm px-4 py-2.5 border-primary text-primary rounded-lg font-medium hover:bg-primary hover:text-white hover:bg-black transition-colors"
-      >
-        Reschedule
-      </button>
-      <button
-        v-if="canCancel"
-        @click="$emit('cancel')"
-        class="flex-1 min-w-[120px] text-sm border-[0.4px] outline-none text-sm px-4 py-2.5 border-red-300 text-red-600 rounded-lg font-medium hover:bg-red-600 hover:text-white hover:border-red-600 transition-colors"
-      >
-        Cancel
-      </button>
-      <button
-        v-if="appointment.paymentStatus === 'pending'"
-        @click="$emit('pay')"
-        :disabled="initiating"
-        class="flex-1 min-w-[120px] disabled:cursor-not-allowed disabled:opacity-25 text-sm bg-black border-[0.4px] outline-none text-sm px-4 py-2.5 bg-primary text-white rounded-lg font-medium hover:bg-primary/90 transition-colors"
-      >
-         {{  initiating ? 'initiating' : 'Complete Payment' }}
-      </button>
-       <a
-        v-if="appointment.googleMeetLink && canJoinMeet"
+      <!-- Details -->
+      <div class="space-y-2 mb-4">
+        <div v-if="appointment.consultationMode" class="flex items-center gap-2 text-sm">
+          <span class="text-gray-500">Mode:</span>
+          <span class="font-medium text-gray-900 capitalize">
+            {{ appointment.consultationMode }}
+          </span>
+        </div>
+        
+        <div class="flex items-center gap-2 text-sm">
+          <span class="text-gray-500">💰 Price:</span>
+          <span class="font-bold text-gray-900">
+            ₦{{ appointment.price.toLocaleString() }}
+          </span>
+        </div>
+        
+        <div class="flex items-center gap-2 text-sm">
+          <span class="text-gray-500">💳 Payment:</span>
+          <span :class="['font-semibold', paymentStatusClass]">
+            {{ paymentStatusLabel }}
+          </span>
+        </div>
+      </div>
+
+      <!-- Meeting Link (if virtual and available) -->
+      <a
+        v-if="appointment.googleMeetLink && canShowMeetLink"
         :href="appointment.googleMeetLink"
         target="_blank"
         rel="noopener noreferrer"
-        class="flex-1 min-w-[120px] text-s border-[0.4px] outline-none text-center text-sm px-4 py-2.5 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 transition-colors"
+        class="block w-full text-center px-4 py-2 mb-3 bg-green-50 text-green-700 rounded-lg font-medium hover:bg-green-100 transition-colors text-sm"
       >
-        Join Meeting
+        🎥 Join Meeting
       </a>
+
+      <!-- Actions -->
+      <div class="flex gap-2 pt-4 border-t border-gray-100">
+        <button
+          @click="$emit('view-details')"
+          class="flex-1 px-4 py-2.5 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
+        >
+          View Details
+        </button>
+        
+        <button
+          v-if="appointment.paymentStatus === 'pending' && appointment.status !== 'cancelled'"
+          @click="$emit('pay')"
+          :disabled="initiating"
+          class="flex-1 px-4 py-2.5 text-sm font-semibold bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          {{ initiating ? 'Processing...' : 'Pay Now' }}
+        </button>
+        
+        <button
+          v-if="canReschedule"
+          @click="$emit('reschedule')"
+          class="flex-1 px-4 py-2.5 text-sm font-medium text-blue-600 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors"
+        >
+          Reschedule
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -115,10 +114,11 @@ import type { Appointment } from '@/types/index'
 
 const props = defineProps<{
   appointment: Appointment
-  initiating: Boolean
+  initiating: boolean
 }>()
 
-const emit = defineEmits<{
+defineEmits<{
+  'view-details': []
   reschedule: []
   cancel: []
   pay: []
@@ -134,6 +134,12 @@ const appointmentTypeLabel = computed(() =>
     : 'Virtual Consultation'
 )
 
+const typeBackgroundColor = computed(() =>
+  props.appointment.consultationType === 'physical'
+    ? 'bg-purple-50'
+    : 'bg-blue-50'
+)
+
 const isUpcoming = computed(() => {
   const appointmentDate = new Date(props.appointment.date)
   const now = new Date()
@@ -145,18 +151,12 @@ const canReschedule = computed(() => {
     && isUpcoming.value
 })
 
-const canCancel = computed(() => {
-  return (props.appointment.status === 'pending' || props.appointment.status === 'confirmed') 
-    && isUpcoming.value
-})
-
-const canJoinMeet = computed(() => {
+const canShowMeetLink = computed(() => {
   const appointmentDate = new Date(props.appointment.date)
   const now = new Date()
   const diffHours = (appointmentDate.getTime() - now.getTime()) / (1000 * 60 * 60)
   
-  // Allow joining 30 minutes before and during the appointment
-  return isUpcoming.value && diffHours <= 0.5 && props.appointment.status === 'confirmed'
+  return isUpcoming.value && diffHours <= 1 && props.appointment.status === 'confirmed'
 })
 
 const statusClass = computed(() => {
@@ -166,6 +166,15 @@ const statusClass = computed(() => {
   if (status === 'completed') return 'bg-green-100 text-green-800'
   if (status === 'cancelled') return 'bg-red-100 text-red-800'
   return 'bg-gray-100 text-gray-800'
+})
+
+const statusBannerColor = computed(() => {
+  const status = props.appointment.status
+  if (status === 'pending') return 'bg-yellow-400'
+  if (status === 'confirmed') return 'bg-blue-500'
+  if (status === 'completed') return 'bg-green-500'
+  if (status === 'cancelled') return 'bg-red-500'
+  return 'bg-gray-400'
 })
 
 const paymentStatusClass = computed(() => {
@@ -182,12 +191,19 @@ const paymentStatusLabel = computed(() => {
   return '⏳ Pending'
 })
 
-const formatDate = (dateStr: string) => {
+const formatShortDate = (dateStr: string) => {
   return new Date(dateStr).toLocaleDateString('en-US', {
-    weekday: 'long',
-    year: 'numeric',
-    month: 'long',
+    month: 'short',
     day: 'numeric',
+  })
+}
+
+const formatLongDate = (dateStr: string) => {
+  return new Date(dateStr).toLocaleDateString('en-US', {
+    weekday: 'short',
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
   })
 }
 </script>
