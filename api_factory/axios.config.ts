@@ -1,16 +1,56 @@
-import axios, { AxiosResponse } from "axios";
+import axios, { type AxiosResponse } from "axios";
 import { useUser } from "@/composables/auth/user";
 import { useCustomToast } from '@/composables/core/useCustomToast'
 const { showToast } = useCustomToast();
 
 const { token, logOut } = useUser();
 
-const $GATEWAY_ENDPOINT_WITHOUT_VERSION = import.meta.env
-  .VITE_BASE_URL as string;
-const $GATEWAY_ENDPOINT = import.meta.env.VITE_BASE_URL + "/v1";
-const $GATEWAY_ENDPOINT_V2 = import.meta.env.VITE_BASE_URL + "/v2";
-const $IMAGE_UPLOAD_ENDPOINT = import.meta.env
-  .VITE_IMAGE_UPLOAD_BASE_URL as string;
+const getNuxtPublicConfig = () => {
+  const nuxt = (globalThis as any).__NUXT__;
+  // Nuxt 3 commonly exposes config here:
+  return (nuxt?.config?.public || nuxt?.runtimeConfig?.public || {}) as {
+    apiBase?: string;
+    imageUploadBase?: string;
+  };
+};
+
+const normalizeBase = (url?: string) => {
+  if (!url) return "";
+  return url.replace(/\/+$/, ""); // remove trailing slashes
+};
+
+// Prefer runtime-config (window.__NUXT__), fallback to build-time env
+const PUBLIC = getNuxtPublicConfig();
+
+const API_BASE =
+  normalizeBase(PUBLIC.apiBase) ||
+  normalizeBase(import.meta.env.NUXT_PUBLIC_BASE_URL as string) ||
+  "";
+
+  const IMAGE_UPLOAD_BASE =
+  normalizeBase(PUBLIC.imageUploadBase) ||
+  normalizeBase(import.meta.env.NUXT_PUBLIC_IMAGE_UPLOAD_BASE_URL as string) ||
+  "";
+
+  // Optional: warn if missing (helps you catch the exact issue on deploy)
+if (!API_BASE) {
+  // eslint-disable-next-line no-console
+  console.warn(
+    "[axios-config] API base URL is empty. Set NUXT_PUBLIC_API_BASE during build/deploy."
+  );
+}
+
+// const $GATEWAY_ENDPOINT_WITHOUT_VERSION = import.meta.env
+//   .VITE_BASE_URL as string;
+// const $GATEWAY_ENDPOINT = import.meta.env.VITE_BASE_URL + "/v1";
+// const $GATEWAY_ENDPOINT_V2 = import.meta.env.VITE_BASE_URL + "/v2";
+// const $IMAGE_UPLOAD_ENDPOINT = import.meta.env
+//   .VITE_IMAGE_UPLOAD_BASE_URL as string;
+
+const $GATEWAY_ENDPOINT_WITHOUT_VERSION = API_BASE;
+const $GATEWAY_ENDPOINT = API_BASE ? `${API_BASE}/v1` : "";  // if empty => relative calls (bad)
+const $GATEWAY_ENDPOINT_V2 = API_BASE ? `${API_BASE}/v2` : "";
+const $IMAGE_UPLOAD_ENDPOINT = IMAGE_UPLOAD_BASE;
 
 export const GATEWAY_ENDPOINT = axios.create({
   baseURL: $GATEWAY_ENDPOINT,

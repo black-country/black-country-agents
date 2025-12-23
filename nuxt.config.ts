@@ -21,6 +21,12 @@ export default {
     },
     pageTransition: false,
   },
+    runtimeConfig: {
+    public: {
+      apiBase: process.env.NUXT_PUBLIC_API_BASE || '',
+      googleApiKey: process.env.NUXT_PUBLIC_GOOGLE_MAPS_API_KEY || '',
+    }
+  },
   // Alternatively, for finer control, you can disable loading indicators and other settings:
   loading: false,
   loadingIndicator: false, // Completely removes the default Nuxt loading screen

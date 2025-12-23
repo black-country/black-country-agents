@@ -15,5 +15,5 @@ export const message_api = {
       $_create_room: (payload: any) => {
         let url = '/private-rooms';
         return GATEWAY_ENDPOINT.post(url, payload);
-      }
+      },
 }
