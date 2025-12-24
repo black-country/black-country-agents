@@ -19,7 +19,7 @@ export default defineNuxtConfig({
   },
 
   app: {
-    baseURL: '/agent/',
+    baseURL: '/agent/',                                                                                                                                                                                                                                                                                                      
     head: {
       title: "Doctor dey consulting | Admin Dashboard",
       htmlAttrs: { lang: "en" },
