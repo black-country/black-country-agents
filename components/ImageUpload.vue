@@ -157,62 +157,9 @@ async function handleFileUpload(event: Event) {
       uploadSuccess.value = true;
       
       if (uploadResponse.value.length > 0) {
-        // Extract secure URLs from the response and add them to the images array
         const uploadedUrls = uploadResponse.value.map(response => response.url)
-        images.push(...uploadedUrls) // Add the URLs to the images array to display in the UI
-        
-        // Update session storage for common areas if necessary
+        images.push(...uploadedUrls) 
         updateSessionStorage();
-        // if (props.location === 'common-areas') {
-        //   const propertyData = props.payload
-        //   if (propertyData) {
-        //     // Ensure commonAreas exists and find the specific commonArea
-        //     if (propertyData.commonAreas.value) {
-        //       const commonArea = propertyData.commonAreas.value.find((area: any) => area.name === props.label)
-              
-        //       if (commonArea) {
-        //         commonArea.images = [...(commonArea.images || []), ...uploadedUrls]
-        //         // sessionStorage.setItem('property', JSON.stringify(property)) // Save back to session storage
-        //       } else {
-        //         console.warn('Common area not found')
-        //       }
-        //     } else {
-        //       console.warn('No common areas in property')
-        //     }
-        //   } else {
-        //     console.warn('No property data in sessionStorage')
-        //   }
-        // }
-
-        // if (props.location === 'rooms') {
-        //     const propertyData = props.payload
-        //     if (propertyData) {              
-        //       // Ensure rooms exist and find the specific room
-        //       if (propertyData.rooms.value) {
-        //         const room = propertyData.rooms.value.find((r: any) => r.name === props.roomName) // Find the room by name
-        //         if (room) {
-        //           // Find the specific feature within the room by matching the feature name
-        //           const feature = room.features.find((f: any) => f.name === props.label) // Find the feature by name
-                  
-        //           if (feature) {
-        //             // Add the uploaded images to the feature's images array
-        //             feature.images = [...(feature.images || []), ...uploadedUrls]
-                    
-        //             // Update the session storage with the updated property data
-        //             // sessionStorage.setItem('property', JSON.stringify(property))
-        //           } else {
-        //             console.warn('Feature not found in room')
-        //           }
-        //         } else {
-        //           console.warn('Room not found')
-        //         }
-        //       } else {
-        //         console.warn('No rooms in property')
-        //       }
-        //     } else {
-        //       console.warn('No property data in sessionStorage')
-        //     }
-        //   }
       }
     } catch (error) {
       progress.value = 100;

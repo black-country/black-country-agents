@@ -310,24 +310,6 @@ const zoomToAmenity = (amenity: any) => {
     .bindPopup(`Amenity: ${amenity.name}`)
     .openPopup();
   showDropdown.value = false;
-  // landmarksArray.value.push({
-  //   name: amenity.name ?? amenity.display_name,
-  //   type: amenity.type,
-  //   description: amenity.display_name,
-  //   longitude: amenity.lon,
-  //   latitude: amenity.lat,
-  //   address: amenity.display_name
-  // });
-
-  // const amenityPropertyData = {
-  //   neighbouringLandmarks: landmarksArray.value,
-  // };
-
-  // emit('locationSelected', landmarksArray)
-  // console.log(amenityPropertyData, 'here dsff blab alla')
-  
-  // Ensure setPropertyData is properly setting the values
-  // setPropertyData(amenityPropertyData);
 };
 
 </script>

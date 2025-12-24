@@ -177,48 +177,6 @@ watch(
   { deep: true }
 );
 
-// **File Upload Handling**
-// Optimized file handling for multiple uploads
-// const handleFileUpload = async (event: Event) => {
-//   const files = (event.target as HTMLInputElement).files;
-//   if (!files) return;
-
-//   const formData = new FormData();
-
-//   // Validate file size before appending
-//   for (let i = 0; i < files.length; i++) {
-//     const file = files[i];
-//     if (file.size > MAX_FILE_SIZE) {
-//       showToast({
-//             title: "Error",
-//             message: `File ${file.name} exceeds 2MB limit. Please choose a smaller file.`,
-//             toastType: "error",
-//             duration: 3000
-//           });
-//       continue; // Skip files that exceed the size limit
-//     }
-//     formData.append('images', file); // Add each image to FormData
-//   }
-
-//   // Proceed only if there are valid files
-//   if (formData.has('images')) {
-//     isLoading.value = true;
-//     try {
-//       // Use batchUpload composable to upload files
-//       await uploadFiles(formData);
-
-//       // Add the uploaded images' secure URLs to the `images` array
-//       uploadResponse.value.forEach((response: { url: string }) => {
-//         images.value.unshift(response.url);
-//         props.payload.images.value.unshift(response.url)
-//       });
-//     } catch (error) {
-//       console.error("Image upload failed", error);
-//     } finally {
-//       isLoading.value = false;
-//     }
-//   }
-// };
 
 const handleFileUpload = async (event: Event) => {
   const files = (event.target as HTMLInputElement).files;
@@ -273,35 +231,6 @@ const handleFileUpload = async (event: Event) => {
           const ctx = canvas.getContext('2d');
           ctx?.drawImage(img, 0, 0, width, height);
           
-          // Compression strategy
-          // const compressWithQuality = (quality: number) => {
-          //   canvas.toBlob(
-          //     (blob) => {
-          //       if (!blob) {
-          //         reject(new Error('Canvas to Blob conversion failed'));
-          //         return;
-          //       }
-                
-          //       // If blob is still too large and quality can be reduced further
-          //       if (blob.size > maxSizeBytes && quality > 0.1) {
-          //         // Reduce quality and try again
-          //         compressWithQuality(quality - 0.1);
-          //       } else {
-          //         // Create new file from the compressed blob
-          //         const compressedFile = new File(
-          //           [blob], 
-          //           file.name.replace(/\.[^/.]+$/, "") + ".jpg", // Force .jpg extension
-          //           { type: 'image/jpeg', lastModified: Date.now() }
-          //         );
-                  
-          //         console.log(`Compressed ${file.name} from ${(file.size/1024).toFixed(2)}KB to ${(compressedFile.size/1024).toFixed(2)}KB`);
-          //         resolve(compressedFile);
-          //       }
-          //     },
-          //     'image/jpeg',
-          //     quality
-          //   );
-          // };
           const compressWithQuality = (quality: number) => {
   // Get file extension to determine format
   const fileExtension = file.name.split('.').pop()?.toLowerCase();

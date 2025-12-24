@@ -62,7 +62,6 @@ export const settings_api = {
         return GATEWAY_ENDPOINT.delete(url, payload);
       },
       $_batch_delete_policy: (payload: any) => {
-        console.log(payload, 'from api factoruy')
         const url = '/policies/batch';
         return GATEWAY_ENDPOINT.delete(url, payload);
       },
