@@ -45,10 +45,12 @@ export default {
   vite: {
     optimizeDeps: {
       include: ['fast-deep-equal'],
+      exclude: ['intro.js']
     },
     build: {
       transpile: ['@vueup/vue-quill'],
       rollupOptions: {
+        external: ['intro.js', 'intro.js/minified/introjs.min.css'],
         output: {
           manualChunks(id: any) {
             if (id.includes("pdfjs-dist")) {
