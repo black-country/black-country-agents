@@ -21,14 +21,22 @@
           <div>
             <h4 class="text-lg font-medium mb-4">Contact</h4>
             <ul class="space-y-2 text-gray-400">
-              <li>info.doctordey@gmail.com</li>
-              <li>+234 803 408 0064</li>
+              <li>
+                  <a href="mailto:info.doctordey@gmail.com" class="text-gray-700">
+    info.doctordey@gmail.com
+  </a>
+              </li>
+              <li>
+                  <a href="tel:+2348034080064" class="text-gray-700">
+    +234 803 408 0064
+  </a>
+              </li>
               <li>Mon-Fri: 8am - 8pm</li>
             </ul>
           </div>
         </div>
         <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-          <p>&copy; 2024 Doctor Dey Consulting. All rights reserved.</p>
+          <p>&copy; {{ new Date().getFullYear() }} Doctor Dey Consulting. All rights reserved.</p>
         </div>
       </div>
     </footer>

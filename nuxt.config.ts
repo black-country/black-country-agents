@@ -13,14 +13,13 @@ export default defineNuxtConfig({
   },
 
   runtimeConfig: {
-    public: {
-      apiBase: process.env.NUXT_PUBLIC_API_BASE || 'http://localhost:3000',
-      googleClientId: process.env.NUXT_PUBLIC_GOOGLE_CLIENT_ID,
-      paystackPublicKey: process.env.NUXT_PUBLIC_PAYSTACK_PUBLIC_KEY,
+     public: {
+      googleMapsApiKey: process.env.VITE_GOOGLE_MAPS_API_KEY || '',
     },
   },
 
   app: {
+    baseURL: '/agent/',
     head: {
       title: "Doctor dey consulting | Admin Dashboard",
       htmlAttrs: { lang: "en" },
