@@ -1,4 +1,5 @@
-name: Build and Push BC Agent Docker Image to GHCR
+name: Build and Push BC Agent Docker Image to GitActions Container Registry
+# This workflow builds a Docker image for the BC Agent application and pushes it to GitHub Container
 
 on:
   push:
