@@ -1,43 +1,55 @@
-import { GATEWAY_ENDPOINT } from '../axios.config'
+import { GATEWAY_ENDPOINT, GATEWAY_ENDPOINT_V2, GATEWAY_ENDPOINT_WITHOUT_VERSION } from '../axios.config'
+import { useUser } from '@/composables/auth/user'
+
+const { user } = useUser()
 
 export const auth_api = {
-  register: (payload: {
-    name: string
-    email: string
-    phone: string
-    password: string
-  }) => {
-    const url = "/auth/register"
-    return GATEWAY_ENDPOINT.post(url, payload)
+	 $_register: (credential: any) => {
+		const url = '/auth/users/invitations'
+		return GATEWAY_ENDPOINT.post(url, credential)
+	},
+	$_login: (credential: any) => {
+		const url = '/auth/login'
+		return GATEWAY_ENDPOINT.post(url, credential)
+	},
+   $_password_reset_initiate: (credential: any) => {
+		const url = '/v1/property-facilitator/agents/password-reset/initiate'
+		return GATEWAY_ENDPOINT_WITHOUT_VERSION.post(url, credential)
+	},
+	$_reset_password: (credential: any) => {
+		const url = '/tenants/password-reset/verify'
+		return GATEWAY_ENDPOINT_V2.patch(url, credential)
+	},
+	$_confirm_otp: (credential: any) => {
+		const url = '/auth/email-verification/verify'
+		return GATEWAY_ENDPOINT.patch(url, credential)
+	},
+	$_verify_email: (payload:any) => {
+		const url = '/auth/email-verification/initiate'
+		return GATEWAY_ENDPOINT.post(url, payload)
+	},
+	$_social_signin: (credential: any) => {
+		const url = '/auth/social-signin'
+		return GATEWAY_ENDPOINT.post(url, credential)
+	},
+	$_social_signup: (credential: any) => {
+		const url = '/auth/social-signup'
+		return GATEWAY_ENDPOINT.post(url, credential)
+	},
+	$_tenant_exist: (email: any) => {
+          const url = `/tenants/exists`
+		  return GATEWAY_ENDPOINT.get(`${url}?email=${encodeURIComponent(email)}`);
+	},
+	$_fetch_profile: (id: any) => {
+		const url = `/agents/${id}`
+		return GATEWAY_ENDPOINT.get(url);
   },
-
-  login: (payload: { email: string; password: string }) => {
-    const url = "/auth/login"
-    return GATEWAY_ENDPOINT.post(url, payload)
-  },
-
-  forgotPassword: (payload: { email: string }) => {
-    const url = "/auth/forgot-password"
-    return GATEWAY_ENDPOINT.post(url, payload)
-  },
-
-  resetPassword: (payload: { token: string; newPassword: string }) => {
-    const url = "/auth/reset-password"
-    return GATEWAY_ENDPOINT.post(url, payload)
-  },
-
-  getProfile: () => {
-    const url = "/auth/profile"
-    return GATEWAY_ENDPOINT.get(url)
-  },
-
-  updateProfile: (payload: any) => {
-    const url = "/auth/profile/update"
-    return GATEWAY_ENDPOINT.post(url, payload)
-  },
-
-  logout: () => {
-    const url = "/auth/logout"
-    return GATEWAY_ENDPOINT.post(url, {})
-  },
+  $_update_profile: (id: string | any, payload: any) => {
+	const url = `/agents/${id}`
+	return GATEWAY_ENDPOINT.patch(url, payload);
+},
+$_change_password: (payload: any) => {
+	const url = '/tenants/password'
+	return GATEWAY_ENDPOINT.patch(url, payload);
+}
 }

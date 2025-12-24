@@ -21,7 +21,7 @@ export default defineNuxtConfig({
   app: {
     baseURL: '/agent/',                                                                                                                                                                                                                                                                                                      
     head: {
-      title: "Doctor dey consulting | Admin Dashboard",
+      title: "Black Country Agent",
       htmlAttrs: { lang: "en" },
       meta: [
         { charset: "utf-8" },
