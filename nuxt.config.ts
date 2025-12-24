@@ -83,7 +83,7 @@ export default defineNuxtConfig({
   },
 
   build: {
-    transpile: ["lucide-vue-next"],
+    transpile: ["lucide-vue-next", "@pdftron/webviewer"],
   },
 
   css: ['/assets/css/font/stylesheet.css', "/assets/css/main.css"],
